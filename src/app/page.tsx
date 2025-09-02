@@ -11,6 +11,9 @@ export default function Home() {
         <Link href={'/singup'}>
           <p>Sign Up</p>
         </Link>
+        <Link href={'/singin'}>
+          <p>Sign In</p>
+        </Link>
         <h1>Home</h1>
       </main>
       <footer></footer>

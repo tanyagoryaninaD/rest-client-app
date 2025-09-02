@@ -1,12 +1,12 @@
 'use client';
 
-import SingUpForm from '@/components/forms/AuthForm';
+import AuthForm from '@/components/forms/AuthForm';
 import { singUpFormConfig } from '@/configs/auth';
-import { AuthFormElements } from '@/constants';
+import { SingUpFormElements } from '@/constants';
 import { userRegistr } from '@/utils/firebase/auth';
 import { Container } from '@mui/material';
 
-export default function RegistPage() {
+export default function SingUpPage() {
   return (
     <Container
       sx={{
@@ -16,11 +16,11 @@ export default function RegistPage() {
         alignItems: 'center',
       }}
     >
-      <SingUpForm
+      <AuthForm
         formConfig={singUpFormConfig}
         onSubmit={userRegistr}
-        formTitle={AuthFormElements.SingUpButton}
-        buttonText={AuthFormElements.SingUpButton}
+        formTitle={SingUpFormElements.Title}
+        buttonText={SingUpFormElements.SubmitButton}
       />
     </Container>
   );

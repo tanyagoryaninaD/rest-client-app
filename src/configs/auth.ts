@@ -40,6 +40,7 @@ export const singInFormConfig: InputProps[] = [
     label: 'E-mail',
     type: 'email',
     placeholder: 'example@mail.com',
+    autoFocus: true,
   },
   {
     name: 'password',
