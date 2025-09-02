@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { InputProps, SingInSingUpValues } from '@/types/elements/input';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { authFormSchema } from '@/zod/authFormShema';
 
 type AuthFormProps = {
   formConfig: InputProps[];
@@ -23,7 +25,10 @@ function AuthForm({
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<SingInSingUpValues>({ mode: 'onChange' });
+  } = useForm<SingInSingUpValues>({
+    resolver: zodResolver(authFormSchema),
+    mode: 'onChange',
+  });
 
   const onSubmitForm = async (data: SingInSingUpValues): Promise<void> => {
     if (!isValid) return;

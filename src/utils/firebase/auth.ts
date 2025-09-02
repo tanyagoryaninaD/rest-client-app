@@ -1,4 +1,4 @@
-import { Collections } from '@/constants';
+import { Collections } from '@/types/firebase';
 import { appDB, auth } from '@/lib/firebase';
 import { SingInSingUpValues } from '@/types/userData/singUpData';
 import {

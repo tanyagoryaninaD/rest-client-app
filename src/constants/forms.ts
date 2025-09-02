@@ -1,8 +1,3 @@
-export enum Collections {
-  Users = 'users',
-  Requests = 'requests',
-}
-
 export const SingUpFormElements = {
   SubmitButton: 'SingUp',
   Title: 'Sing Up',

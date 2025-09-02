@@ -2,7 +2,7 @@
 
 import AuthForm from '@/components/forms/AuthForm';
 import { singInFormConfig } from '@/configs/auth';
-import { SingInFormElements } from '@/constants';
+import { SingInFormElements } from '@/constants/forms';
 import { userLogin } from '@/utils/firebase/auth';
 import { Container } from '@mui/material';
 
