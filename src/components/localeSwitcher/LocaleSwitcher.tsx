@@ -13,6 +13,7 @@ import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuList from '@mui/material/MenuList';
+import { Typography } from '@mui/material';
 
 export default function LocaleSwitcher() {
   const t = useTranslations('languages');
@@ -42,6 +43,7 @@ export default function LocaleSwitcher() {
         variant="contained"
         ref={anchorRef}
         aria-label="Button group with a nested menu"
+        data-testid="local-anchorRef"
       >
         <Button
           size="small"
@@ -54,6 +56,7 @@ export default function LocaleSwitcher() {
             color: 'var(--background)',
             backgroundColor: 'var(--foreground)',
           }}
+          data-testid="local-button"
         >
           <LanguageIcon />
         </Button>
@@ -78,20 +81,23 @@ export default function LocaleSwitcher() {
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
                   <MenuItem value="en">
-                    <Link
+                    <Typography
+                      component={Link}
                       href={pathname}
                       locale="en"
                       className="local-link"
-                    ></Link>
+                      data-testid="local-en"
+                    ></Typography>
                     {t('en')}
                   </MenuItem>
                   <MenuItem value="ru">
-                    <Link
+                    <Typography
+                      component={Link}
                       href={pathname}
                       locale="ru"
                       className="local-link"
-                    ></Link>
-
+                      data-testid="local-ru"
+                    ></Typography>
                     {t('ru')}
                   </MenuItem>
                 </MenuList>

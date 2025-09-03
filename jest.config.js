@@ -4,7 +4,7 @@ const createJestConfig = nextJest({
   dir: './',
 });
 
-const customJestConfig = {
+const config = {
   setupFilesAfterEnv: ['<rootDir>/src/__test__/jest.setup.js'],
   moduleNameMapper: {
     '^@/(.*)': '<rootDir>/src/\\$1',
@@ -21,4 +21,11 @@ const customJestConfig = {
   },
 };
 
-export default createJestConfig(customJestConfig);
+const createJestConfigWithOverrides = async () => ({
+  ...(await createJestConfig(config)()),
+  transformIgnorePatterns: [
+    'node_modules/(?!(next-intl|use-intl|@mui|@emotion)/)',
+  ],
+});
+
+export default createJestConfigWithOverrides;
