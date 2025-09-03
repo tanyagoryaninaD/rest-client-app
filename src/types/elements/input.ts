@@ -1,10 +1,10 @@
 import { UseFormRegister } from 'react-hook-form';
 export type SingInSingUpValues = {
-  name: string;
-  age: number;
+  name?: string;
+  age?: number;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
 };
 
 export type FormValues =

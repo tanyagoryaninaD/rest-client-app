@@ -6,13 +6,14 @@ import { InputProps, SingInSingUpValues } from '@/types/elements/input';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { authFormSchema } from '@/zod/authFormShema';
+import { singInSchema, singUpShema } from '@/zod/authFormShema';
 
 type AuthFormProps = {
   formConfig: InputProps[];
   onSubmit: (data: SingInSingUpValues) => void;
   formTitle?: string;
   buttonText?: string;
+  isSingUpForm: boolean;
 };
 
 function AuthForm({
@@ -20,13 +21,14 @@ function AuthForm({
   onSubmit,
   formTitle,
   buttonText,
+  isSingUpForm,
 }: AuthFormProps): JSX.Element {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<SingInSingUpValues>({
-    resolver: zodResolver(authFormSchema),
+    resolver: zodResolver(isSingUpForm ? singUpShema : singInSchema),
     mode: 'onChange',
   });
 

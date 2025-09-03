@@ -21,6 +21,7 @@ export default function SingInPage() {
         onSubmit={userLogin}
         formTitle={SingInFormElements.Title}
         buttonText={SingInFormElements.SubmitButton}
+        isSingUpForm={false}
       />
     </Container>
   );

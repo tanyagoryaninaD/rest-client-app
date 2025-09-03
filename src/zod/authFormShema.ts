@@ -1,7 +1,7 @@
 import { AUTH_ERRORS } from '@/constants/zodMessages';
 import { z } from 'zod';
 
-export const authFormSchema = z
+export const singUpShema = z
   .object({
     name: z
       .string()
@@ -23,8 +23,15 @@ export const authFormSchema = z
     message: AUTH_ERRORS.confirmPassword.missmatch,
     path: ['confirmPassword'],
     when(payload) {
-      return authFormSchema
+      return singUpShema
         .pick({ password: true, confirmPassword: true })
         .safeParse(payload.value).success;
     },
   });
+
+export const singInSchema = z.object({
+  email: z.email(AUTH_ERRORS.email.invalid),
+  password: z.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/, {
+    message: AUTH_ERRORS.password.invalid,
+  }),
+});

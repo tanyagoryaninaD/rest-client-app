@@ -21,6 +21,7 @@ export default function SingUpPage() {
         onSubmit={userRegistr}
         formTitle={SingUpFormElements.Title}
         buttonText={SingUpFormElements.SubmitButton}
+        isSingUpForm={true}
       />
     </Container>
   );
