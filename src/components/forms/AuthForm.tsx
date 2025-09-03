@@ -1,20 +1,21 @@
-import { type JSX } from 'react';
-import { useForm } from 'react-hook-form';
-import FormFields from './renderFields';
-import Button from '@mui/material/Button';
-import { InputProps, SingInSingUpValues } from '@/types/elements/input';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { useForm } from 'react-hook-form';
+
+import type { InputProps, SingInSingUpValues } from '@/types/elements/input';
 import { singInSchema, singUpShema } from '@/zod/authFormShema';
 
-type AuthFormProps = {
+import FormFields from './renderFields';
+
+interface AuthFormProps {
   formConfig: InputProps[];
-  onSubmit: (data: SingInSingUpValues) => void;
+  onSubmit: (data: SingInSingUpValues) => Promise<void>;
   formTitle?: string;
   buttonText?: string;
   isSingUpForm: boolean;
-};
+}
 
 function AuthForm({
   formConfig,
@@ -22,27 +23,28 @@ function AuthForm({
   formTitle,
   buttonText,
   isSingUpForm,
-}: AuthFormProps): JSX.Element {
+}: AuthFormProps) {
+  const currentShema = isSingUpForm ? singUpShema : singInSchema;
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<SingInSingUpValues>({
-    resolver: zodResolver(isSingUpForm ? singUpShema : singInSchema),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    resolver: zodResolver(currentShema),
     mode: 'onChange',
   });
 
   const onSubmitForm = async (data: SingInSingUpValues): Promise<void> => {
     if (!isValid) return;
-    onSubmit(data);
-    console.log('Form data:', data);
+    await onSubmit(data);
   };
 
   return (
     <Box
       component="form"
       noValidate
-      onSubmit={handleSubmit(onSubmitForm)}
+      onSubmit={() => handleSubmit(onSubmitForm)}
       sx={{
         display: 'flex',
         flexDirection: 'column',

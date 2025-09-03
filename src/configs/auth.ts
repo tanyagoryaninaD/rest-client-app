@@ -1,4 +1,4 @@
-import { InputProps } from '@/types/elements/input';
+import type { InputProps } from '@/types/elements/input';
 
 export const singUpFormConfig: InputProps[] = [
   {

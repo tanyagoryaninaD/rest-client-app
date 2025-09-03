@@ -1,20 +1,17 @@
-import type { JSX } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { InputProps, SingInSingUpValues } from '@/types/elements/input';
-import Input from '../elements/Input/Input';
+
+import type { InputProps, SingInSingUpValues } from '@/types/elements/input';
 import { getErrorMessage } from '@/utils/getFormFieldErrorMessage';
 
-type Props = {
+import Input from '../elements/Input/Input';
+
+interface FormFieldsProps {
   formConfig: InputProps[];
   register?: UseFormRegister<SingInSingUpValues>;
   hookFormErrors?: FieldErrors<SingInSingUpValues>;
-};
+}
 
-function FormFields({
-  register,
-  hookFormErrors,
-  formConfig,
-}: Props): JSX.Element {
+function FormFields({ register, hookFormErrors, formConfig }: FormFieldsProps) {
   return (
     <>
       {formConfig.map((field) => {

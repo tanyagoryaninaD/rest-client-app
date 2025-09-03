@@ -1,10 +1,11 @@
 'use client';
 
+import { Container } from '@mui/material';
+
 import AuthForm from '@/components/forms/AuthForm';
 import { singUpFormConfig } from '@/configs/auth';
 import { SingUpFormElements } from '@/constants/forms';
 import { userRegistr } from '@/utils/firebase/auth';
-import { Container } from '@mui/material';
 
 export default function SingUpPage() {
   return (

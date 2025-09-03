@@ -4,7 +4,7 @@
 
 The final RS School React 2025Q3 task.
 
-This is a simple web application built on Next.js with Material UI, designed for testing REST APIs. It includes authentication, a main client for requests, history, variables, and common interface elements. The application is oriented towards users who want to quickly test APIs without complex tools.
+This web application is built on Next.js with Material UI, designed for testing REST APIs. It includes authentication, a main client for requests, history, variables, and common interface elements. The application is oriented towards users who want to quickly test APIs without complex tools.
 
 ## General Architecture
 
@@ -27,7 +27,7 @@ To use the application follow these steps:
 - install the dependencies with npm i.
 - start the local server using npm run dev.
 
-```
+```bash
 git clone https://github.com/tanyagoryaninaD/rest-client-app
 cd rest-client-app
 npm install
@@ -53,4 +53,4 @@ npm run dev
 
 [Tatsiana Haranina](https://github.com/tanyagoryaninaD)
 [Denis Nedelko](https://github.com/weekden)
-[Aliaksandr Misiura](https://github.com/alexandermisyura)
+[Alexander Misyura](https://github.com/alexandermisyura)

@@ -1,8 +1,8 @@
-import { InputProps } from '@/types/elements/input';
-import type { JSX } from 'react';
 import TextField from '@mui/material/TextField';
 
-function Input(props: InputProps): JSX.Element {
+import type { InputProps } from '@/types/elements/input';
+
+function Input(props: InputProps) {
   const {
     id,
     name,
@@ -14,7 +14,7 @@ function Input(props: InputProps): JSX.Element {
     register,
   } = props;
 
-  const inputId = id || name;
+  const inputId = id ?? name;
 
   return (
     <TextField

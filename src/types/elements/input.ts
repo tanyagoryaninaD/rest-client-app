@@ -1,11 +1,11 @@
-import { UseFormRegister } from 'react-hook-form';
-export type SingInSingUpValues = {
+import type { UseFormRegister } from 'react-hook-form';
+export interface SingInSingUpValues {
   name?: string;
   age?: number;
   email: string;
   password: string;
   confirmPassword?: string;
-};
+}
 
 export type FormValues =
   | 'name'
@@ -14,7 +14,7 @@ export type FormValues =
   | 'password'
   | 'confirmPassword';
 
-export type InputProps = {
+export interface InputProps {
   name: FormValues;
   type: string;
   id?: string;
@@ -23,4 +23,4 @@ export type InputProps = {
   autoFocus?: boolean;
   errorMessage?: string;
   register?: UseFormRegister<SingInSingUpValues>;
-};
+}

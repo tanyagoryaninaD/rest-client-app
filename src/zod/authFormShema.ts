@@ -1,5 +1,6 @@
-import { AUTH_ERRORS } from '@/constants/zodMessages';
 import { z } from 'zod';
+
+import { AUTH_ERRORS } from '@/constants/zodMessages';
 
 export const singUpShema = z
   .object({
