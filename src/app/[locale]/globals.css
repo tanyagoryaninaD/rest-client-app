@@ -41,3 +41,8 @@ a {
     color-scheme: dark;
   }
 }
+
+.root {
+  max-width: 1440px;
+  width: 100%;
+}
