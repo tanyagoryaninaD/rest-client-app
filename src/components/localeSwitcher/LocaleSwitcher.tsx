@@ -1,19 +1,21 @@
 'use client';
 
-import * as React from 'react';
-import { useTranslations } from 'next-intl';
-import { usePathname, Link } from '../../i18n/navigation';
-import MenuItem from '@mui/material/MenuItem';
 import '@/components/localeSwitcher/LocaleSwitcher.css';
+
 import LanguageIcon from '@mui/icons-material/Language';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
+import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import MenuList from '@mui/material/MenuList';
-import { Typography } from '@mui/material';
+import { useTranslations } from 'next-intl';
+import * as React from 'react';
+
+import { Link, usePathname } from '../../i18n/navigation';
 
 export default function LocaleSwitcher() {
   const t = useTranslations('languages');
@@ -27,10 +29,7 @@ export default function LocaleSwitcher() {
   };
 
   const handleClose = (event: Event) => {
-    if (
-      anchorRef.current &&
-      anchorRef.current.contains(event.target as HTMLElement)
-    ) {
+    if (anchorRef.current?.contains(event.target as HTMLElement)) {
       return;
     }
 

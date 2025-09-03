@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import LocaleSwitcher from './LocaleSwitcher';
-import { MockIntlProvider } from '@/__test__/mocks/IntlProvider';
 import userEvent from '@testing-library/user-event';
+
+import { MockIntlProvider } from '@/__test__/mocks/IntlProvider';
+
+import LocaleSwitcher from './LocaleSwitcher';
 
 jest.mock('../../i18n/navigation', () => ({
   usePathname: jest.fn(() => '/some-path'),

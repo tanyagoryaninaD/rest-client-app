@@ -19,6 +19,7 @@ const config = {
       lines: 50,
     },
   },
+  coveragePathIgnorePatterns: ['<rootDir>/src/__test__/mocks/'],
 };
 
 const createJestConfigWithOverrides = async () => ({
