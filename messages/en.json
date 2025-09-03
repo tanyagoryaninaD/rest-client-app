@@ -1,9 +1,6 @@
 {
-  "header": {
-    "languages": {
-      "title": "Language",
-      "en": "English",
-      "ru": "Русский"
-    }
+  "languages": {
+    "en": "English",
+    "ru": "Русский"
   }
 }
