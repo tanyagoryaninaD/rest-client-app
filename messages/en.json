@@ -2,5 +2,10 @@
   "languages": {
     "en": "English",
     "ru": "Русский"
+  },
+  "error-boundary": {
+    "title": "Something went wrong...",
+    "description": "Unknown error. Go back to the home page.",
+    "button": "Back Home"
   }
 }

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint src",
     "lint:fix": "eslint --fix",
-    "lint:css": "stylelint 'src/**/*.{css,scss}'",
+    "lint:css": "stylelint 'src/**/*.{css,scss}' --fix",
     "format": "prettier . --check",
     "format:fix": "prettier --write .",
     "prepare": "husky",
@@ -68,6 +68,7 @@
       "npm run lint"
     ],
     "*.{css,scss}": [
+      "npm run format",
       "npm run lint:css"
     ]
   }

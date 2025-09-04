@@ -1,7 +1,5 @@
 'use client';
 
-import '@/components/localeSwitcher/LocaleSwitcher.css';
-
 import LanguageIcon from '@mui/icons-material/Language';
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -84,7 +82,7 @@ export default function LocaleSwitcher() {
                       component={Link}
                       href={pathname}
                       locale="en"
-                      className="locale-link"
+                      className="link-navigation"
                       data-testid="locale-en"
                     ></Typography>
                     {t('en')}
@@ -94,7 +92,7 @@ export default function LocaleSwitcher() {
                       component={Link}
                       href={pathname}
                       locale="ru"
-                      className="locale-link"
+                      className="link-navigation"
                       data-testid="locale-ru"
                     ></Typography>
                     {t('ru')}

@@ -11,6 +11,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 
+import ErrorBoundaryProvider from '@/components/error-boundary/error-boundary-provider';
 import { routing } from '@/i18n/routing';
 
 const geistSans = Geist({
@@ -45,10 +46,12 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
-          <AppRouterCacheProvider>
-            <CssBaseline />
-            {children}
-          </AppRouterCacheProvider>
+          <ErrorBoundaryProvider>
+            <AppRouterCacheProvider>
+              <CssBaseline />
+              {children}
+            </AppRouterCacheProvider>
+          </ErrorBoundaryProvider>
         </NextIntlClientProvider>
       </body>
     </html>
