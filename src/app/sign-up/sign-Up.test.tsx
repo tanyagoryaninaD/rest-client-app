@@ -25,7 +25,6 @@ describe('AuthForm (SignUp)', () => {
       <AuthForm
         formConfig={[
           { name: 'name', label: 'Name', type: 'text' },
-          { name: 'age', label: 'Age', type: 'number' },
           { name: 'email', label: 'Email', type: 'text' },
           { name: 'password', label: 'Password', type: 'password' },
           {

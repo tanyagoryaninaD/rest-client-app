@@ -14,7 +14,7 @@ import { Collections } from '@/types/enums/firebase';
 import { handleAuthError } from '../handlers/authHandlers';
 
 export const userRegister = async (data: SignInSignUpValues) => {
-  const { name, age, email, password } = data;
+  const { name, email, password } = data;
 
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -22,15 +22,15 @@ export const userRegister = async (data: SignInSignUpValues) => {
       email,
       password
     );
-
     const user = userCredential.user;
 
-    await updateProfile(user, { displayName: name });
     await setDoc(doc(appDB, Collections.Users, user.uid), {
       name,
-      age,
       email,
     });
+
+    await updateProfile(user, { displayName: name });
+
     await userLogin({ email, password });
   } catch (err) {
     handleAuthError(err);
