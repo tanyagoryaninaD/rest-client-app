@@ -32,7 +32,8 @@
     "eslint.config.mjs",
     "jest.config.mjs",
     ".commitlintrc.js",
-    "src/__test__/jest.setup.js"
+    "src/__test__/jest.setup.js",
+    "jest.config.js"
   ],
   "exclude": ["node_modules"]
 }

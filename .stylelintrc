@@ -3,7 +3,12 @@
     "stylelint-config-standard",
     "stylelint-config-clean-order/error"
   ],
-  "ignoreFiles": ["dist/**/*", "node_modules/**/*", "coverage/**/*", ".next/**/*"],
+  "ignoreFiles": [
+    "dist/**/*",
+    "node_modules/**/*",
+    "coverage/**/*",
+    ".next/**/*"
+  ],
   "rules": {
     "declaration-property-value-no-unknown": true,
     "selector-class-pattern": null,
