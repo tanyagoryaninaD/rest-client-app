@@ -10,7 +10,6 @@ export default function ErrorBoundaryProvider(props: Provider) {
   const t = useTranslations('error-boundary');
   const context = {
     title: t('title'),
-    description: t('description'),
     button: t('button'),
   };
 

@@ -12,6 +12,5 @@ export interface ErrorBoundaryProps {
 
 interface ContextError {
   title: string;
-  description: string;
   button: string;
 }

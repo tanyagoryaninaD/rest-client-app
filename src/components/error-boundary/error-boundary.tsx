@@ -35,9 +35,7 @@ class ErrorBoundary extends React.Component<
           <Typography variant="h4">{this.props.context.title}</Typography>
           <Box maxWidth="sm" className="error-content">
             <CancelIcon sx={{ color: 'var(--error)' }} />
-            <Typography>
-              {this.state.errorMessage || this.props.context.description}
-            </Typography>
+            <Typography>{this.state.errorMessage}</Typography>
           </Box>
           <Button onClick={this.handleClick}>
             <Typography
