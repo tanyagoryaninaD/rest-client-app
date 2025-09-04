@@ -18,9 +18,7 @@ function Input(props: InputProps) {
 
   return (
     <TextField
-      {...(register
-        ? register(name, type === 'number' ? { valueAsNumber: true } : {})
-        : {})}
+      {...(register ? register(name) : {})}
       id={inputId}
       name={name}
       type={type}

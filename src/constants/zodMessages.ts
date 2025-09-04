@@ -3,11 +3,6 @@ export const ZOD_ERRORS = {
     required: 'Enter the name',
     capitalized: 'The name must start with a capital letter',
   },
-  age: {
-    required: 'Enter your age',
-    min: 'Age must be positive',
-    max: 'Age should not be more than 100',
-  },
   email: {
     invalid: 'Invalid email',
   },

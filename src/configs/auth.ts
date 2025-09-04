@@ -9,12 +9,6 @@ export const signUpFormConfig: InputProps[] = [
     autoFocus: true,
   },
   {
-    name: 'age',
-    label: 'Age',
-    type: 'number',
-    placeholder: 'Enter age',
-  },
-  {
     name: 'email',
     label: 'E-mail',
     type: 'email',

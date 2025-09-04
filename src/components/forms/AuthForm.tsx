@@ -32,7 +32,7 @@ function AuthForm({
     handleSubmit,
   } = useForm<SignInSignUpValues>({
     resolver: zodResolver(authFormValidator(typeForm)),
-    mode: 'onChange',
+    mode: 'all',
   });
 
   const onSubmitForm = async (data: SignInSignUpValues): Promise<void> => {

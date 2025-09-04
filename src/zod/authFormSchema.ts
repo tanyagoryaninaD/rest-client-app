@@ -24,10 +24,6 @@ export const authFormValidator = (type: TypeForm) => {
             .string()
             .min(1, ZOD_ERRORS.name.required)
             .regex(/^[A-Z]/, ZOD_ERRORS.name.capitalized),
-          age: z
-            .number(ZOD_ERRORS.age.required)
-            .min(1, ZOD_ERRORS.age.min)
-            .max(100, ZOD_ERRORS.age.max),
           confirmPassword: z
             .string()
             .min(1, ZOD_ERRORS.confirmPassword.required),
@@ -36,8 +32,5 @@ export const authFormValidator = (type: TypeForm) => {
           message: ZOD_ERRORS.confirmPassword.mismatch,
           path: ['confirmPassword'],
         });
-
-    default:
-      return baseSchema;
   }
 };
