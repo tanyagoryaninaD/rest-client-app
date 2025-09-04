@@ -1,11 +1,13 @@
 import Image from 'next/image';
-import Link from 'next/link';
+
+import LocaleSwitcher from '@/components/localeSwitcher/LocaleSwitcher';
+import { Link } from '@/i18n/navigation';
 
 export default function Home() {
   return (
-    <div>
+    <div className="root">
       <main>
-        <h1>Home</h1>
+        <LocaleSwitcher />
         <Link href={'/'}>
           <Image src="/logo.svg" alt="Logo" width={30} height={30} priority />
         </Link>

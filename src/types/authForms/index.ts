@@ -5,4 +5,4 @@ export interface SignInSignUpValues {
   confirmPassword?: string;
 }
 
-export type FormValues = 'name' | 'email' | 'password' | 'confirmPassword';
+export type FormValues = keyof SignInSignUpValues;
