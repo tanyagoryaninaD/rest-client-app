@@ -42,7 +42,7 @@ export default function LocaleSwitcher() {
         variant="contained"
         ref={anchorRef}
         aria-label="Button group with a nested menu"
-        data-testid="local-anchorRef"
+        data-testid="locale-anchorRef"
       >
         <Button
           size="small"
@@ -55,7 +55,7 @@ export default function LocaleSwitcher() {
             color: 'var(--background)',
             backgroundColor: 'var(--foreground)',
           }}
-          data-testid="local-button"
+          data-testid="locale-button"
         >
           <LanguageIcon />
         </Button>
@@ -84,8 +84,8 @@ export default function LocaleSwitcher() {
                       component={Link}
                       href={pathname}
                       locale="en"
-                      className="local-link"
-                      data-testid="local-en"
+                      className="locale-link"
+                      data-testid="locale-en"
                     ></Typography>
                     {t('en')}
                   </MenuItem>
@@ -94,8 +94,8 @@ export default function LocaleSwitcher() {
                       component={Link}
                       href={pathname}
                       locale="ru"
-                      className="local-link"
-                      data-testid="local-ru"
+                      className="locale-link"
+                      data-testid="locale-ru"
                     ></Typography>
                     {t('ru')}
                   </MenuItem>
