@@ -3,10 +3,12 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { ToastContainer } from 'react-toastify';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,6 +35,7 @@ export default function RootLayout({
       <CssBaseline />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <ToastContainer position="top-right" autoClose={2000} />
       </body>
     </html>
   );

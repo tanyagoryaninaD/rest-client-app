@@ -1,4 +1,4 @@
-export const AUTH_ERRORS = {
+export const ZOD_ERRORS = {
   name: {
     required: 'Enter the name',
     capitalized: 'The name must start with a capital letter',

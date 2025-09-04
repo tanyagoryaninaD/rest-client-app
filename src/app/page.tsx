@@ -5,6 +5,7 @@ export default function Home() {
   return (
     <div>
       <main>
+        <h1>Home</h1>
         <Link href={'/'}>
           <Image src="/logo.svg" alt="Logo" width={30} height={30} priority />
         </Link>
@@ -14,7 +15,6 @@ export default function Home() {
         <Link href={'/sign-in'}>
           <p>Sign In</p>
         </Link>
-        <h1>Home</h1>
       </main>
       <footer></footer>
     </div>

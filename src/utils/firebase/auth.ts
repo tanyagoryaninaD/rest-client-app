@@ -4,10 +4,14 @@ import {
   updateProfile,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
+import { AUTH_SUCCESS_MESSAGES } from '@/constants/authMessages';
 import { appDB, auth } from '@/lib/firebase';
 import type { SignInSignUpValues } from '@/types/authForms';
 import { Collections } from '@/types/enums/firebase';
+
+import { handleAuthError } from '../handlers/authHandlers';
 
 export const userRegister = async (data: SignInSignUpValues) => {
   const { name, age, email, password } = data;
@@ -27,12 +31,9 @@ export const userRegister = async (data: SignInSignUpValues) => {
       age,
       email,
     });
-    // console.log('User was created', user.uid);
     await userLogin({ email, password });
   } catch (err) {
-    if (err instanceof Error) {
-      // console.error('Registration error:', err.message);
-    }
+    handleAuthError(err);
   }
 };
 
@@ -40,12 +41,14 @@ export const userLogin = async (data: SignInSignUpValues) => {
   const { email, password } = data;
 
   try {
-    await signInWithEmailAndPassword(auth, email, password);
-
-    // console.log('User was ', user.displayName);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    toast.success(`${AUTH_SUCCESS_MESSAGES.signIn} ${user.displayName}`);
   } catch (err) {
-    if (err instanceof Error) {
-      // console.error('Login error:', err.message);
-    }
+    handleAuthError(err);
   }
 };

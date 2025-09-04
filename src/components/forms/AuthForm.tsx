@@ -36,7 +36,6 @@ function AuthForm({
   });
 
   const onSubmitForm = async (data: SignInSignUpValues): Promise<void> => {
-    if (!isValid) return;
     await onSubmit(data);
   };
 
@@ -44,7 +43,7 @@ function AuthForm({
     <Box
       component="form"
       noValidate
-      onSubmit={() => handleSubmit(onSubmitForm)}
+      onSubmit={(e) => void handleSubmit(onSubmitForm)(e)}
       sx={{
         display: 'flex',
         flexDirection: 'column',
