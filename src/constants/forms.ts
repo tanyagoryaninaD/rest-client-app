@@ -1,9 +1,9 @@
-export const SingUpFormElements = {
-  SubmitButton: 'SingUp',
-  Title: 'Sing Up',
+export const SignUpFormElements = {
+  SubmitButton: 'SignUp',
+  Title: 'Sign Up',
 };
 
-export const SingInFormElements = {
-  SubmitButton: 'SingIn',
-  Title: 'Sing In',
+export const SignInFormElements = {
+  SubmitButton: 'SignIn',
+  Title: 'Sign In',
 };

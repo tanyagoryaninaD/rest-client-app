@@ -13,10 +13,10 @@ export const AUTH_ERRORS = {
   },
   password: {
     invalid:
-      '1 number, 1 uppercased letter, 1 lowercased letter, 1 special character, 8 length',
+      '1 number, 1 uppercase letter, 1 lowercased letter, 1 special character, 8 length',
   },
   confirmPassword: {
     required: 'Confirm your password',
-    missmatch: 'Passwords do not match',
+    mismatch: 'Passwords do not match',
   },
 };

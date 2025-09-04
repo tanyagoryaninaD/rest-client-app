@@ -6,10 +6,10 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 
 import { appDB, auth } from '@/lib/firebase';
-import { Collections } from '@/types/firebase';
-import type { SingInSingUpValues } from '@/types/userData/singUpData';
+import type { SignInSignUpValues } from '@/types/authForms';
+import { Collections } from '@/types/enums/firebase';
 
-export const userRegistr = async (data: SingInSingUpValues) => {
+export const userRegister = async (data: SignInSignUpValues) => {
   const { name, age, email, password } = data;
 
   try {
@@ -36,13 +36,13 @@ export const userRegistr = async (data: SingInSingUpValues) => {
   }
 };
 
-export const userLogin = async (data: SingInSingUpValues) => {
+export const userLogin = async (data: SignInSignUpValues) => {
   const { email, password } = data;
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
 
-    // console.log('User was logined', user.displayName);
+    // console.log('User was ', user.displayName);
   } catch (err) {
     if (err instanceof Error) {
       // console.error('Login error:', err.message);

@@ -3,11 +3,12 @@
 import { Container } from '@mui/material';
 
 import AuthForm from '@/components/forms/AuthForm';
-import { singInFormConfig } from '@/configs/auth';
-import { SingInFormElements } from '@/constants/forms';
+import { signInFormConfig } from '@/configs/auth';
+import { SignInFormElements } from '@/constants/forms';
+import { TypeForm } from '@/types/enums/authForms';
 import { userLogin } from '@/utils/firebase/auth';
 
-export default function SingInPage() {
+export default function SignInPage() {
   return (
     <Container
       sx={{
@@ -18,11 +19,11 @@ export default function SingInPage() {
       }}
     >
       <AuthForm
-        formConfig={singInFormConfig}
+        formConfig={signInFormConfig}
         onSubmit={userLogin}
-        formTitle={SingInFormElements.Title}
-        buttonText={SingInFormElements.SubmitButton}
-        isSingUpForm={false}
+        formTitle={SignInFormElements.Title}
+        buttonText={SignInFormElements.SubmitButton}
+        typeForm={TypeForm.SignIn}
       />
     </Container>
   );

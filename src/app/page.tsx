@@ -8,10 +8,10 @@ export default function Home() {
         <Link href={'/'}>
           <Image src="/logo.svg" alt="Logo" width={30} height={30} priority />
         </Link>
-        <Link href={'/singup'}>
+        <Link href={'/sign-up'}>
           <p>Sign Up</p>
         </Link>
-        <Link href={'/singin'}>
+        <Link href={'/sign-in'}>
           <p>Sign In</p>
         </Link>
         <h1>Home</h1>

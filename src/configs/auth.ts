@@ -1,6 +1,6 @@
 import type { InputProps } from '@/types/elements/input';
 
-export const singUpFormConfig: InputProps[] = [
+export const signUpFormConfig: InputProps[] = [
   {
     name: 'name',
     label: 'Name',
@@ -34,7 +34,7 @@ export const singUpFormConfig: InputProps[] = [
   },
 ];
 
-export const singInFormConfig: InputProps[] = [
+export const signInFormConfig: InputProps[] = [
   {
     name: 'email',
     label: 'E-mail',

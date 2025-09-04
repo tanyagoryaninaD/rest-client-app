@@ -1,14 +1,15 @@
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import type { InputProps, SingInSingUpValues } from '@/types/elements/input';
+import type { SignInSignUpValues } from '@/types/authForms';
+import type { InputProps } from '@/types/elements/input';
 import { getErrorMessage } from '@/utils/getFormFieldErrorMessage';
 
 import Input from '../elements/Input/Input';
 
 interface FormFieldsProps {
   formConfig: InputProps[];
-  register?: UseFormRegister<SingInSingUpValues>;
-  hookFormErrors?: FieldErrors<SingInSingUpValues>;
+  register?: UseFormRegister<SignInSignUpValues>;
+  hookFormErrors?: FieldErrors<SignInSignUpValues>;
 }
 
 function FormFields({ register, hookFormErrors, formConfig }: FormFieldsProps) {

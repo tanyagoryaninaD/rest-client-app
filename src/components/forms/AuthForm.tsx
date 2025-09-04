@@ -4,38 +4,38 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useForm } from 'react-hook-form';
 
-import type { InputProps, SingInSingUpValues } from '@/types/elements/input';
-import { singInSchema, singUpShema } from '@/zod/authFormShema';
+import type { SignInSignUpValues } from '@/types/authForms';
+import type { InputProps } from '@/types/elements/input';
+import type { TypeForm } from '@/types/enums/authForms';
+import { authFormValidator } from '@/zod/authFormSchema';
 
 import FormFields from './renderFields';
 
 interface AuthFormProps {
   formConfig: InputProps[];
-  onSubmit: (data: SingInSingUpValues) => Promise<void>;
+  onSubmit: (data: SignInSignUpValues) => Promise<void>;
+  typeForm: TypeForm;
   formTitle?: string;
   buttonText?: string;
-  isSingUpForm: boolean;
 }
 
 function AuthForm({
   formConfig,
+  typeForm,
   onSubmit,
   formTitle,
   buttonText,
-  isSingUpForm,
 }: AuthFormProps) {
-  const currentShema = isSingUpForm ? singUpShema : singInSchema;
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<SingInSingUpValues>({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    resolver: zodResolver(currentShema),
+  } = useForm<SignInSignUpValues>({
+    resolver: zodResolver(authFormValidator(typeForm)),
     mode: 'onChange',
   });
 
-  const onSubmitForm = async (data: SingInSingUpValues): Promise<void> => {
+  const onSubmitForm = async (data: SignInSignUpValues): Promise<void> => {
     if (!isValid) return;
     await onSubmit(data);
   };
