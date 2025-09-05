@@ -57,7 +57,14 @@ export default function Header() {
 
   return (
     <AppBar ref={headerRef} color="inherit" position="static">
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
+      <Toolbar
+        sx={{
+          maxWidth: 'xl',
+          justifyContent: 'space-between',
+          alignSelf: 'center',
+          width: '100%',
+        }}
+      >
         <MuiLink
           href="/"
           color="inherit"
