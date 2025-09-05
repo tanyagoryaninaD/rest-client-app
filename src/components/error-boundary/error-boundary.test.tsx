@@ -10,6 +10,10 @@ describe('ErrorBoundary', () => {
       throw new Error('Test Error');
     };
 
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {
+      return;
+    });
+
     render(
       MockIntlProvider(
         <ErrorBoundary
@@ -26,5 +30,7 @@ describe('ErrorBoundary', () => {
     expect(screen.getByText('Something went wrong...')).toBeInTheDocument();
     expect(screen.getByText('Test Error')).toBeInTheDocument();
     expect(screen.getByText('Back Home')).toBeInTheDocument();
+
+    consoleError.mockRestore();
   });
 });
