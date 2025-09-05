@@ -3,11 +3,12 @@ import { toast } from 'react-toastify';
 
 import { AUTH_ERRORS_MESSAGES } from '@/constants/authMessages';
 
-export const handleAuthError = (err: unknown) => {
+export const handleAuthError = (err: unknown, t: (key: string) => string) => {
   if (err instanceof FirebaseError) {
-    const message = AUTH_ERRORS_MESSAGES[err.code] ?? err.message;
+    const errorKey = AUTH_ERRORS_MESSAGES[err.code];
+    const message = errorKey ? t(errorKey) : err.message;
     toast.error(message);
   } else {
-    toast.error('Unknown error');
+    toast.error(t('toast.authErrors.unknownError'));
   }
 };

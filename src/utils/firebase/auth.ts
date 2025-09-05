@@ -6,14 +6,16 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
-import { AUTH_SUCCESS_MESSAGES } from '@/constants/authMessages';
 import { appDB, auth } from '@/lib/firebase';
 import type { SignInSignUpValues } from '@/types/authForms';
 import { Collections } from '@/types/enums/firebase';
 
 import { handleAuthError } from '../handlers/authHandlers';
 
-export const userRegister = async (data: SignInSignUpValues) => {
+export const userRegister = async (
+  data: SignInSignUpValues,
+  t: (key: string) => string
+) => {
   const { name, email, password } = data;
 
   try {
@@ -31,13 +33,16 @@ export const userRegister = async (data: SignInSignUpValues) => {
 
     await updateProfile(user, { displayName: name });
 
-    await userLogin({ email, password });
+    await userLogin({ email, password }, t);
   } catch (err) {
-    handleAuthError(err);
+    handleAuthError(err, t);
   }
 };
 
-export const userLogin = async (data: SignInSignUpValues) => {
+export const userLogin = async (
+  data: SignInSignUpValues,
+  t: (key: string) => string
+) => {
   const { email, password } = data;
 
   try {
@@ -47,8 +52,8 @@ export const userLogin = async (data: SignInSignUpValues) => {
       password
     );
     const user = userCredential.user;
-    toast.success(`${AUTH_SUCCESS_MESSAGES.signIn} ${user.displayName}`);
+    toast.success(`${t('toast.auth.welcome')} ${user.displayName}`);
   } catch (err) {
-    handleAuthError(err);
+    handleAuthError(err, t);
   }
 };

@@ -1,7 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'next-intl';
+import type { JSX } from 'react';
 
 import AuthForm from '@/components/forms/AuthForm';
-import { ZOD_ERRORS } from '@/constants/zodMessages';
+import type { InputProps } from '@/types/elements/input';
 import { TypeForm } from '@/types/enums/authForms';
 
 import SignInPage from './page';
@@ -10,79 +12,104 @@ jest.mock('@/utils/firebase/auth', () => ({
   userLogin: jest.fn(),
 }));
 
-describe('SignInPage', () => {
-  it('renders the page title', () => {
-    render(<SignInPage />);
-    expect(screen.getByText(/Sign In/i)).toBeInTheDocument();
+const messages = {
+  authForms: {
+    signIn: {
+      title: 'Sign In',
+      submit: 'Sign In',
+      fields: {
+        email: {
+          label: 'E-mail',
+          placeholder: 'Enter email',
+        },
+        password: {
+          label: 'Password',
+          placeholder: 'Enter password',
+        },
+      },
+    },
+  },
+  authErrors: {
+    email: { invalid: 'Invalid email' },
+    password: {
+      invalid:
+        '1 number, 1 uppercase letter, 1 lowercase letter, 1 special character, min 8 chars',
+    },
+  },
+};
+
+const formConfig: InputProps[] = [
+  { name: 'email', type: 'text', label: 'E-mail' },
+  { name: 'password', type: 'password', label: 'Password' },
+];
+
+const renderWithIntl = (component: JSX.Element) =>
+  render(
+    <IntlProvider locale="en" messages={messages}>
+      {component}
+    </IntlProvider>
+  );
+
+describe('SignInPage (AuthForm)', () => {
+  it('should render SignInPage ', () => {
+    renderWithIntl(<SignInPage />);
+    const heading = screen.getByRole('heading', { name: /Sign In/i });
+    expect(heading).toBeInTheDocument();
   });
-});
 
-describe('AuthForm (SignIn)', () => {
-  it('should show errors on empty fields', async () => {
+  it('should show errors for invalid data and keeps submit button disabled', async () => {
     const handleSubmit = jest.fn();
-
-    render(
+    renderWithIntl(
       <AuthForm
-        formConfig={[
-          { name: 'email', label: 'Email', type: 'text' },
-          { name: 'password', label: 'Password', type: 'password' },
-        ]}
-        onSubmit={handleSubmit}
+        formConfig={formConfig}
         typeForm={TypeForm.SignIn}
-        formTitle="Sign In"
-        buttonText="Submit"
-        data-testid="auth-form"
+        onSubmit={handleSubmit}
       />
     );
 
-    fireEvent.blur(screen.getByLabelText(/email/i));
-    fireEvent.blur(screen.getByLabelText(/password/i));
+    fireEvent.change(screen.getByLabelText(/E-mail/i), {
+      target: { value: 'email' },
+    });
+    fireEvent.change(screen.getByLabelText(/^Password$/i), {
+      target: { value: '123' },
+    });
 
+    expect(await screen.findByText(/Invalid email/i)).toBeInTheDocument();
     expect(
-      await screen.findByText(ZOD_ERRORS.email.invalid)
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByText(ZOD_ERRORS.password.invalid)
+      await screen.findByText(/1 number, 1 uppercase/i)
     ).toBeInTheDocument();
 
-    expect(handleSubmit).not.toHaveBeenCalled();
+    const submitButton = screen.getByRole('button', { name: /Sign In/i });
+    expect(submitButton).toBeDisabled();
   });
 
-  it('should submit successfully with valid data', async () => {
+  it('should enables submit button when all fields are valid', async () => {
     const handleSubmit = jest.fn();
-
-    render(
+    renderWithIntl(
       <AuthForm
-        formConfig={[
-          { name: 'email', label: 'Email', type: 'text' },
-          { name: 'password', label: 'Password', type: 'password' },
-        ]}
-        onSubmit={handleSubmit}
+        formConfig={formConfig}
         typeForm={TypeForm.SignIn}
-        formTitle="Sign In"
-        buttonText="Submit"
+        onSubmit={handleSubmit}
       />
     );
 
-    fireEvent.change(screen.getByLabelText(/email/i), {
+    fireEvent.change(screen.getByLabelText(/E-mail/i), {
       target: { value: 'test@example.com' },
     });
-    fireEvent.change(screen.getByLabelText(/password/i), {
-      target: { value: 'qwQw12!@' },
+    fireEvent.change(screen.getByLabelText(/^Password$/i), {
+      target: { value: 'qwQW21!@' },
     });
 
-    const submitButton = screen.getByRole('button', { name: /submit/i });
     await waitFor(() => {
-      expect(submitButton).not.toBeDisabled();
+      expect(screen.getByRole('button', { name: /Sign In/i })).toBeEnabled();
     });
 
-    fireEvent.click(submitButton);
+    fireEvent.click(screen.getByRole('button', { name: /Sign In/i }));
 
     await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalledTimes(1);
       expect(handleSubmit).toHaveBeenCalledWith({
         email: 'test@example.com',
-        password: 'qwQw12!@',
+        password: 'qwQW21!@',
       });
     });
   });

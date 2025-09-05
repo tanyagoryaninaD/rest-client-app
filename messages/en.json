@@ -2,5 +2,69 @@
   "languages": {
     "en": "English",
     "ru": "Русский"
+  },
+  "authForms": {
+    "signIn": {
+      "title": "Sign In",
+      "submit": "Sign In",
+      "fields": {
+        "email": {
+          "label": "E-mail",
+          "placeholder": "Enter email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password"
+        }
+      }
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "submit": "Sign Up",
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Enter name"
+        },
+        "email": {
+          "label": "E-mail",
+          "placeholder": "Enter email"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Enter password"
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": "Confirm password"
+        }
+      }
+    }
+  },
+  "authErrors": {
+    "name": {
+      "required": "Enter the name",
+      "capitalized": "The name must start with a capital letter"
+    },
+    "email": {
+      "invalid": "Invalid email"
+    },
+    "password": {
+      "invalid": "1 number, 1 uppercase letter, 1 lowercase letter, 1 special character, min 8 chars"
+    },
+    "confirmPassword": {
+      "required": "Confirm your password",
+      "mismatch": "Passwords do not match"
+    }
+  },
+  "toast": {
+    "auth": {
+      "welcome": "Welcome"
+    },
+    "authErrors": {
+      "invalidCredential": "Incorrect username or password",
+      "emailInUse": "A user with this E-mail already exists.",
+      "unknownError": "Unknown error"
+    }
   }
 }

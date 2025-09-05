@@ -2,12 +2,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
 import type { SignInSignUpValues } from '@/types/authForms';
 import type { InputProps } from '@/types/elements/input';
 import type { TypeForm } from '@/types/enums/authForms';
-import { authFormValidator } from '@/zod/authFormSchema';
+import { useAuthFormValidator } from '@/zod/authFormSchema';
 
 import FormFields from './renderFields';
 
@@ -15,24 +16,17 @@ interface AuthFormProps {
   formConfig: InputProps[];
   onSubmit: (data: SignInSignUpValues) => Promise<void>;
   typeForm: TypeForm;
-  formTitle?: string;
-  buttonText?: string;
 }
 
-function AuthForm({
-  formConfig,
-  typeForm,
-  onSubmit,
-  formTitle,
-  buttonText,
-}: AuthFormProps) {
+function AuthForm({ formConfig, typeForm, onSubmit }: AuthFormProps) {
+  const t = useTranslations('authForms');
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<SignInSignUpValues>({
-    resolver: zodResolver(authFormValidator(typeForm)),
-    mode: 'all',
+    resolver: zodResolver(useAuthFormValidator(typeForm)),
+    mode: 'onChange',
   });
 
   const onSubmitForm = async (data: SignInSignUpValues): Promise<void> => {
@@ -55,12 +49,13 @@ function AuthForm({
       }}
     >
       <Typography variant="h5" component="h1" align="left" sx={{ mb: 1 }}>
-        {formTitle}
+        {t(`${typeForm}.title`)}
       </Typography>
       <FormFields
         formConfig={formConfig}
         register={register}
         hookFormErrors={errors}
+        typeForm={typeForm}
       />
 
       <Button
@@ -69,7 +64,7 @@ function AuthForm({
         type="submit"
         disabled={!isValid}
       >
-        {buttonText}
+        {t(`${typeForm}.submit`)}
       </Button>
     </Box>
   );

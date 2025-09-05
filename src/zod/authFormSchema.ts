@@ -1,15 +1,16 @@
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 
-import { ZOD_ERRORS } from '@/constants/zodMessages';
 import { TypeForm } from '@/types/enums/authForms';
 
-export const authFormValidator = (type: TypeForm) => {
+export const useAuthFormValidator = (type: TypeForm) => {
+  const t = useTranslations('authErrors');
   const baseSchema = z.object({
-    email: z.email(ZOD_ERRORS.email.invalid),
+    email: z.email({ message: t('email.invalid') }),
     password: z
       .string()
       .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/, {
-        message: ZOD_ERRORS.password.invalid,
+        message: t('password.invalid'),
       }),
   });
 
@@ -22,14 +23,14 @@ export const authFormValidator = (type: TypeForm) => {
         .extend({
           name: z
             .string()
-            .min(1, ZOD_ERRORS.name.required)
-            .regex(/^[A-Z]/, ZOD_ERRORS.name.capitalized),
+            .min(1, { message: t('name.required') })
+            .regex(/^[A-Z]/, { message: t('name.capitalized') }),
           confirmPassword: z
             .string()
-            .min(1, ZOD_ERRORS.confirmPassword.required),
+            .min(1, { message: t('confirmPassword.required') }),
         })
         .refine((data) => data.password === data.confirmPassword, {
-          message: ZOD_ERRORS.confirmPassword.mismatch,
+          message: t('confirmPassword.mismatch'),
           path: ['confirmPassword'],
         });
   }
