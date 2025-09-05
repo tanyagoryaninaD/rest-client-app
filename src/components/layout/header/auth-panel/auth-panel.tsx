@@ -3,6 +3,7 @@ import { Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useTranslations } from 'next-intl';
 
+import { usePathname } from '@/i18n/navigation';
 import { Link } from '@/i18n/navigation';
 
 interface AuthPanelProps {
@@ -17,6 +18,7 @@ export default function AuthPanel({
   closeSidebar,
 }: AuthPanelProps) {
   const t = useTranslations('home_general');
+  const pathname = usePathname();
 
   return (
     <ButtonGroup
@@ -42,7 +44,14 @@ export default function AuthPanel({
             href="./sign-in"
             LinkComponent={Link}
           >
-            <Typography color="var(--foreground)">
+            <Typography
+              sx={{
+                textDecoration: pathname.includes('sign-in')
+                  ? 'underline'
+                  : 'none',
+              }}
+              color="var(--foreground)"
+            >
               {t('buttons.sign_in')}
             </Typography>
           </Button>
@@ -52,7 +61,14 @@ export default function AuthPanel({
             href="./sign-up"
             LinkComponent={Link}
           >
-            <Typography color="var(--foreground)">
+            <Typography
+              sx={{
+                textDecoration: pathname.includes('sign-up')
+                  ? 'underline'
+                  : 'none',
+              }}
+              color="var(--foreground)"
+            >
               {t('buttons.sign_up')}
             </Typography>
           </Button>

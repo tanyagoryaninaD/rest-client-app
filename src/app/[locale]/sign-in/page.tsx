@@ -17,7 +17,6 @@ export default function SignInPage() {
   return (
     <Container
       sx={{
-        height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

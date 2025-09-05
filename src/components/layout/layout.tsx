@@ -17,7 +17,7 @@ export default function MainLayout({ children }: LayoutProps) {
       }}
     >
       <Header />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ display: 'flex', flexGrow: 1, p: 3 }}>
         {children}
       </Box>
       <Footer />
