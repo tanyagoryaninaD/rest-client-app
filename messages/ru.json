@@ -71,9 +71,9 @@
     "greetings_registered": "С возвращением, {name}!",
     "greetings_unregistered": "Добро пожаловать!",
     "buttons": {
-      "sign_in": "Вход",
-      "sign_up": "Регистрация",
-      "sign_out": "Выход",
+      "sign-in": "Вход",
+      "sign-up": "Регистрация",
+      "sign-out": "Выход",
       "client": "REST Клиент",
       "history": "История",
       "variables": "Переменные"
