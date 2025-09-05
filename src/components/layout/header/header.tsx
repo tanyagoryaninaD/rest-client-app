@@ -17,7 +17,8 @@ import HeaderIconButton from './header-icon-button/header-icon-button';
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const user = false;
+  // TODO: Add user context
+  const user = { name: 'John' };
 
   const closeSidebar = () => {
     if (isSidebarOpen) {

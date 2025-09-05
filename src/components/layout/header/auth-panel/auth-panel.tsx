@@ -1,21 +1,23 @@
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import { useTranslations } from 'next-intl';
 
 import { Link } from '@/i18n/navigation';
 
 interface AuthPanelProps {
-  user: boolean | null;
+  user?: { name: string };
   isSidebarOpen: boolean;
   closeSidebar: () => void;
 }
 
 export default function AuthPanel({
-  // TODO user
-  user = null,
+  user,
   isSidebarOpen,
   closeSidebar,
 }: AuthPanelProps) {
+  const t = useTranslations('home_general');
+
   return (
     <ButtonGroup
       sx={{
@@ -28,7 +30,9 @@ export default function AuthPanel({
     >
       {user ? (
         <Button onClick={closeSidebar} sx={{ px: 2 }}>
-          <Typography color="var(--foreground)">Sign Out</Typography>
+          <Typography color="var(--foreground)">
+            {t('buttons.sign_out')}
+          </Typography>
         </Button>
       ) : (
         <>
@@ -38,7 +42,9 @@ export default function AuthPanel({
             href="./sign-in"
             LinkComponent={Link}
           >
-            <Typography color="var(--foreground)">Sign In</Typography>
+            <Typography color="var(--foreground)">
+              {t('buttons.sign_in')}
+            </Typography>
           </Button>
           <Button
             onClick={closeSidebar}
@@ -46,7 +52,9 @@ export default function AuthPanel({
             href="./sign-up"
             LinkComponent={Link}
           >
-            <Typography color="var(--foreground)">Sign Up</Typography>
+            <Typography color="var(--foreground)">
+              {t('buttons.sign_up')}
+            </Typography>
           </Button>
         </>
       )}

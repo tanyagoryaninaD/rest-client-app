@@ -66,5 +66,17 @@
       "emailInUse": "A user with this E-mail already exists.",
       "unknownError": "Unknown error"
     }
+  },
+  "home_general": {
+    "greetings_registered": "Welcome Back, {name}!",
+    "greetings_unregistered": "Welcome!",
+    "buttons": {
+      "sign_in": "Sign In",
+      "sign_up": "Sign Up",
+      "sign_out": "Sign Out",
+      "client": "REST Client",
+      "history": "History",
+      "variables": "Variables"
+    }
   }
 }
