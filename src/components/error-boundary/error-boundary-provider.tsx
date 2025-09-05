@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import type { Provider } from '@/types/provider';
+import type { Provider } from '@/types/components/provider';
 
 import ErrorBoundary from './error-boundary';
 

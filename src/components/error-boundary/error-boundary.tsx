@@ -10,7 +10,7 @@ import { Link } from '@/i18n/navigation';
 import type {
   ErrorBoundaryProps,
   ErrorBoundaryState,
-} from '@/types/error-boundary';
+} from '@/types/components/error-boundary';
 
 class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
