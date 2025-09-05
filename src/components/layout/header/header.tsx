@@ -5,7 +5,7 @@ import MuiLink from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import LocaleSwitcher from '@/components/localeSwitcher/LocaleSwitcher';
 import { Link, usePathname } from '@/i18n/navigation';
@@ -17,8 +17,33 @@ import HeaderIconButton from './header-icon-button/header-icon-button';
 export default function Header() {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   // TODO: Add user context
   const user = undefined;
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const scrollHandler = () => {
+      clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 100) {
+          headerRef.current?.classList.add('sticky');
+        } else {
+          headerRef.current?.classList.remove('sticky');
+        }
+      }, 100);
+    };
+
+    window.addEventListener('scroll', scrollHandler);
+
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const closeSidebar = () => {
     if (isSidebarOpen) {
@@ -31,7 +56,7 @@ export default function Header() {
   };
 
   return (
-    <AppBar color="inherit" position="sticky">
+    <AppBar ref={headerRef} color="inherit" position="static">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         <MuiLink
           href="/"
