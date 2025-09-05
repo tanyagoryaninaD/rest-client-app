@@ -1,14 +1,19 @@
 'use client';
 
 import { Container } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 import AuthForm from '@/components/forms/AuthForm';
 import { signInFormConfig } from '@/configs/auth';
-import { SignInFormElements } from '@/constants/forms';
+import type { SignInSignUpValues } from '@/types/authForms';
 import { TypeForm } from '@/types/enums/authForms';
 import { userLogin } from '@/utils/firebase/auth';
 
 export default function SignInPage() {
+  const t = useTranslations();
+  const handleSubmit = async (data: SignInSignUpValues) => {
+    await userLogin(data, t);
+  };
   return (
     <Container
       sx={{
@@ -20,9 +25,7 @@ export default function SignInPage() {
     >
       <AuthForm
         formConfig={signInFormConfig}
-        onSubmit={userLogin}
-        formTitle={SignInFormElements.Title}
-        buttonText={SignInFormElements.SubmitButton}
+        onSubmit={handleSubmit}
         typeForm={TypeForm.SignIn}
       />
     </Container>

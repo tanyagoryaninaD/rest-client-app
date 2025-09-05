@@ -12,7 +12,7 @@ export const signUpFormConfig: InputProps[] = [
     name: 'email',
     label: 'E-mail',
     type: 'email',
-    placeholder: 'example@mail.com',
+    placeholder: 'Enter email',
   },
   {
     name: 'password',
@@ -33,7 +33,7 @@ export const signInFormConfig: InputProps[] = [
     name: 'email',
     label: 'E-mail',
     type: 'email',
-    placeholder: 'example@mail.com',
+    placeholder: 'Enter email',
     autoFocus: true,
   },
   {
