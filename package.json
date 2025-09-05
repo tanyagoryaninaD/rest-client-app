@@ -64,11 +64,11 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "npm run format",
+      "npm run format:fix",
       "npm run lint"
     ],
     "*.{css,scss}": [
-      "npm run format",
+      "npm run format:fix",
       "npm run lint:css"
     ]
   }
