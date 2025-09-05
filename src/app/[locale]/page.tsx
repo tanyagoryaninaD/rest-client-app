@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useTranslations } from 'next-intl';
 
+import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
 import { Link } from '@/i18n/navigation';
 
 export default function Home() {
@@ -32,15 +33,16 @@ export default function Home() {
               {user.name && t('greetings_registered', { name: user.name })}
             </Typography>
             <Stack spacing={2} direction="row" sx={{ mt: 6 }}>
-              <Button variant="contained" component={Link} href={'/client'}>
-                {t('buttons.client')}
-              </Button>
-              <Button variant="contained" component={Link} href={'/history'}>
-                {t('buttons.history')}
-              </Button>
-              <Button variant="contained" component={Link} href={'/variables'}>
-                {t('buttons.variables')}
-              </Button>
+              {CLIENT_LINKS.map((link) => (
+                <Button
+                  key={link}
+                  variant="contained"
+                  component={Link}
+                  href={`/${link}`}
+                >
+                  {t(`buttons.${link}`)}
+                </Button>
+              ))}
             </Stack>
           </>
         ) : (
@@ -49,12 +51,16 @@ export default function Home() {
               {t('greetings_unregistered')}
             </Typography>
             <Stack spacing={2} direction="row" sx={{ mt: 4 }}>
-              <Button variant="contained" component={Link} href={'/sign-in'}>
-                {t('buttons.sign_in')}
-              </Button>
-              <Button variant="outlined" component={Link} href={'/sign-up'}>
-                {t('buttons.sign_up')}
-              </Button>
+              {AUTH_LINKS.map((link) => (
+                <Button
+                  key={link}
+                  variant="contained"
+                  component={Link}
+                  href={`/${link}`}
+                >
+                  {t(`buttons.${link}`)}
+                </Button>
+              ))}
             </Stack>
           </>
         )}
