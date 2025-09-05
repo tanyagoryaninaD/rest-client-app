@@ -6,5 +6,69 @@
   "error-boundary": {
     "title": "Что-то пошло не так...",
     "button": "Вернуться на главную"
+  },
+  "authForms": {
+    "signIn": {
+      "title": "Вход",
+      "submit": "Войти",
+      "fields": {
+        "email": {
+          "label": "Эл. почта",
+          "placeholder": "Введите адрес эл. почты"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        }
+      }
+    },
+    "signUp": {
+      "title": "Регистрация",
+      "submit": "Зарегистрироваться",
+      "fields": {
+        "name": {
+          "label": "Имя",
+          "placeholder": "Введите имя"
+        },
+        "email": {
+          "label": "Эл. почта",
+          "placeholder": "Введите адрес эл. почты"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        },
+        "confirmPassword": {
+          "label": "Подтверждение пароля",
+          "placeholder": "Подтвердите пароль"
+        }
+      }
+    }
+  },
+  "authErrors": {
+    "name": {
+      "required": "Введите имя",
+      "capitalized": "Имя должно начинаться с заглавной буквы"
+    },
+    "email": {
+      "invalid": "Некорректный email"
+    },
+    "password": {
+      "invalid": "1 цифра, 1 заглавная буква, 1 строчная буква, 1 спецсимвол, минимум 8 символов"
+    },
+    "confirmPassword": {
+      "required": "Подтвердите пароль",
+      "mismatch": "Пароли не совпадают"
+    }
+  },
+  "toast": {
+    "auth": {
+      "welcome": "Добро пожаловать"
+    },
+    "authErrors": {
+      "invalidCredential": "Неверное имя пользователя или пароль",
+      "emailInUse": "Пользователь с таким адресом эл. почты уже существует",
+      "unknownError": "Неизвестная ошибка"
+    }
   }
 }

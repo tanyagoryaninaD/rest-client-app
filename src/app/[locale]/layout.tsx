@@ -3,6 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { CssBaseline } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
@@ -10,6 +11,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { ToastContainer } from 'react-toastify';
 
 import ErrorBoundaryProvider from '@/components/error-boundary/error-boundary-provider';
 import { routing } from '@/i18n/routing';
@@ -50,6 +52,7 @@ export default async function RootLayout({
             <AppRouterCacheProvider>
               <CssBaseline />
               {children}
+              <ToastContainer position="top-right" autoClose={2000} />
             </AppRouterCacheProvider>
           </ErrorBoundaryProvider>
         </NextIntlClientProvider>
