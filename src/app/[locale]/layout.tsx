@@ -13,6 +13,7 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { ToastContainer } from 'react-toastify';
 
+import ErrorBoundaryProvider from '@/components/error-boundary/error-boundary-provider';
 import { routing } from '@/i18n/routing';
 
 const geistSans = Geist({
@@ -47,11 +48,13 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
-          <AppRouterCacheProvider>
-            <CssBaseline />
-            {children}
-            <ToastContainer position="top-right" autoClose={2000} />
-          </AppRouterCacheProvider>
+          <ErrorBoundaryProvider>
+            <AppRouterCacheProvider>
+              <CssBaseline />
+              {children}
+              <ToastContainer position="top-right" autoClose={2000} />
+            </AppRouterCacheProvider>
+          </ErrorBoundaryProvider>
         </NextIntlClientProvider>
       </body>
     </html>
