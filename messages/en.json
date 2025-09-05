@@ -3,6 +3,10 @@
     "en": "English",
     "ru": "Русский"
   },
+  "error-boundary": {
+    "title": "Something went wrong...",
+    "button": "Back Home"
+  },
   "authForms": {
     "signIn": {
       "title": "Sign In",

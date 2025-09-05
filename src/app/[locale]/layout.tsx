@@ -10,6 +10,7 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { ToastContainer } from 'react-toastify';
 
+import ErrorBoundaryProvider from '@/components/error-boundary/error-boundary-provider';
 import MainLayout from '@/components/layout/layout';
 import { routing } from '@/i18n/routing';
 import { theme } from '@/theme';
@@ -43,13 +44,15 @@ export default async function RootLayout({
     <html lang={locale} className={roboto.variable}>
       <body>
         <NextIntlClientProvider>
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <MainLayout>{children}</MainLayout>
-              <ToastContainer position="top-right" autoClose={2000} />
-            </ThemeProvider>
-          </AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <ErrorBoundaryProvider>
+              <AppRouterCacheProvider>
+                <CssBaseline />
+                <MainLayout>{children}</MainLayout>
+                <ToastContainer position="top-right" autoClose={2000} />
+              </AppRouterCacheProvider>
+            </ErrorBoundaryProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
