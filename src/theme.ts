@@ -1,0 +1,22 @@
+'use client';
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+  typography: {
+    fontFamily: 'var(--font-roboto)',
+  },
+  cssVariables: true,
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          'input:-webkit-autofill': {
+            WebkitBoxShadow: 'unset',
+            WebkitTextFillColor: 'unset',
+            caretColor: 'unset',
+          },
+        },
+      },
+    },
+  },
+});
