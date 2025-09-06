@@ -1,8 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'next-intl';
 import type { JSX } from 'react';
+import { Provider } from 'react-redux';
 
 import AuthForm from '@/components/forms/AuthForm';
+import store from '@/store';
 import type { InputProps } from '@/types/elements/input';
 import { TypeForm } from '@/types/enums/authForms';
 
@@ -43,23 +45,29 @@ const formConfig: InputProps[] = [
   { name: 'password', type: 'password', label: 'Password' },
 ];
 
-const renderWithIntl = (component: JSX.Element) =>
+const renderWithProvider = (component: JSX.Element) =>
   render(
-    <IntlProvider locale="en" messages={messages}>
-      {component}
-    </IntlProvider>
+    <Provider store={store}>
+      <IntlProvider locale="en" messages={messages}>
+        {component}
+      </IntlProvider>
+    </Provider>
   );
 
 describe('SignInPage (AuthForm)', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render SignInPage ', () => {
-    renderWithIntl(<SignInPage />);
+    renderWithProvider(<SignInPage />);
     const heading = screen.getByRole('heading', { name: /Sign In/i });
     expect(heading).toBeInTheDocument();
   });
 
   it('should show errors for invalid data and keeps submit button disabled', async () => {
     const handleSubmit = jest.fn();
-    renderWithIntl(
+    renderWithProvider(
       <AuthForm
         formConfig={formConfig}
         typeForm={TypeForm.SignIn}
@@ -85,7 +93,7 @@ describe('SignInPage (AuthForm)', () => {
 
   it('should enables submit button when all fields are valid', async () => {
     const handleSubmit = jest.fn();
-    renderWithIntl(
+    renderWithProvider(
       <AuthForm
         formConfig={formConfig}
         typeForm={TypeForm.SignIn}

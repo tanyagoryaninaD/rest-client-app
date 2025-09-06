@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useRef, useState } from 'react';
 
 import LocaleSwitcher from '@/components/localeSwitcher/LocaleSwitcher';
+import { useAppSelector } from '@/hooks/redux';
 import { Link, usePathname } from '@/i18n/navigation';
 
 import Sidebar from '../sidebar/sidebar';
@@ -18,8 +19,7 @@ export default function Header() {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-  // TODO: Add user context
-  const user = undefined;
+  const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;

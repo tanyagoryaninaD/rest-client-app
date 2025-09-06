@@ -63,8 +63,10 @@
   },
   "toast": {
     "auth": {
-      "welcome": "Welcome"
+      "welcome": "Welcome",
+      "sign_out": "You have been signed out"
     },
+    
     "authErrors": {
       "invalidCredential": "Incorrect username or password",
       "emailInUse": "A user with this E-mail already exists.",
@@ -72,6 +74,7 @@
     }
   },
   "home_general": {
+    "greetings_firstRegistered": "Welcome, {name}!",
     "greetings_registered": "Welcome Back, {name}!",
     "greetings_unregistered": "Welcome!",
     "buttons": {

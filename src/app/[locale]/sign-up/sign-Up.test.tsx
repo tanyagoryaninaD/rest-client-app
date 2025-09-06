@@ -1,8 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'next-intl';
 import type { JSX } from 'react';
+import { Provider } from 'react-redux';
 
 import AuthForm from '@/components/forms/AuthForm';
+import store from '@/store';
 import type { InputProps } from '@/types/elements/input';
 import { TypeForm } from '@/types/enums/authForms';
 
@@ -54,9 +56,11 @@ const formConfig: InputProps[] = [
 
 const renderWithIntl = (component: JSX.Element) =>
   render(
-    <IntlProvider locale="en" messages={messages}>
-      {component}
-    </IntlProvider>
+    <Provider store={store}>
+      <IntlProvider locale="en" messages={messages}>
+        {component}
+      </IntlProvider>
+    </Provider>
   );
 
 describe('SigUpnPage (AuthForm)', () => {

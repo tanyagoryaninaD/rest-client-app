@@ -7,14 +7,16 @@ import Typography from '@mui/material/Typography';
 import { useTranslations } from 'next-intl';
 
 import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
+import { useAppSelector } from '@/hooks/redux';
 import { Link } from '@/i18n/navigation';
 
-// TODO: Add user context
-export default function Home({ user }: { user: { name: string } | undefined }) {
+export default function Home() {
   const t = useTranslations('home_general');
-
-  // Uncomment for testing
-  // user ??= { name: 'John' };
+  const currentUserName = useAppSelector(
+    (state) => state.user.user?.displayName
+  );
+  const isNewUser = useAppSelector((state) => state.user.user?.isNewUser);
+  const isLoggedIn = Boolean(currentUserName);
 
   return (
     <Container>
@@ -27,11 +29,19 @@ export default function Home({ user }: { user: { name: string } | undefined }) {
           alignItems: 'center',
         }}
       >
-        {user ? (
+        {isLoggedIn ? (
           <>
-            <Typography variant="h4" component="h1" gutterBottom>
-              {user.name && t('greetings_registered', { name: user.name })}
-            </Typography>
+            {currentUserName ? (
+              <Typography variant="h4" component="h1" gutterBottom>
+                {isNewUser
+                  ? t('greetings_firstRegistered', { name: currentUserName })
+                  : t('greetings_registered', { name: currentUserName })}
+              </Typography>
+            ) : (
+              <Typography variant="h4" component="h1" gutterBottom>
+                {t('greetings_unregistered')}
+              </Typography>
+            )}
             <Stack spacing={2} direction="row" sx={{ mt: 6 }}>
               {CLIENT_LINKS.map((link) => (
                 <Button
