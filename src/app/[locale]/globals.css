@@ -31,10 +31,6 @@
   z-index: 1000;
   top: 0;
   animation: slide 1s;
-
-  & > div {
-    min-height: 48px;
-  }
 }
 
 @keyframes slide {

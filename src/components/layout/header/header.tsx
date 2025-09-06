@@ -34,7 +34,7 @@ export default function Header() {
         } else {
           headerRef.current?.classList.remove('sticky');
         }
-      }, 100);
+      }, 50);
     };
 
     window.addEventListener('scroll', scrollHandler);
