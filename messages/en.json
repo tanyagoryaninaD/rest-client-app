@@ -82,5 +82,9 @@
       "history": "History",
       "variables": "Variables"
     }
+  },
+  "not-found": {
+    "title": "We lack such a page",
+    "button": "Go back"
   }
 }
