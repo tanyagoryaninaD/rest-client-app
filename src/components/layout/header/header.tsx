@@ -87,6 +87,7 @@ export default function Header() {
                 md: 'none',
               },
             }}
+            testId="menu-button"
           >
             <MenuIcon />
           </HeaderIconButton>

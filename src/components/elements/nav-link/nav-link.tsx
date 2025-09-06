@@ -17,6 +17,7 @@ export function NavLink({ href, pathname, t, closeSidebar }: NavLinkProps) {
       sx={{ px: 2 }}
       href={`/${href}`}
       LinkComponent={Link}
+      data-testid={`nav-link-${href}`}
     >
       <Typography
         sx={{

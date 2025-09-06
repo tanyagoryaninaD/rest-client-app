@@ -8,18 +8,21 @@ interface HeaderIconButtonProps {
   children: React.ReactNode;
   handleClick: () => void;
   sxStyleProps?: SxObjectProps;
+  testId?: string;
 }
 
 export default function HeaderIconButton({
   children,
   handleClick,
   sxStyleProps,
+  testId,
 }: HeaderIconButtonProps) {
   return (
     <Button
       onClick={handleClick}
       size="small"
       aria-label="menu"
+      data-testid={testId}
       sx={{
         color: 'var(--background)',
         backgroundColor: 'var(--foreground)',
