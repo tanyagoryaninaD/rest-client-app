@@ -1,24 +1,72 @@
-import Image from 'next/image';
+'use client';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { useTranslations } from 'next-intl';
 
-import LocaleSwitcher from '@/components/localeSwitcher/LocaleSwitcher';
+import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
 import { Link } from '@/i18n/navigation';
 
-export default function Home() {
+// TODO: Add user context
+export default function Home({ user }: { user: { name: string } | undefined }) {
+  const t = useTranslations('home_general');
+
+  // Uncomment for testing
+  // user ??= { name: 'John' };
+
   return (
-    <div className="root">
-      <main>
-        <LocaleSwitcher />
-        <Link href={'/'}>
-          <Image src="/logo.svg" alt="Logo" width={30} height={30} priority />
-        </Link>
-        <Link href={'/sign-up'}>
-          <p>Sign Up</p>
-        </Link>
-        <Link href={'/sign-in'}>
-          <p>Sign In</p>
-        </Link>
-      </main>
-      <footer></footer>
-    </div>
+    <Container>
+      <Box
+        sx={{
+          my: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {user ? (
+          <>
+            <Typography variant="h4" component="h1" gutterBottom>
+              {user.name && t('greetings_registered', { name: user.name })}
+            </Typography>
+            <Stack spacing={2} direction="row" sx={{ mt: 6 }}>
+              {CLIENT_LINKS.map((link) => (
+                <Button
+                  key={link}
+                  variant="contained"
+                  component={Link}
+                  href={`/${link}`}
+                  data-testid={`link-${link}`}
+                >
+                  {t(`buttons.${link}`)}
+                </Button>
+              ))}
+            </Stack>
+          </>
+        ) : (
+          <>
+            <Typography variant="h4" component="h1" gutterBottom>
+              {t('greetings_unregistered')}
+            </Typography>
+            <Stack spacing={2} direction="row" sx={{ mt: 4 }}>
+              {AUTH_LINKS.map((link) => (
+                <Button
+                  key={link}
+                  variant="contained"
+                  component={Link}
+                  href={`/${link}`}
+                  data-testid={`link-${link}`}
+                >
+                  {t(`buttons.${link}`)}
+                </Button>
+              ))}
+            </Stack>
+          </>
+        )}
+      </Box>
+    </Container>
   );
 }

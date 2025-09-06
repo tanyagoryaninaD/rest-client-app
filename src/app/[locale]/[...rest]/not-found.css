@@ -1,0 +1,12 @@
+.not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}

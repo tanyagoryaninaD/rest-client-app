@@ -70,5 +70,21 @@
       "emailInUse": "Пользователь с таким адресом эл. почты уже существует",
       "unknownError": "Неизвестная ошибка"
     }
+  },
+  "home_general": {
+    "greetings_registered": "С возвращением, {name}!",
+    "greetings_unregistered": "Добро пожаловать!",
+    "buttons": {
+      "sign-in": "Вход",
+      "sign-up": "Регистрация",
+      "sign-out": "Выход",
+      "client": "REST Клиент",
+      "history": "История",
+      "variables": "Переменные"
+    }
+  },
+  "not-found": {
+    "title": "У нас нет такой страницы",
+    "button": "Вернуться назад"
   }
 }
