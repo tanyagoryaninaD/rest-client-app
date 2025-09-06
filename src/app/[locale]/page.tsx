@@ -9,11 +9,12 @@ import { useTranslations } from 'next-intl';
 import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
 import { Link } from '@/i18n/navigation';
 
-export default function Home() {
+// TODO: Add user context
+export default function Home({ user }: { user: { name: string } | undefined }) {
   const t = useTranslations('home_general');
 
-  // TODO: Add user context
-  const user: { name: string } | undefined = { name: 'John' };
+  // Uncomment for testing
+  // user ??= { name: 'John' };
 
   return (
     <Container>
@@ -26,7 +27,6 @@ export default function Home() {
           alignItems: 'center',
         }}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
         {user ? (
           <>
             <Typography variant="h4" component="h1" gutterBottom>
@@ -39,6 +39,7 @@ export default function Home() {
                   variant="contained"
                   component={Link}
                   href={`/${link}`}
+                  data-testid={`link-${link}`}
                 >
                   {t(`buttons.${link}`)}
                 </Button>
@@ -57,6 +58,7 @@ export default function Home() {
                   variant="contained"
                   component={Link}
                   href={`/${link}`}
+                  data-testid={`link-${link}`}
                 >
                   {t(`buttons.${link}`)}
                 </Button>
