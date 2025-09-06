@@ -8,7 +8,6 @@ import HeaderIconButton from '../header/header-icon-button/header-icon-button';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
-  toggleSidebar: () => void;
   closeSidebar: () => void;
   // TODO: Add user context
   user?: { name: string };
@@ -16,7 +15,6 @@ interface SidebarProps {
 
 export default function Sidebar({
   isSidebarOpen,
-  toggleSidebar,
   closeSidebar,
   user,
 }: SidebarProps) {
@@ -25,7 +23,7 @@ export default function Sidebar({
       anchor="right"
       inert={!isSidebarOpen}
       open={isSidebarOpen}
-      onClose={toggleSidebar}
+      onClose={closeSidebar}
       sx={{
         '& .MuiDrawer-paper': {
           width: {
@@ -37,7 +35,7 @@ export default function Sidebar({
       }}
     >
       <Box sx={{ padding: 4, alignSelf: 'flex-end' }}>
-        <HeaderIconButton handleClick={toggleSidebar}>
+        <HeaderIconButton testId="close-menu-button" handleClick={closeSidebar}>
           <CloseIcon />
         </HeaderIconButton>
       </Box>

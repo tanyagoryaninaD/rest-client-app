@@ -46,13 +46,7 @@ export default function Header() {
   }, []);
 
   const closeSidebar = () => {
-    if (isSidebarOpen) {
-      setIsSidebarOpen(false);
-    }
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prevIsOpen) => !prevIsOpen);
+    setIsSidebarOpen(false);
   };
 
   return (
@@ -85,7 +79,9 @@ export default function Header() {
           )}
           <LocaleSwitcher />
           <HeaderIconButton
-            handleClick={toggleSidebar}
+            handleClick={() => {
+              setIsSidebarOpen(true);
+            }}
             sxStyleProps={{
               display: {
                 md: 'none',
@@ -98,7 +94,6 @@ export default function Header() {
       </Toolbar>
       <Sidebar
         isSidebarOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar}
         closeSidebar={closeSidebar}
         user={user}
       />
