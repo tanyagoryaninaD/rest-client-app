@@ -14,6 +14,12 @@ jest.mock('@/utils/firebase/auth', () => ({
   userRegister: jest.fn(),
 }));
 
+jest.mock('@/i18n/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
+
 const messages = {
   authForms: {
     signUp: {

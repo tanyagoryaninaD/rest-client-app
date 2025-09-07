@@ -11,6 +11,13 @@ jest.mock('@/i18n/navigation', () => ({
     <a {...props}>{props.children}</a>
   ),
   usePathname: () => '/',
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
+
+jest.mock('@/utils/firebase/auth', () => ({
+  userLogout: jest.fn(),
 }));
 
 const messages = {

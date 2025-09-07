@@ -5,10 +5,10 @@ import { useTranslations } from 'next-intl';
 
 import { NavLink } from '@/components/elements/nav-link/nav-link';
 import { AUTH_LINKS } from '@/constants/links';
-// import { useAppDispatch } from '@/hooks/redux';
-import { usePathname } from '@/i18n/navigation';
+import { useAppDispatch } from '@/hooks/redux';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import type { AppUser } from '@/types/userData';
-// import { userLogout } from '@/utils/firebase/auth';
+import { userLogout } from '@/utils/firebase/auth';
 
 interface AuthPanelProps {
   user?: AppUser | null;
@@ -24,12 +24,13 @@ export default function AuthPanel({
   const t = useTranslations('home_general');
   const pathname = usePathname();
 
-  // const tToast = useTranslations('toast');
-  // const dispatch = useAppDispatch();
-  // const handleSignOut = async () => {
-  //   await userLogout(tToast, dispatch);
-  //   closeSidebar();
-  // };
+  const tToast = useTranslations('toast');
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const handleSignOut = async () => {
+    await userLogout(tToast, dispatch, router);
+    closeSidebar();
+  };
 
   return (
     <ButtonGroup
@@ -42,8 +43,7 @@ export default function AuthPanel({
       variant="text"
     >
       {user ? (
-        // <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
-        <Button sx={{ px: 2 }}>
+        <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
           <Typography color="var(--foreground)">
             {t('buttons.sign-out')}
           </Typography>
