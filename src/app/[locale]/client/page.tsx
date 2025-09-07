@@ -1,18 +1,15 @@
 import '@/app/[locale]/client/client.css';
 
-import { Box, Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 
 import RestClientRequest from '@/components/forms/rest-client/request/rest-client-request';
+import RestClientResponse from '@/components/forms/rest-client/response/rest-client-response';
 
 export default function ClientPage() {
   return (
     <Container className="page-container">
       <RestClientRequest />
-      <Box className="client-section">
-        <Typography variant="h5" component="h1" gutterBottom>
-          Response
-        </Typography>
-      </Box>
+      <RestClientResponse />
     </Container>
   );
 }
