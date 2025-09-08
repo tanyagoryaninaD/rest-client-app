@@ -7,21 +7,16 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 
-import type { useRouter } from '@/i18n/navigation';
 import { appDB, auth } from '@/lib/firebase';
-import type { AppDispatch } from '@/store';
-import { clearUser, setUser } from '@/store/slicers/userSlicer';
 import type { SignInSignUpValues } from '@/types/authForms';
 import { Collections } from '@/types/enums/firebase';
 
 import { handleAuthError } from '../handlers/authErrorsHandler';
-import { getExpirationTime } from './tokenValidation';
+import { mapUserFirebase } from './mapUserFirebase';
 
 export const userRegister = async (
   data: SignInSignUpValues,
-  t: (key: string) => string,
-  dispatch: AppDispatch,
-  router: ReturnType<typeof useRouter>
+  t: (key: string) => string
 ) => {
   const { name, email, password } = data;
 
@@ -32,18 +27,13 @@ export const userRegister = async (
       password
     );
     const user = userCredential.user;
-    const expiresIn = await getExpirationTime(user);
-
     await setDoc(doc(appDB, Collections.Users, user.uid), {
       name,
       email,
     });
-
     await updateProfile(user, { displayName: name });
-    dispatch(
-      setUser({ displayName: user.displayName, isNewUser: true, expiresIn })
-    );
-    router.push('/');
+
+    return await mapUserFirebase(user, true);
   } catch (err) {
     handleAuthError(err, t);
   }
@@ -51,9 +41,7 @@ export const userRegister = async (
 
 export const userLogin = async (
   data: SignInSignUpValues,
-  t: (key: string) => string,
-  dispatch: AppDispatch,
-  router: ReturnType<typeof useRouter>
+  t: (key: string) => string
 ) => {
   const { email, password } = data;
 
@@ -64,30 +52,18 @@ export const userLogin = async (
       password
     );
     const user = userCredential.user;
-    const expiresIn = await getExpirationTime(user);
-    const appUser = {
-      displayName: user.displayName,
-      isNewUser: false,
-      expiresIn,
-    };
-    dispatch(setUser(appUser));
     toast.success(`${t('toast.auth.welcome')} ${user.displayName}`);
-    router.push('/');
+    return await mapUserFirebase(user, false);
   } catch (err) {
     handleAuthError(err, t);
+    return null;
   }
 };
 
-export const userLogout = async (
-  t: (key: string) => string,
-  dispatch: AppDispatch,
-  router: ReturnType<typeof useRouter>
-) => {
+export const userLogout = async (t: (key: string) => string) => {
   try {
     await signOut(auth);
     toast.success(t('auth.sign_out'));
-    dispatch(clearUser());
-    router.push('/');
   } catch (err) {
     handleAuthError(err, t);
   }

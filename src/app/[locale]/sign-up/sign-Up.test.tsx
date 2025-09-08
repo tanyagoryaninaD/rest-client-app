@@ -7,6 +7,7 @@ import AuthForm from '@/components/forms/AuthForm';
 import store from '@/store';
 import type { InputProps } from '@/types/elements/input';
 import { TypeForm } from '@/types/enums/authForms';
+import { userRegister } from '@/utils/firebase/auth';
 
 import SignUpPage from './page';
 
@@ -14,10 +15,9 @@ jest.mock('@/utils/firebase/auth', () => ({
   userRegister: jest.fn(),
 }));
 
+const pushMock = jest.fn();
 jest.mock('@/i18n/navigation', () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-  }),
+  useRouter: jest.fn(() => ({ push: pushMock })),
 }));
 
 const messages = {
@@ -60,7 +60,7 @@ const formConfig: InputProps[] = [
   { name: 'confirmPassword', type: 'password', label: 'Confirm Password' },
 ];
 
-const renderWithIntl = (component: JSX.Element) =>
+const renderWithProvider = (component: JSX.Element) =>
   render(
     <Provider store={store}>
       <IntlProvider locale="en" messages={messages}>
@@ -71,14 +71,14 @@ const renderWithIntl = (component: JSX.Element) =>
 
 describe('SigUpnPage (AuthForm)', () => {
   it('should render SignInPage', () => {
-    renderWithIntl(<SignUpPage />);
+    renderWithProvider(<SignUpPage />);
     const heading = screen.getByRole('heading', { name: /Sign Up/i });
     expect(heading).toBeInTheDocument();
   });
 
   it('should show errors for invalid data and keeps submit button disabled', async () => {
     const handleSubmit = jest.fn();
-    renderWithIntl(
+    renderWithProvider(
       <AuthForm
         formConfig={formConfig}
         typeForm={TypeForm.SignUp}
@@ -116,14 +116,12 @@ describe('SigUpnPage (AuthForm)', () => {
   });
 
   it('should enables submit button when all fields are valid', async () => {
-    const handleSubmit = jest.fn();
-    renderWithIntl(
-      <AuthForm
-        formConfig={formConfig}
-        typeForm={TypeForm.SignUp}
-        onSubmit={handleSubmit}
-      />
-    );
+    (userRegister as jest.Mock).mockResolvedValue({
+      displayName: 'Alex',
+      isNewUser: false,
+      expiresIn: 3600,
+    });
+    renderWithProvider(<SignUpPage />);
 
     fireEvent.change(screen.getByLabelText(/Name/i), {
       target: { value: 'Alex' },
@@ -145,12 +143,16 @@ describe('SigUpnPage (AuthForm)', () => {
     fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
 
     await waitFor(() => {
-      expect(handleSubmit).toHaveBeenCalledWith({
-        name: 'Alex',
-        email: 'test@example.com',
-        password: 'qwQW21!@',
-        confirmPassword: 'qwQW21!@',
-      });
+      expect(userRegister).toHaveBeenCalledWith(
+        {
+          name: 'Alex',
+          email: 'test@example.com',
+          password: 'qwQW21!@',
+          confirmPassword: 'qwQW21!@',
+        },
+        expect.any(Function)
+      );
+      expect(pushMock).toHaveBeenCalledWith('/');
     });
   });
 });

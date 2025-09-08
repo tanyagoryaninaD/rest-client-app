@@ -7,6 +7,7 @@ import AuthForm from '@/components/forms/AuthForm';
 import { signUpFormConfig } from '@/configs/auth';
 import { useAppDispatch } from '@/hooks/redux';
 import { useRouter } from '@/i18n/navigation';
+import { setUser } from '@/store/slicers/userSlicer';
 import type { SignInSignUpValues } from '@/types/authForms';
 import { TypeForm } from '@/types/enums/authForms';
 import { userRegister } from '@/utils/firebase/auth';
@@ -16,8 +17,12 @@ export default function SignUpPage() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const handleSubmit = async (data: SignInSignUpValues) => {
-    await userRegister(data, t, dispatch, router);
-    // TODO: Add redirect to main page
+    const user = await userRegister(data, t);
+    if (!user) {
+      return;
+    }
+    dispatch(setUser(user));
+    router.push('/');
   };
   return (
     <Container
