@@ -27,6 +27,18 @@ const messages = {
       variables: 'Variables',
     },
   },
+  toast: {
+    auth: {
+      welcome: 'Welcome',
+      sign_out: 'You have been signed out',
+    },
+
+    authErrors: {
+      invalidCredential: 'Incorrect username or password',
+      emailInUse: 'A user with this E-mail already exists.',
+      unknownError: 'Unknown error',
+    },
+  },
   languages: {
     en: 'English',
   },
@@ -40,10 +52,8 @@ describe('Home Page', () => {
       },
       preloadedState: {
         user: {
-          user: {
-            displayName: null,
-            isNewUser: false,
-          },
+          user: null,
+          isValid: false,
         },
       },
     });
@@ -72,7 +82,9 @@ describe('Home Page', () => {
           user: {
             displayName: 'John',
             isNewUser: false,
+            expiresIn: Date.now() + 1000,
           },
+          isValid: true,
         },
       },
     });
@@ -101,7 +113,9 @@ describe('Home Page', () => {
           user: {
             displayName: 'John',
             isNewUser: true,
+            expiresIn: Date.now() + 1000,
           },
+          isValid: true,
         },
       },
     });

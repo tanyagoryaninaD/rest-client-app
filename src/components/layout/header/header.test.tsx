@@ -33,6 +33,18 @@ const messages = {
       variables: 'Variables',
     },
   },
+  toast: {
+    auth: {
+      welcome: 'Welcome',
+      sign_out: 'You have been signed out',
+    },
+
+    authErrors: {
+      invalidCredential: 'Incorrect username or password',
+      emailInUse: 'A user with this E-mail already exists.',
+      unknownError: 'Unknown error',
+    },
+  },
   languages: {
     en: 'English',
   },

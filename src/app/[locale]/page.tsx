@@ -9,14 +9,19 @@ import { useTranslations } from 'next-intl';
 import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
 import { useAppSelector } from '@/hooks/redux';
 import { Link } from '@/i18n/navigation';
+import { isTokenValid } from '@/utils/firebase/tokenValidation';
 
 export default function Home() {
   const t = useTranslations('home_general');
   const currentUserName = useAppSelector(
     (state) => state.user.user?.displayName
   );
+  const tokenExpirationTime = useAppSelector(
+    (state) => state.user.user?.expiresIn
+  );
   const isNewUser = useAppSelector((state) => state.user.user?.isNewUser);
-  const isLoggedIn = Boolean(currentUserName);
+  const isLoggedIn =
+    Boolean(currentUserName) && isTokenValid(tokenExpirationTime);
 
   return (
     <Container>

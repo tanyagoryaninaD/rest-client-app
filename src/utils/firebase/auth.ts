@@ -14,7 +14,8 @@ import { clearUser, setUser } from '@/store/slicers/userSlicer';
 import type { SignInSignUpValues } from '@/types/authForms';
 import { Collections } from '@/types/enums/firebase';
 
-import { handleAuthError } from '../handlers/authHandlers';
+import { handleAuthError } from '../handlers/authErrorsHandler';
+import { getExpirationTime } from './tokenValidation';
 
 export const userRegister = async (
   data: SignInSignUpValues,
@@ -31,6 +32,7 @@ export const userRegister = async (
       password
     );
     const user = userCredential.user;
+    const expiresIn = await getExpirationTime(user);
 
     await setDoc(doc(appDB, Collections.Users, user.uid), {
       name,
@@ -38,7 +40,9 @@ export const userRegister = async (
     });
 
     await updateProfile(user, { displayName: name });
-    dispatch(setUser({ displayName: user.displayName, isNewUser: true }));
+    dispatch(
+      setUser({ displayName: user.displayName, isNewUser: true, expiresIn })
+    );
     router.push('/');
   } catch (err) {
     handleAuthError(err, t);
@@ -60,7 +64,12 @@ export const userLogin = async (
       password
     );
     const user = userCredential.user;
-    const appUser = { displayName: user.displayName, isNewUser: false };
+    const expiresIn = await getExpirationTime(user);
+    const appUser = {
+      displayName: user.displayName,
+      isNewUser: false,
+      expiresIn,
+    };
     dispatch(setUser(appUser));
     toast.success(`${t('toast.auth.welcome')} ${user.displayName}`);
     router.push('/');

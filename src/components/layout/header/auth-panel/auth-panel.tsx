@@ -2,13 +2,15 @@ import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 
 import { NavLink } from '@/components/elements/nav-link/nav-link';
 import { AUTH_LINKS } from '@/constants/links';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import type { AppUser } from '@/types/userData';
 import { userLogout } from '@/utils/firebase/auth';
+import { isTokenValid } from '@/utils/firebase/tokenValidation';
 
 interface AuthPanelProps {
   user?: AppUser | null;
@@ -23,10 +25,21 @@ export default function AuthPanel({
 }: AuthPanelProps) {
   const t = useTranslations('home_general');
   const pathname = usePathname();
-
   const tToast = useTranslations('toast');
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const tokenExpirationTime = useAppSelector(
+    (state) => state.user.user?.expiresIn
+  );
+  const isValid = user && isTokenValid(tokenExpirationTime);
+
+  useEffect(() => {
+    if (tokenExpirationTime && !isTokenValid(tokenExpirationTime)) {
+      void userLogout(tToast, dispatch, router);
+    }
+  }, [tokenExpirationTime, dispatch, router, tToast]);
+
   const handleSignOut = async () => {
     await userLogout(tToast, dispatch, router);
     closeSidebar();
@@ -42,7 +55,7 @@ export default function AuthPanel({
       size="small"
       variant="text"
     >
-      {user ? (
+      {isValid ? (
         <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
           <Typography color="var(--foreground)">
             {t('buttons.sign-out')}
