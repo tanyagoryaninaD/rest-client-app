@@ -57,7 +57,6 @@ export default function Header(props: HeaderProps) {
             </Tooltip>
           </Box>
           <Autocomplete
-            id="method-textfield-label-key"
             sx={{ width: '15rem' }}
             options={headerKeys}
             freeSolo={true}
@@ -65,20 +64,23 @@ export default function Header(props: HeaderProps) {
               updateKey(value);
             }}
             value={dataState.key}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => (
+              <TextField {...params} id="method-textfield-label-key" />
+            )}
           />
         </Box>
         <Box sx={{ width: '100%' }}>
           <InputLabel htmlFor="method-textfield-label-value">Value</InputLabel>
           <Autocomplete
-            id="method-textfield-label-value"
             options={getKeyValues(dataState.key)}
             freeSolo={true}
             onInputChange={(_, value) => {
               updateValue(value);
             }}
             value={dataState.value}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => (
+              <TextField {...params} id="method-textfield-label-value" />
+            )}
           />
         </Box>
       </Box>

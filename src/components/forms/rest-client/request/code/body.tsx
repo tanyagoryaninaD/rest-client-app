@@ -16,15 +16,16 @@ export default function Body(props: BodyProps) {
         }}
       >
         <TextField
-          id="generate-input"
           sx={{ width: '100%' }}
           multiline
           fullWidth
-          value={generatedCode}
+          placeholder={`Click on 'Generate Code' to create the code ${generatedCode}`} // TODO delete generatedCode
           slotProps={{
-            input: { sx: { fontFamily: 'monospace' } },
+            input: {
+              id: 'generate-input',
+              sx: { fontFamily: 'monospace' },
+            },
           }}
-          placeholder="Click on 'Generate Code' to create the code"
         />
       </Box>
     </Box>

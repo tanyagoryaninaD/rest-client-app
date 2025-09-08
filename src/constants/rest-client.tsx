@@ -15,3 +15,8 @@ export const HEADERS = {
 } as const;
 
 export const METHODS = ['get', 'post', 'put', 'punch', 'delete'];
+
+export const CLIENT_FORM = {
+  method: 'method',
+  url: 'url',
+} as const;
