@@ -11,6 +11,7 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import type {
@@ -19,6 +20,7 @@ import type {
 } from '@/types/components/rest-client';
 
 export default function Header(props: HeaderProps) {
+  const t = useTranslations('rest-client.request');
   const { headerKeys, getKeyValues, handleUpdate, handleRemoveHeader } = props;
   const [dataState, setDataState] = useState<HeaderDataProps>(props.data);
 
@@ -46,11 +48,10 @@ export default function Header(props: HeaderProps) {
       <Box sx={{ display: 'flex', gap: '1rem', width: '100%' }}>
         <Box>
           <Box sx={{ display: 'flex', gap: '0.5rem' }}>
-            <InputLabel htmlFor="method-textfield-label-key">Key</InputLabel>
-            <Tooltip
-              title="You can enter your own values. Autocomplete offers examples, but you can ignore them."
-              sx={{ padding: 0 }}
-            >
+            <InputLabel htmlFor="method-textfield-label-key">
+              {t('labels.key')}
+            </InputLabel>
+            <Tooltip title={t('tooltips.header')} sx={{ padding: 0 }}>
               <IconButton>
                 <InfoOutlineIcon sx={{ width: '1.1rem' }} />
               </IconButton>
@@ -70,7 +71,9 @@ export default function Header(props: HeaderProps) {
           />
         </Box>
         <Box sx={{ width: '100%' }}>
-          <InputLabel htmlFor="method-textfield-label-value">Value</InputLabel>
+          <InputLabel htmlFor="method-textfield-label-value">
+            {t('labels.value')}
+          </InputLabel>
           <Autocomplete
             options={getKeyValues(dataState.key)}
             freeSolo={true}

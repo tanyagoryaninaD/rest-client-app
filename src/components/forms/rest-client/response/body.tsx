@@ -1,8 +1,11 @@
 import { Box, InputLabel, TextField } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 import type { ResponseBodyProps } from '@/types/components/rest-client';
 
 export default function ResponseBody(props: ResponseBodyProps) {
+  const t = useTranslations('rest-client.response');
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
@@ -10,7 +13,7 @@ export default function ResponseBody(props: ResponseBodyProps) {
           sx={{ textWrap: 'nowrap', width: '8rem' }}
           htmlFor="response-body-input"
         >
-          Body:{' '}
+          {t('labels.body')}
         </InputLabel>
         <TextField
           className="readonly-textarea"
@@ -20,7 +23,7 @@ export default function ResponseBody(props: ResponseBodyProps) {
           multiline
           fullWidth
           value={props.body ? JSON.stringify(props.body) : props.body}
-          placeholder="Read-Only JSON Viewer"
+          placeholder={t('placeholders.body')}
           slotProps={{
             input: {
               id: 'response-body-input',

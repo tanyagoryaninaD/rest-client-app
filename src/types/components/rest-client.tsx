@@ -28,10 +28,9 @@ export interface HeaderDataProps {
   value: string;
 }
 
-export interface UpdateHeaderDataProps {
+export interface UpdateHeaderDataProps
+  extends Partial<Omit<HeaderDataProps, 'id'>> {
   id: number;
-  key?: string;
-  value?: string;
 }
 
 export interface ClientFormStateProps {
@@ -48,10 +47,5 @@ export interface ClientResponseStateProps {
   body?: object;
 }
 
-export interface ResponseBodyProps {
-  body: object | null;
-}
-
-export interface StatusCodeProps {
-  status: number | null;
-}
+export type ResponseBodyProps = Pick<ClientResponseStateProps, 'body'>;
+export type StatusCodeProps = Pick<ClientResponseStateProps, 'status'>;

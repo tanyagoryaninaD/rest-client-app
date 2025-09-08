@@ -2,6 +2,7 @@
 
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Box, Button } from '@mui/material';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { HEADERS } from '@/constants/rest-client';
@@ -14,6 +15,7 @@ import type {
 import Header from './header';
 
 export default function Headers() {
+  const t = useTranslations('rest-client.request');
   const [isOpen, setIsOpen] = useState(false);
   const [headers, setHeaders] = useState<HeaderDataProps[]>([]);
   const headerKeys = Object.keys(HEADERS) as HEADERS_KEYS[];
@@ -81,7 +83,7 @@ export default function Headers() {
   return (
     <Box className="client-box" sx={{ flexDirection: 'column' }}>
       <Box>
-        <Button onClick={handleToggle}>Headers</Button>
+        <Button onClick={handleToggle}>{t('buttons.headers')}</Button>
         {isOpen && (
           <Button onClick={handleAddHeader} sx={{ minWidth: '1rem' }}>
             <ControlPointIcon />

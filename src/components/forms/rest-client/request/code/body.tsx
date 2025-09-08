@@ -1,8 +1,10 @@
 import { Box, TextField } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 import type { BodyProps } from '@/types/components/rest-client';
 
 export default function Body(props: BodyProps) {
+  const t = useTranslations('rest-client.request.placeholders');
   const { generatedCode } = props;
 
   return (
@@ -19,7 +21,7 @@ export default function Body(props: BodyProps) {
           sx={{ width: '100%' }}
           multiline
           fullWidth
-          placeholder={`Click on 'Generate Code' to create the code ${generatedCode}`} // TODO delete generatedCode
+          placeholder={`${t('body')} ${generatedCode}`} // TODO delete generatedCode
           slotProps={{
             input: {
               id: 'generate-input',

@@ -1,8 +1,11 @@
 import { Box, InputLabel, TextField } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 import type { StatusCodeProps } from '@/types/components/rest-client';
 
 export default function StatusCode(props: StatusCodeProps) {
+  const t = useTranslations('rest-client.response');
+
   return (
     <Box sx={{ width: '100%' }}>
       <Box
@@ -13,7 +16,7 @@ export default function StatusCode(props: StatusCodeProps) {
           sx={{ textWrap: 'nowrap', width: '8rem' }}
           htmlFor="status-code-input"
         >
-          Status code:{' '}
+          {t('labels.status')}
         </InputLabel>
         <TextField
           className="readonly-textarea"
@@ -23,7 +26,7 @@ export default function StatusCode(props: StatusCodeProps) {
           multiline
           fullWidth
           value={props.status}
-          placeholder="HTTP Status Code"
+          placeholder={t('placeholders.status')}
           slotProps={{
             input: {
               id: 'status-code-input',
