@@ -20,6 +20,11 @@ jest.mock('@/i18n/navigation', () => ({
   useRouter: jest.fn(() => ({ push: pushMock })),
 }));
 
+jest.mock('@/components/routes/PublicRoute', () => ({
+  __esModule: true,
+  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
 const messages = {
   authForms: {
     signIn: {

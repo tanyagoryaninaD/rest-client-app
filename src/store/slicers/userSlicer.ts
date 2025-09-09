@@ -6,11 +6,13 @@ import { isTokenValid } from '@/utils/firebase/tokenValidation';
 export interface UserState {
   user: AppUser | null;
   isValid: boolean;
+  loading: boolean;
 }
 
 const initialState: UserState = {
   user: null,
   isValid: false,
+  loading: true,
 };
 
 export const userSlice = createSlice({
@@ -22,10 +24,12 @@ export const userSlice = createSlice({
       state.isValid = action.payload
         ? isTokenValid(action.payload.expiresIn)
         : false;
+      state.loading = false;
     },
     clearUser: (state) => {
       state.user = null;
       state.isValid = false;
+      state.loading = false;
     },
   },
 });

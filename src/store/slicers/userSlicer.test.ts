@@ -4,7 +4,7 @@ import type { UserState } from './userSlicer';
 import reducer, { clearUser, setUser } from './userSlicer';
 
 describe('userSlice', () => {
-  const initialState: UserState = { user: null, isValid: false };
+  const initialState: UserState = { user: null, isValid: false, loading: true };
 
   it('should return the initial state', () => {
     expect(reducer(undefined, { type: '' })).toEqual(initialState);
@@ -29,11 +29,12 @@ describe('userSlice', () => {
         expiresIn: Date.now() + 1000,
       },
       isValid: true,
+      loading: false,
     };
 
     const nextState = reducer(prevState, setUser(null));
 
-    expect(nextState).toEqual({ user: null, isValid: false });
+    expect(nextState).toEqual({ user: null, isValid: false, loading: false });
   });
 
   it('should handle clearUser', () => {
@@ -44,10 +45,11 @@ describe('userSlice', () => {
         expiresIn: Date.now() + 1000,
       },
       isValid: true,
+      loading: false,
     };
 
     const nextState = reducer(prevState, clearUser());
 
-    expect(nextState).toEqual({ user: null, isValid: false });
+    expect(nextState).toEqual({ user: null, isValid: false, loading: false });
   });
 });

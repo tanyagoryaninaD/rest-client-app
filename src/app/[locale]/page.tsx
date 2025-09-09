@@ -13,15 +13,12 @@ import { isTokenValid } from '@/utils/firebase/tokenValidation';
 
 export default function Home() {
   const t = useTranslations('home_general');
-  const currentUserName = useAppSelector(
-    (state) => state.user.user?.displayName
-  );
-  const tokenExpirationTime = useAppSelector(
-    (state) => state.user.user?.expiresIn
-  );
-  const isNewUser = useAppSelector((state) => state.user.user?.isNewUser);
-  const isLoggedIn =
-    Boolean(currentUserName) && isTokenValid(tokenExpirationTime);
+  const { user, loading } = useAppSelector((state) => state.user);
+  const isLoggedIn = Boolean(user) && isTokenValid(user?.expiresIn);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <Container>
@@ -36,11 +33,11 @@ export default function Home() {
       >
         {isLoggedIn ? (
           <>
-            {currentUserName ? (
+            {user?.displayName ? (
               <Typography variant="h4" component="h1" gutterBottom>
-                {isNewUser
-                  ? t('greetings_firstRegistered', { name: currentUserName })
-                  : t('greetings_registered', { name: currentUserName })}
+                {user.isNewUser
+                  ? t('greetings_firstRegistered', { name: user.displayName })
+                  : t('greetings_registered', { name: user.displayName })}
               </Typography>
             ) : (
               <Typography variant="h4" component="h1" gutterBottom>

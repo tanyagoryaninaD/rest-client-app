@@ -15,7 +15,7 @@ import MainLayout from '@/components/layout/layout';
 import { routing } from '@/i18n/routing';
 import { theme } from '@/theme';
 
-import StoreProvider from '../../store/StoreProvider';
+import StoreProvider from '../../components/providers/StoreProvider';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
