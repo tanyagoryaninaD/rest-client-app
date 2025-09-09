@@ -8,6 +8,7 @@ import { NavLink } from '@/components/elements/nav-link/nav-link';
 import { AUTH_LINKS } from '@/constants/links';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { usePathname, useRouter } from '@/i18n/navigation';
+import { clearUser } from '@/store/slicers/userSlicer';
 import type { AppUser } from '@/types/userData';
 import { userLogout } from '@/utils/firebase/auth';
 import { isTokenValid } from '@/utils/firebase/tokenValidation';
@@ -36,13 +37,16 @@ export default function AuthPanel({
 
   useEffect(() => {
     if (tokenExpirationTime && !isTokenValid(tokenExpirationTime)) {
-      void userLogout(tToast, dispatch, router);
+      void userLogout(tToast);
+      dispatch(clearUser());
     }
-  }, [tokenExpirationTime, dispatch, router, tToast]);
+  }, [tokenExpirationTime, dispatch, tToast]);
 
   const handleSignOut = async () => {
-    await userLogout(tToast, dispatch, router);
+    await userLogout(tToast);
     closeSidebar();
+    dispatch(clearUser());
+    router.push('/');
   };
 
   return (
