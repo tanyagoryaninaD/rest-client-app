@@ -20,11 +20,6 @@ jest.mock('@/i18n/navigation', () => ({
   useRouter: jest.fn(() => ({ push: pushMock })),
 }));
 
-jest.mock('@/components/routes/PublicRoute', () => ({
-  __esModule: true,
-  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
-
 const messages = {
   authForms: {
     signIn: {
@@ -70,9 +65,9 @@ describe('SignInPage (AuthForm)', () => {
     jest.clearAllMocks();
   });
 
-  it('should render SignInPage ', () => {
+  it('should render SignInPage ', async () => {
     renderWithProvider(<SignInPage />);
-    const heading = screen.getByRole('heading', { name: /Sign In/i });
+    const heading = await screen.findByRole('heading', { name: /Sign In/i });
     expect(heading).toBeInTheDocument();
   });
 
