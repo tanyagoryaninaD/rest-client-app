@@ -1,13 +1,13 @@
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+'use client';
 
-export default function ClientPage() {
-  return (
-    <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        REST Client Page
-      </Typography>
-      <Typography>Main Interface Here</Typography>
-    </Container>
-  );
-}
+import dynamic from 'next/dynamic';
+
+import withAuth from '@/components/auth/with-auth';
+import Loader from '@/components/layout/loader/loader';
+
+const Client = dynamic(() => import('@/pages/client/client'), {
+  ssr: false,
+  loading: Loader,
+});
+
+export default withAuth(Client);
