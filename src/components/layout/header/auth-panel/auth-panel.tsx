@@ -20,7 +20,6 @@ interface AuthPanelProps {
 }
 
 export default function AuthPanel({
-  user,
   isSidebarOpen,
   closeSidebar,
 }: AuthPanelProps) {
@@ -30,17 +29,23 @@ export default function AuthPanel({
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const tokenExpirationTime = useAppSelector(
-    (state) => state.user.user?.expiresIn
-  );
-  const isValid = user && isTokenValid(tokenExpirationTime);
+  const {
+    user: currentUser,
+    isValid,
+    loading,
+  } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    if (tokenExpirationTime && !isTokenValid(tokenExpirationTime)) {
+    if (
+      !loading &&
+      currentUser?.expiresIn &&
+      !isTokenValid(currentUser.expiresIn)
+    ) {
       void userLogout(tToast);
       dispatch(clearUser());
+      router.push('/');
     }
-  }, [tokenExpirationTime, dispatch, tToast]);
+  }, [currentUser, loading, dispatch, tToast, router]);
 
   const handleSignOut = async () => {
     await userLogout(tToast);
@@ -48,6 +53,10 @@ export default function AuthPanel({
     dispatch(clearUser());
     router.push('/');
   };
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <ButtonGroup

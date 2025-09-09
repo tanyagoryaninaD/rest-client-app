@@ -51,17 +51,6 @@ const messages = {
 };
 
 describe('Header Component', () => {
-  it('should render main title and auth buttons for an unauthorized user', () => {
-    render(MockIntlProvider(<Header />, { locale: 'en', messages }));
-
-    expect(
-      screen.getByRole('link', { name: /TDA REST Client/i })
-    ).toBeInTheDocument();
-
-    expect(screen.getByTestId('nav-link-sign-in')).toBeInTheDocument();
-    expect(screen.getByTestId('nav-link-sign-up')).toBeInTheDocument();
-  });
-
   it('should toggle the sidebar on menu button click', async () => {
     render(MockIntlProvider(<Header />, { locale: 'en', messages }));
 

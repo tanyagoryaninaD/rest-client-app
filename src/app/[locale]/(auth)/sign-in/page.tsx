@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 import AuthForm from '@/components/forms/AuthForm';
+import PublicRoute from '@/components/routes/PublicRoute';
 import { signInFormConfig } from '@/configs/auth';
 import { useAppDispatch } from '@/hooks/redux';
 import { useRouter } from '@/i18n/navigation';
@@ -25,18 +26,20 @@ export default function SignInPage() {
     router.push('/');
   };
   return (
-    <Container
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <AuthForm
-        formConfig={signInFormConfig}
-        onSubmit={handleSubmit}
-        typeForm={TypeForm.SignIn}
-      />
-    </Container>
+    <PublicRoute>
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <AuthForm
+          formConfig={signInFormConfig}
+          onSubmit={handleSubmit}
+          typeForm={TypeForm.SignIn}
+        />
+      </Container>
+    </PublicRoute>
   );
 }

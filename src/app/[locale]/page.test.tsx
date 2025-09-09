@@ -54,6 +54,7 @@ describe('Home Page', () => {
         user: {
           user: null,
           isValid: false,
+          loading: false,
         },
       },
     });
@@ -85,6 +86,7 @@ describe('Home Page', () => {
             expiresIn: Date.now() + 1000,
           },
           isValid: true,
+          loading: false,
         },
       },
     });
@@ -116,6 +118,7 @@ describe('Home Page', () => {
             expiresIn: Date.now() + 1000,
           },
           isValid: true,
+          loading: false,
         },
       },
     });
