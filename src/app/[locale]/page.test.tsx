@@ -13,6 +13,12 @@ jest.mock('@/i18n/navigation', () => ({
   ),
 }));
 
+jest.mock('@/components/layout/loader/loader', () => {
+  return function MockLoader() {
+    return <div>Loading...</div>;
+  };
+});
+
 const messages = {
   home_general: {
     greetings_firstRegistered: 'Welcome, {name}!',
@@ -135,5 +141,31 @@ describe('Home Page', () => {
     ).toBeInTheDocument();
     expect(screen.getByTestId('link-client')).toBeInTheDocument();
     expect(screen.getByTestId('link-history')).toBeInTheDocument();
+  });
+
+  it('should display spinner while user info is loading', async () => {
+    const store = configureStore({
+      reducer: {
+        user: userReducer,
+      },
+      preloadedState: {
+        user: {
+          user: null,
+          isValid: false,
+          loading: true,
+        },
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <IntlProvider locale="en" messages={messages}>
+          <Home />
+        </IntlProvider>
+      </Provider>
+    );
+
+    const loader = await screen.findByText('Loading...');
+    expect(loader).toBeInTheDocument();
   });
 });
