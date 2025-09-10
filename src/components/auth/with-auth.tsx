@@ -4,7 +4,7 @@ import type { ComponentType } from 'react';
 import { useEffect } from 'react';
 
 import Loader from '@/components/layout/loader/loader';
-import { useIsLoggedIn } from '@/hooks/use-is-logged-in';
+import { useUserLoggedState } from '@/hooks/use-user-logged-state';
 import { useRouter } from '@/i18n/navigation';
 
 export default function withAuth(
@@ -13,16 +13,20 @@ export default function withAuth(
 ) {
   return function WithAuth() {
     const router = useRouter();
-    const isLoggedIn = useIsLoggedIn();
+    const { isLoggedIn, isLoading } = useUserLoggedState();
 
-    const redirectCondition = reverseCondition ? !isLoggedIn : isLoggedIn;
+    const needRedirect = reverseCondition ? isLoggedIn : !isLoggedIn;
 
     useEffect(() => {
-      if (!redirectCondition) {
+      if (needRedirect && !isLoading) {
         router.replace(reverseCondition ? '/' : '/sign-in');
       }
-    }, [redirectCondition, router]);
+    }, [needRedirect, router, isLoading]);
 
-    return redirectCondition ? <WrappedComponent /> : <Loader />;
+    if (isLoading) {
+      return <Loader />;
+    }
+
+    return needRedirect ? <Loader /> : <WrappedComponent />;
   };
 }
