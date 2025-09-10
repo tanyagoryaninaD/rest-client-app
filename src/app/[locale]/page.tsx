@@ -1,32 +1,31 @@
 'use client';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useTranslations } from 'next-intl';
 
+import Loader from '@/components/layout/loader/loader';
 import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
 import { useAppSelector } from '@/hooks/redux';
+import { useIsLoggedIn } from '@/hooks/use-is-logged-in';
 import { Link } from '@/i18n/navigation';
-import { isTokenValid } from '@/utils/firebase/tokenValidation';
 
 export default function Home() {
   const t = useTranslations('home_general');
   const { user, loading } = useAppSelector((state) => state.user);
-  const isLoggedIn = Boolean(user) && isTokenValid(user?.expiresIn);
+  const isLoggedIn = useIsLoggedIn();
 
   if (loading) {
-    return null;
+    return <Loader />;
   }
 
   return (
     <Container>
-      <Box
+      <Stack
+        direction="column"
         sx={{
           my: 4,
-          display: 'flex',
-          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -78,7 +77,7 @@ export default function Home() {
             </Stack>
           </>
         )}
-      </Box>
+      </Stack>
     </Container>
   );
 }

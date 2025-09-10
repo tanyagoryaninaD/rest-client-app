@@ -1,16 +1,13 @@
-import { Container, Typography } from '@mui/material';
+'use client';
 
-import PrivateRoute from '@/components/routes/PrivateRoute';
+import dynamic from 'next/dynamic';
 
-export default function VariablesPage() {
-  return (
-    <PrivateRoute>
-      <Container>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Variables Page
-        </Typography>
-        <Typography>User Variables Here</Typography>
-      </Container>
-    </PrivateRoute>
-  );
-}
+import withAuth from '@/components/auth/with-auth';
+import Loader from '@/components/layout/loader/loader';
+
+const Variables = dynamic(() => import('@/pages/variables/variables'), {
+  ssr: false,
+  loading: Loader,
+});
+
+export default withAuth(Variables);
