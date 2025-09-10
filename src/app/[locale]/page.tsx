@@ -8,13 +8,13 @@ import { useTranslations } from 'next-intl';
 import Loader from '@/components/layout/loader/loader';
 import { AUTH_LINKS, CLIENT_LINKS } from '@/constants/links';
 import { useAppSelector } from '@/hooks/redux';
-import { useIsLoggedIn } from '@/hooks/use-is-logged-in';
+import { useUserLoggedState } from '@/hooks/use-user-logged-state';
 import { Link } from '@/i18n/navigation';
 
 export default function Home() {
   const t = useTranslations('home_general');
   const { user, loading } = useAppSelector((state) => state.user);
-  const isLoggedIn = useIsLoggedIn();
+  const { isLoggedIn } = useUserLoggedState();
 
   if (loading) {
     return <Loader />;

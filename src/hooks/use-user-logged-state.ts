@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/hooks/redux';
 import { isTokenValid } from '@/utils/firebase/tokenValidation';
 
-export function useIsLoggedIn() {
+export function useUserLoggedState() {
   const currentUserName = useAppSelector(
     (state) => state.user.user?.displayName
   );
@@ -10,6 +10,7 @@ export function useIsLoggedIn() {
   );
   const isLoggedIn =
     Boolean(currentUserName) && isTokenValid(tokenExpirationTime);
+  const isLoading = useAppSelector((state) => state.user.loading);
 
-  return isLoggedIn;
+  return { isLoggedIn, isLoading };
 }

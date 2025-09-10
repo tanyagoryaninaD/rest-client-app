@@ -20,6 +20,12 @@ jest.mock('@/i18n/navigation', () => ({
   useRouter: jest.fn(() => ({ push: pushMock })),
 }));
 
+const mockUseIsLoggedIn = jest.fn();
+jest.mock('@/hooks/use-user-logged-state', () => ({
+  useUserLoggedState: () =>
+    mockUseIsLoggedIn() as { isLoggedIn: boolean; isLoading: boolean },
+}));
+
 const messages = {
   authForms: {
     signIn: {
@@ -61,7 +67,11 @@ const renderWithProvider = (component: JSX.Element) =>
   );
 
 describe('SignInPage (AuthForm)', () => {
-  beforeEach(() => {
+  beforeAll(() => {
+    mockUseIsLoggedIn.mockReturnValue({ isLoggedIn: false, isLoading: false });
+  });
+
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
