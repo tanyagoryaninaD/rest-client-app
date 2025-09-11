@@ -1,11 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import userReducer from './slicers/userSlicer';
+import variablesReducer from './slicers/variablesSlice';
+
+const rootReducer = combineReducers({
+  user: userReducer,
+  variables: variablesReducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
