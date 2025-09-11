@@ -5,31 +5,35 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 
 import RestClientRequest from '@/components/forms/rest-client/request/rest-client-request';
 import RestClientResponse from '@/components/forms/rest-client/response/rest-client-response';
-// import { METHODS } from '@/constants/rest-client';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import type {
   ClientFormStateProps,
   ClientResponseStateProps,
 } from '@/types/components/rest-client';
 import { utf8ToBase64 } from '@/utils/handlers/base64';
+import { headersQueryParams } from '@/utils/handlers/clientForm';
 
 export default function FormRestClient() {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const { register, handleSubmit, control } = useForm<ClientFormStateProps>();
   const [responseFetch, setResponseFetch] = useState<ClientResponseStateProps>(
     {}
   );
 
-  const pathname = usePathname();
-  const router = useRouter();
-  // const searchParams = useSearchParams();
-
   const onSubmit: SubmitHandler<ClientFormStateProps> = (data): void => {
+    console.log('🚀 ~ onSubmit ~ data:', data);
     const basePathnames = pathname.split('/').slice(0, 2);
     basePathnames.push(data.method, utf8ToBase64(data.url));
     const newPathname = basePathnames.join('/');
 
+    console.log('🚀 ~ onSubmit ~ data.headers.length:', data.headers.length);
     if (newPathname !== pathname) {
-      router.replace({ pathname: newPathname });
+      router.replace({
+        pathname: newPathname,
+        query: data.headers.length > 0 ? headersQueryParams(data.headers) : {},
+      });
     }
 
     setResponseFetch({});

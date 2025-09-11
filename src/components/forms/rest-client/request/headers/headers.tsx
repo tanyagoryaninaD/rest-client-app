@@ -72,6 +72,10 @@ export default function Headers(props: UseFormProps) {
                 data={field}
                 index={index}
                 remove={() => {
+                  if (fields.length === 1) {
+                    handleToggle();
+                  }
+
                   remove(index);
                 }}
                 register={props.register}
