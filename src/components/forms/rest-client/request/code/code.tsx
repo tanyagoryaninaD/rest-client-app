@@ -1,6 +1,6 @@
 'use client';
 
-import { Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useCallback, useState } from 'react';
 
 import Body from './body';
@@ -20,20 +20,13 @@ export default function Code() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-      }}
-    >
+    <Stack spacing={2}>
       <GenerateCode
         generatedCode={generatedCode}
         handleGenerateCode={handleGenerateCode}
         handleCopyCode={handleCopyCode}
       />
       <Body generatedCode={generatedCode} />
-    </Box>
+    </Stack>
   );
 }

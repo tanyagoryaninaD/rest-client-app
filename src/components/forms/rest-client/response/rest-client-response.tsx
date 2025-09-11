@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 import type { ClientResponseStateProps } from '@/types/components/rest-client';
@@ -12,16 +12,16 @@ export default function RestClientResponse(props: ClientResponseStateProps) {
   const { status, body } = props;
 
   return (
-    <Box className="client-section">
+    <Stack spacing={2} alignItems="center">
       <Typography variant="h5" component="h1" gutterBottom>
         {t('title')}
       </Typography>
-      <Box className="client-box">
+      <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
         <StatusCode status={status} />
-      </Box>
-      <Box className="client-box">
+      </Stack>
+      <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
         <ResponseBody body={body} />
-      </Box>
-    </Box>
+      </Stack>
+    </Stack>
   );
 }

@@ -1,4 +1,4 @@
-import { Box, InputLabel, TextField } from '@mui/material';
+import { Box, InputLabel, Stack, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 import type { ResponseBodyProps } from '@/types/components/rest-client';
@@ -8,7 +8,7 @@ export default function ResponseBody(props: ResponseBodyProps) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <Stack spacing={1} alignItems={'center'} direction={'row'}>
         <InputLabel
           sx={{ textWrap: 'nowrap', width: '8rem' }}
           htmlFor="response-body-input"
@@ -33,7 +33,7 @@ export default function ResponseBody(props: ResponseBodyProps) {
             },
           }}
         />
-      </Box>
+      </Stack>
     </Box>
   );
 }

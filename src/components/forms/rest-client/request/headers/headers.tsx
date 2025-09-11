@@ -1,7 +1,7 @@
 'use client';
 
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -81,7 +81,7 @@ export default function Headers() {
   };
 
   return (
-    <Box className="client-box" sx={{ flexDirection: 'column' }}>
+    <Stack direction={'column'} spacing={2}>
       <Box>
         <Button onClick={handleToggle}>{t('buttons.headers')}</Button>
         {isOpen && (
@@ -91,7 +91,7 @@ export default function Headers() {
         )}
       </Box>
       {isOpen && !!headers.length && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <Stack direction={'column'} spacing={1}>
           {headers.map((header) => (
             <Header
               key={header.id}
@@ -102,8 +102,8 @@ export default function Headers() {
               handleRemoveHeader={handleRemoveHeader}
             />
           ))}
-        </Box>
+        </Stack>
       )}
-    </Box>
+    </Stack>
   );
 }

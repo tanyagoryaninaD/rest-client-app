@@ -8,6 +8,7 @@ import {
   Button,
   IconButton,
   InputLabel,
+  Stack,
   TextField,
   Tooltip,
 } from '@mui/material';
@@ -37,17 +38,10 @@ export default function Header(props: HeaderProps) {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: '1rem',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-    >
-      <Box sx={{ display: 'flex', gap: '1rem', width: '100%' }}>
+    <Stack alignItems={'center'} spacing={2} direction={'row'}>
+      <Stack spacing={2} direction={'row'} width={'100%'} margin={'auto'}>
         <Box>
-          <Box sx={{ display: 'flex', gap: '0.5rem' }}>
+          <Stack spacing={1} direction={'row'}>
             <InputLabel htmlFor="method-textfield-label-key">
               {t('labels.key')}
             </InputLabel>
@@ -56,7 +50,7 @@ export default function Header(props: HeaderProps) {
                 <InfoOutlineIcon sx={{ width: '1.1rem' }} />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
           <Autocomplete
             sx={{ width: '15rem' }}
             options={headerKeys}
@@ -70,7 +64,7 @@ export default function Header(props: HeaderProps) {
             )}
           />
         </Box>
-        <Box sx={{ width: '100%' }}>
+        <Stack width={'100%'}>
           <InputLabel htmlFor="method-textfield-label-value">
             {t('labels.value')}
           </InputLabel>
@@ -85,20 +79,22 @@ export default function Header(props: HeaderProps) {
               <TextField {...params} id="method-textfield-label-value" />
             )}
           />
-        </Box>
-      </Box>
-      <Button
-        onClick={() => {
-          handleRemoveHeader(dataState.id);
-        }}
-        sx={{
-          minWidth: '1rem',
-          height: 'min-content',
-          marginTop: '1rem',
-        }}
-      >
-        <HighlightOffIcon />
-      </Button>
-    </Box>
+        </Stack>
+      </Stack>
+      <Stack>
+        <Button
+          onClick={() => {
+            handleRemoveHeader(dataState.id);
+          }}
+          sx={{
+            minWidth: '1rem',
+            height: 'min-content',
+            marginTop: '1rem',
+          }}
+        >
+          <HighlightOffIcon />
+        </Button>
+      </Stack>
+    </Stack>
   );
 }

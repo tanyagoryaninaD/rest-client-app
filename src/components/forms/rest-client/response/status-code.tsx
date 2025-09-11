@@ -1,4 +1,4 @@
-import { Box, InputLabel, TextField } from '@mui/material';
+import { Box, InputLabel, Stack, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 import type { StatusCodeProps } from '@/types/components/rest-client';
@@ -8,10 +8,7 @@ export default function StatusCode(props: StatusCodeProps) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box
-        className="status-code"
-        sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}
-      >
+      <Stack spacing={1} alignItems="center" direction={'row'}>
         <InputLabel
           sx={{ textWrap: 'nowrap', width: '8rem' }}
           htmlFor="status-code-input"
@@ -35,7 +32,7 @@ export default function StatusCode(props: StatusCodeProps) {
             },
           }}
         />
-      </Box>
+      </Stack>
     </Box>
   );
 }

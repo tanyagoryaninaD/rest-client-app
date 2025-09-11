@@ -1,5 +1,5 @@
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Box, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
 import type { GenerateCodeProps } from '@/types/components/rest-client';
@@ -9,8 +9,8 @@ export default function GenerateCode(props: GenerateCodeProps) {
   const { generatedCode, handleGenerateCode, handleCopyCode } = props;
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ display: 'flex', gap: '1rem' }}>
+    <Stack>
+      <Stack spacing={2} direction={'row'}>
         <Button variant="contained" onClick={handleGenerateCode}>
           {t('generate')}
         </Button>
@@ -22,7 +22,7 @@ export default function GenerateCode(props: GenerateCodeProps) {
         >
           {t('copy')}
         </Button>
-      </Box>
-    </Box>
+      </Stack>
+    </Stack>
   );
 }
