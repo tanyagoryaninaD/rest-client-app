@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import { useTranslations } from 'next-intl';
 
 import { useAppDispatch } from '@/hooks/redux';
-import { removeVariable } from '@/store/slicers/variablesSlice';
+import { removeVariable } from '@/store/slicers/variables-slice';
 
 import { VariableRow } from './variable-row';
 

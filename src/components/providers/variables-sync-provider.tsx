@@ -8,7 +8,7 @@ import { STORAGE_PREFIX } from '@/constants/app';
 import { useAppDispatch } from '@/hooks/redux';
 import { useUserName } from '@/hooks/use-user-name';
 import store from '@/store';
-import { restoreVariables } from '@/store/slicers/variablesSlice';
+import { restoreVariables } from '@/store/slicers/variables-slice';
 import { getHashFromString } from '@/utils/get-hash-from-string';
 import { VariablesStorageSchema } from '@/zod/variables-schema';
 

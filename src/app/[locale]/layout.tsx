@@ -12,7 +12,7 @@ import { ToastContainer } from 'react-toastify';
 
 import ErrorBoundaryProvider from '@/components/error-boundary/error-boundary-provider';
 import MainLayout from '@/components/layout/layout';
-import VariablesSyncProvider from '@/components/providers/VariablesSyncProvider';
+import VariablesSyncProvider from '@/components/providers/variables-sync-provider';
 import { routing } from '@/i18n/routing';
 import { theme } from '@/theme';
 

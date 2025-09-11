@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 import VariableForm from '@/components/forms/variables/variable-form';
 import VariablesTable from '@/components/variables/variables-table';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { addVariable } from '@/store/slicers/variablesSlice';
-import { selectAllVariables } from '@/store/slicers/variablesSlice';
+import { addVariable } from '@/store/slicers/variables-slice';
+import { selectAllVariables } from '@/store/slicers/variables-slice';
 import type { VariableFormFields } from '@/types/variables';
 
 export default function Variables() {
