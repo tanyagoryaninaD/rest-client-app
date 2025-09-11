@@ -85,5 +85,17 @@
       "history": "History",
       "variables": "Variables"
     }
+  },
+  "variables": {
+    "title": "Manage Your Variables",
+    "name": "Name",
+    "value": "Value",
+    "add_variable": "Add",
+    "data_format_error": "Invalid data format in variables storage. The storage was cleared, please try again.",
+    "no_variables": "No variables",
+    "name_required": "Variable name is required",
+    "value_required": "Variable value is required",
+    "name_wrong_chars": "Alphanumeric, dashes and underscores only",
+    "value_wrong_chars": "Variable value must be alphanumeric"
   }
 }
