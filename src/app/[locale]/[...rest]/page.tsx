@@ -1,9 +1,6 @@
 'use client';
-import './not-found.css';
 
-import { Button, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+import { Button, Container, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -18,14 +15,14 @@ export default function NotFound() {
   };
 
   return (
-    <Container className={'not-found-container'}>
-      <Box className={'not-found-box'}>
-        <Typography variant="h3" sx={{ textAlign: 'center' }}>
+    <Container sx={{ placeContent: 'center' }}>
+      <Stack alignItems="center" spacing={2}>
+        <Typography variant="h3" component="h1" textAlign="center">
           {t('title')}
         </Typography>
         <Image src={'/404.png'} alt={''} width={350} height={210} priority />
         <Button onClick={handlerBack}>{t('button')}</Button>
-      </Box>
+      </Stack>
     </Container>
   );
 }

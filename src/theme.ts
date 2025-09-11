@@ -6,4 +6,17 @@ export const theme = createTheme({
     fontFamily: 'var(--font-roboto)',
   },
   cssVariables: true,
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          'input:-webkit-autofill': {
+            WebkitBoxShadow: 'unset',
+            WebkitTextFillColor: 'unset',
+            caretColor: 'unset',
+          },
+        },
+      },
+    },
+  },
 });
