@@ -14,28 +14,14 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { Controller } from 'react-hook-form';
 
-import type {
-  HeaderDataProps,
-  HeaderProps,
-} from '@/types/components/rest-client';
+import type { HeaderProps } from '@/types/components/rest-client';
 
 export default function Header(props: HeaderProps) {
   const t = useTranslations('rest-client.request');
-  const { headerKeys, getKeyValues, handleUpdate, handleRemoveHeader } = props;
-  const [dataState, setDataState] = useState<HeaderDataProps>(props.data);
-
-  const updateKey = (key: string) => {
-    const newState = { ...dataState, key };
-    setDataState(newState);
-    handleUpdate({ id: dataState.id, key });
-  };
-
-  const updateValue = (value: string) => {
-    const newState = { ...dataState, value };
-    setDataState(newState);
-    handleUpdate({ id: dataState.id, value });
-  };
+  const { headerKeys, getOptionsByKey, control, remove, data, index } = props;
+  const [options, setOptions] = useState(getOptionsByKey(data.key));
 
   return (
     <Stack alignItems={'center'} spacing={2} direction={'row'}>
@@ -51,16 +37,24 @@ export default function Header(props: HeaderProps) {
               </IconButton>
             </Tooltip>
           </Stack>
-          <Autocomplete
-            sx={{ width: '15rem' }}
-            options={headerKeys}
-            freeSolo={true}
-            onInputChange={(_, value) => {
-              updateKey(value);
-            }}
-            value={dataState.key}
-            renderInput={(params) => (
-              <TextField {...params} id="method-textfield-label-key" />
+          <Controller
+            name={`headers.${index}.key`}
+            control={control}
+            defaultValue={data.key || ''}
+            render={({ field }) => (
+              <Autocomplete
+                sx={{ width: '15rem' }}
+                options={headerKeys}
+                freeSolo
+                value={field.value}
+                onInputChange={(_, value) => {
+                  field.onChange(value);
+                  setOptions(getOptionsByKey(value));
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} id="method-textfield-label-key" />
+                )}
+              />
             )}
           />
         </Box>
@@ -68,15 +62,23 @@ export default function Header(props: HeaderProps) {
           <InputLabel htmlFor="method-textfield-label-value">
             {t('labels.value')}
           </InputLabel>
-          <Autocomplete
-            options={getKeyValues(dataState.key)}
-            freeSolo={true}
-            onInputChange={(_, value) => {
-              updateValue(value);
-            }}
-            value={dataState.value}
-            renderInput={(params) => (
-              <TextField {...params} id="method-textfield-label-value" />
+          <Controller
+            name={`headers.${index}.value`}
+            control={control}
+            defaultValue={data.value || ''}
+            render={({ field }) => (
+              <Autocomplete
+                sx={{ width: '15rem' }}
+                options={options}
+                freeSolo
+                value={field.value}
+                onInputChange={(_, value) => {
+                  field.onChange(value);
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} id="method-textfield-label-value" />
+                )}
+              />
             )}
           />
         </Stack>
@@ -84,7 +86,7 @@ export default function Header(props: HeaderProps) {
       <Stack>
         <Button
           onClick={() => {
-            handleRemoveHeader(dataState.id);
+            remove();
           }}
           sx={{
             minWidth: '1rem',

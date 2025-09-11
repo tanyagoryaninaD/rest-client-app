@@ -27,7 +27,7 @@ export default function RestClientRequest(props: UseFormProps) {
         </Button>
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
-        <Headers />
+        <Headers register={props.register} control={props.control} />
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
         <Code />

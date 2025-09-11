@@ -1,4 +1,8 @@
-import type { UseFormRegister } from 'react-hook-form';
+import type {
+  Control,
+  UseFieldArrayRemove,
+  UseFormRegister,
+} from 'react-hook-form';
 
 import type { HEADERS } from '@/constants/rest-client';
 
@@ -12,34 +16,38 @@ export interface GenerateCodeProps {
   handleCopyCode: () => void;
 }
 
-export interface HeaderProps {
-  data: HeaderDataProps;
+export interface HeaderProps
+  extends Pick<UseFormProps, 'register'>,
+    Pick<UseFormProps, 'control'> {
+  data: FieldProps;
+  index: number;
   headerKeys: HEADERS_KEYS[];
-  getKeyValues: (key: string) => readonly string[];
-  handleUpdate: (data: UpdateHeaderDataProps) => void;
-  handleRemoveHeader: (id: number) => void;
+  getOptionsByKey: (key: string) => readonly string[];
+  remove: UseFieldArrayRemove;
 }
 
 export type HEADERS_KEYS = keyof typeof HEADERS;
 
-export interface HeaderDataProps {
-  id: number;
+export interface FieldProps {
+  id: string;
   key: string;
   value: string;
 }
 
-export interface UpdateHeaderDataProps
-  extends Partial<Omit<HeaderDataProps, 'id'>> {
-  id: number;
+export interface HeaderDataProps {
+  key: string;
+  value: string;
 }
 
 export interface ClientFormStateProps {
   method: string;
   url: string;
+  headers: HeaderDataProps[];
 }
 
-export interface UseFormProps {
+export interface UseFormProps extends Partial<ClientFormStateProps> {
   register: UseFormRegister<ClientFormStateProps>;
+  control?: Control<ClientFormStateProps, unknown, ClientFormStateProps>;
 }
 
 export interface ClientResponseStateProps {
