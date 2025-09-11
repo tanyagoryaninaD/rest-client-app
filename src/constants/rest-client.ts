@@ -32,7 +32,7 @@ export const HEADERS = {
   'Last-Modified': [],
 } as const;
 
-export const METHODS = ['get', 'post', 'put', 'patch', 'delete'] as const;
+export const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 
 export const CLIENT_FORM = {
   method: 'method',
