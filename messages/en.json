@@ -86,6 +86,10 @@
       "variables": "Variables"
     }
   },
+  "not-found": {
+    "title": "We lack such a page",
+    "button": "Go back"
+  },
   "variables": {
     "title": "Manage Your Variables",
     "name": "Name",
