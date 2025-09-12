@@ -40,14 +40,16 @@ export default function VariablesSyncProvider({ children }: PropsWithChildren) {
 
     let storedData = '{}';
     if (storedBase64Data) {
+      try {
+        storedData = atob(storedBase64Data);
+        const parsedData = VariablesStorageSchema.parse(JSON.parse(storedData));
+
+        dispatch(restoreVariables(parsedData));
+      } catch {
+        localStorage.removeItem(key);
+        throw new Error(t('data_format_error'));
+      }
       storedData = atob(storedBase64Data);
-    }
-
-    const parsedData = VariablesStorageSchema.safeParse(JSON.parse(storedData));
-
-    if (!parsedData.success) {
-      localStorage.removeItem(key);
-      throw new Error(t('data_format_error'));
     }
 
     const unsubscribe = store.subscribe(() => {
@@ -55,8 +57,6 @@ export default function VariablesSyncProvider({ children }: PropsWithChildren) {
       const base64Data = btoa(JSON.stringify(data));
       localStorage.setItem(key, base64Data);
     });
-
-    dispatch(restoreVariables(parsedData.data));
 
     return () => {
       unsubscribe();
