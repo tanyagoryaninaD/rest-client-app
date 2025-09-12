@@ -5,8 +5,9 @@ import { render, screen } from '@testing-library/react';
 import withAuth from './with-auth';
 
 const mockUseIsLoggedIn = jest.fn();
-jest.mock('@/hooks/use-is-logged-in', () => ({
-  useIsLoggedIn: () => mockUseIsLoggedIn() as boolean,
+jest.mock('@/hooks/use-user-logged-state', () => ({
+  useUserLoggedState: () =>
+    mockUseIsLoggedIn() as { isLoggedIn: boolean; isLoading: boolean },
 }));
 
 const mockRouterReplace = jest.fn();
@@ -32,21 +33,29 @@ describe('withAuth HOC', () => {
   });
 
   describe('when protecting a private route', () => {
-    it('should render the component if the user is logged in', () => {
-      mockUseIsLoggedIn.mockReturnValue(true);
+    it('should render the component if the user is logged in', async () => {
+      mockUseIsLoggedIn.mockReturnValue({
+        isLoggedIn: true,
+        isLoading: false,
+      });
       const ProtectedComponent = withAuth(MockComponent);
 
       render(<ProtectedComponent />);
 
-      expect(screen.getByText('Protected Content')).toBeInTheDocument();
+      const content = await screen.findByText('Protected Content');
+      expect(content).toBeInTheDocument();
 
-      expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+      const loader = screen.queryByText('Loading...');
+      expect(loader).not.toBeInTheDocument();
 
       expect(mockRouterReplace).not.toHaveBeenCalled();
     });
 
     it('should render Loader and redirect if the user is not logged in', () => {
-      mockUseIsLoggedIn.mockReturnValue(false);
+      mockUseIsLoggedIn.mockReturnValue({
+        isLoggedIn: false,
+        isLoading: false,
+      });
       const ProtectedComponent = withAuth(MockComponent);
 
       render(<ProtectedComponent />);
@@ -62,7 +71,10 @@ describe('withAuth HOC', () => {
 
   describe('when protecting a non-private route', () => {
     it('should render the component if the user is NOT logged in', () => {
-      mockUseIsLoggedIn.mockReturnValue(false);
+      mockUseIsLoggedIn.mockReturnValue({
+        isLoggedIn: false,
+        isLoading: false,
+      });
       const PublicComponent = withAuth(MockComponent, {
         reverseCondition: true,
       });
@@ -75,7 +87,10 @@ describe('withAuth HOC', () => {
     });
 
     it('should render Loader and redirect if the user IS logged in', () => {
-      mockUseIsLoggedIn.mockReturnValue(true);
+      mockUseIsLoggedIn.mockReturnValue({
+        isLoggedIn: true,
+        isLoading: false,
+      });
       const PublicComponent = withAuth(MockComponent, {
         reverseCondition: true,
       });
