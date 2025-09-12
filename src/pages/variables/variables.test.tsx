@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react';
 import { Provider } from 'react-redux';
 
 import { MockIntlProvider } from '@/__test__/mocks/IntlProvider';
@@ -60,9 +61,11 @@ describe('Variables Page', () => {
       )
     );
 
-    store.dispatch(
-      restoreVariables({ variable_1: 'value_1', variable_2: 'value_2' })
-    );
+    act(() => {
+      store.dispatch(
+        restoreVariables({ variable_1: 'value_1', variable_2: 'value_2' })
+      );
+    });
 
     const removeButton = await screen.findByTestId(`remove-variable_1`);
     await user.click(removeButton);

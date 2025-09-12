@@ -1,3 +1,11 @@
+import { render, screen } from '@testing-library/react';
+import { act } from 'react';
+import { Provider } from 'react-redux';
+
+import { useAppSelector } from '@/hooks/redux';
+
+import store from '..';
+import { selectVariable } from './variables-slice';
 import reducer, {
   addVariable,
   removeVariable,
@@ -49,5 +57,26 @@ describe('variables slice', () => {
     };
     const newState = reducer(initialState, restoreVariables(newVariables));
     expect(newState.variables).toEqual(newVariables);
+  });
+
+  it('should handle selecting a variable with hook', () => {
+    store.dispatch(restoreVariables({ var1: 'value_1' }));
+
+    const TestComponent: React.FC = () => {
+      const variable = useAppSelector(selectVariable('var1'));
+      return variable;
+    };
+
+    render(
+      <Provider store={store}>
+        <TestComponent />
+      </Provider>
+    );
+
+    expect(screen.getByText('value_1')).toBeInTheDocument();
+
+    act(() => {
+      store.dispatch(restoreVariables({}));
+    });
   });
 });
