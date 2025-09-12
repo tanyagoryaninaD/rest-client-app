@@ -41,6 +41,7 @@ export function VariableRow({
       <StyledTableCell>{value}</StyledTableCell>
       <TableCell>
         <UtilIconButton
+          testId={`remove-${name}`}
           aria-label="remove variable"
           sxStyleProps={{
             color: 'var(--mui-palette-error-dark)',
