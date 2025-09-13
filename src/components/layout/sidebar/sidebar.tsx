@@ -3,14 +3,15 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 
+import type { AppUser } from '@/types/userData';
+
 import AuthPanel from '../header/auth-panel/auth-panel';
 import HeaderIconButton from '../header/header-icon-button/header-icon-button';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
   closeSidebar: () => void;
-  // TODO: Add user context
-  user?: { name: string };
+  user: AppUser | null;
 }
 
 export default function Sidebar({

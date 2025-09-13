@@ -63,7 +63,8 @@
   },
   "toast": {
     "auth": {
-      "welcome": "Добро пожаловать"
+      "welcome": "Добро пожаловать",
+      "sign_out": "Вы вышли из системы"
     },
     "authErrors": {
       "invalidCredential": "Неверное имя пользователя или пароль",
@@ -72,6 +73,7 @@
     }
   },
   "home_general": {
+    "greetings_firstRegistered": "Добро пожаловать, {name}!",
     "greetings_registered": "С возвращением, {name}!",
     "greetings_unregistered": "Добро пожаловать!",
     "buttons": {

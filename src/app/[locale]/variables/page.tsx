@@ -1,12 +1,13 @@
-import { Container, Typography } from '@mui/material';
+'use client';
 
-export default function VariablesPage() {
-  return (
-    <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Variables Page
-      </Typography>
-      <Typography>User Variables Here</Typography>
-    </Container>
-  );
-}
+import dynamic from 'next/dynamic';
+
+import withAuth from '@/components/auth/with-auth';
+import Loader from '@/components/layout/loader/loader';
+
+const Variables = dynamic(() => import('@/pages/variables/variables'), {
+  ssr: false,
+  loading: Loader,
+});
+
+export default withAuth(Variables);

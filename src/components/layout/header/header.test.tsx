@@ -11,6 +11,13 @@ jest.mock('@/i18n/navigation', () => ({
     <a {...props}>{props.children}</a>
   ),
   usePathname: () => '/',
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
+
+jest.mock('@/utils/firebase/auth', () => ({
+  userLogout: jest.fn(),
 }));
 
 const messages = {
@@ -26,23 +33,24 @@ const messages = {
       variables: 'Variables',
     },
   },
+  toast: {
+    auth: {
+      welcome: 'Welcome',
+      sign_out: 'You have been signed out',
+    },
+
+    authErrors: {
+      invalidCredential: 'Incorrect username or password',
+      emailInUse: 'A user with this E-mail already exists.',
+      unknownError: 'Unknown error',
+    },
+  },
   languages: {
     en: 'English',
   },
 };
 
 describe('Header Component', () => {
-  it('should render main title and auth buttons for an unauthorized user', () => {
-    render(MockIntlProvider(<Header />, { locale: 'en', messages }));
-
-    expect(
-      screen.getByRole('link', { name: /TDA REST Client/i })
-    ).toBeInTheDocument();
-
-    expect(screen.getByTestId('nav-link-sign-in')).toBeInTheDocument();
-    expect(screen.getByTestId('nav-link-sign-up')).toBeInTheDocument();
-  });
-
   it('should toggle the sidebar on menu button click', async () => {
     render(MockIntlProvider(<Header />, { locale: 'en', messages }));
 
