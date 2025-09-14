@@ -8,19 +8,13 @@ import userReducer from '@/store/slicers/userSlicer';
 import type { HistoryCollection } from '@/types/userData';
 import { getHistory } from '@/utils/firebase/collections';
 
-import History from './history';
+import HistoryClient from './HistoryClient';
 
 jest.mock('@/i18n/navigation', () => ({
   Link: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a {...props}>{props.children}</a>
   ),
 }));
-
-jest.mock('@/components/layout/loader/loader', () => {
-  return function MockLoader() {
-    return <div>Loading...</div>;
-  };
-});
 
 jest.mock('@/utils/firebase/collections', () => ({
   getHistory: jest.fn(),
@@ -50,37 +44,6 @@ describe('History Page', () => {
     jest.clearAllMocks();
   });
 
-  it('should shows loader while fetching data', () => {
-    (getHistory as jest.Mock).mockReturnValue(new Promise(() => null));
-
-    const store = configureStore({
-      reducer: { user: userReducer },
-      preloadedState: {
-        user: {
-          user: {
-            userId: 'user1',
-            displayName: 'John',
-            isNewUser: false,
-            expiresIn: Date.now() + 1000,
-          },
-          isValid: true,
-          loading: false,
-        },
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <IntlProvider locale="en" messages={messages}>
-          <History />
-        </IntlProvider>
-      </Provider>
-    );
-    (getHistory as jest.Mock).mockResolvedValue([]);
-
-    expect(screen.getByText(/Loading/i)).toBeInTheDocument();
-  });
-
   it('should renders alternative component when collection is empty', async () => {
     (getHistory as jest.Mock).mockResolvedValue(null);
 
@@ -103,7 +66,7 @@ describe('History Page', () => {
     render(
       <Provider store={store}>
         <IntlProvider locale="en" messages={messages}>
-          <History />
+          <HistoryClient requests={[]} />
         </IntlProvider>
       </Provider>
     );
@@ -115,29 +78,29 @@ describe('History Page', () => {
     });
   });
 
-  it('should renders collection sorted by date', async () => {
+  it('should renders collection', async () => {
     const requests: HistoryCollection[] = [
       {
         id: '1',
         requestDuration: 50,
         responseStatusCode: 200,
-        requestTimestamp: 1000,
+        requestTimestamp: 2000,
         requestMethod: 'GET',
         requestSize: 10,
         responseSize: 20,
         errorDetails: '',
-        endpointUrl: '/api/first',
+        endpointUrl: 'api/first',
       },
       {
         id: '2',
         requestDuration: 30,
         responseStatusCode: 404,
-        requestTimestamp: 2000,
+        requestTimestamp: 1000,
         requestMethod: 'POST',
         requestSize: 15,
         responseSize: 25,
         errorDetails: 'Not Found',
-        endpointUrl: '/api/second',
+        endpointUrl: 'api/second',
       },
     ];
     (getHistory as jest.Mock).mockResolvedValue(requests);
@@ -161,7 +124,7 @@ describe('History Page', () => {
     render(
       <Provider store={store}>
         <IntlProvider locale="en" messages={messages}>
-          <History />
+          <HistoryClient requests={requests} />
         </IntlProvider>
       </Provider>
     );
@@ -172,8 +135,8 @@ describe('History Page', () => {
 
     const links = screen.getAllByRole('link');
     expect(links.length).toBe(2);
-    expect(links[0]).toHaveAttribute('href', '/client/2');
-    expect(links[1]).toHaveAttribute('href', '/client/1');
+    expect(links[0]).toHaveAttribute('href', '/client/api/first');
+    expect(links[1]).toHaveAttribute('href', '/client/api/second');
 
     expect(screen.getByText('GET')).toBeInTheDocument();
     expect(screen.getByText('POST')).toBeInTheDocument();
@@ -191,7 +154,7 @@ describe('History Page', () => {
         requestSize: 10,
         responseSize: 20,
         errorDetails: '',
-        endpointUrl: '/api/first',
+        endpointUrl: 'api/first',
       },
     ];
     (getHistory as jest.Mock).mockResolvedValue(requests);
@@ -215,16 +178,16 @@ describe('History Page', () => {
     render(
       <Provider store={store}>
         <IntlProvider locale="en" messages={messages}>
-          <History />
+          <HistoryClient requests={requests} />
         </IntlProvider>
       </Provider>
     );
 
     await waitFor(() => screen.getByText('GET'));
     const link = screen.getByRole('link', { name: /GET/i });
-    expect(link).toHaveAttribute('href', '/client/1');
+    expect(link).toHaveAttribute('href', '/client/api/first');
 
     await userEvent.click(link);
-    expect(link).toHaveAttribute('href', '/client/1');
+    expect(link).toHaveAttribute('href', '/client/api/first');
   });
 });

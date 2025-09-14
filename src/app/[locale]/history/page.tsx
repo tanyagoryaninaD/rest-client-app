@@ -1,13 +1,29 @@
-'use client';
+import { cookies } from 'next/headers';
 
-import dynamic from 'next/dynamic';
+import { redirect } from '@/i18n/navigation';
+import { verifyIdToken } from '@/lib/fireBaseAdmin';
+import HistoryClient from '@/pages/history/HistoryClient';
+import type { HistoryCollection } from '@/types/userData';
+import { getHistory } from '@/utils/firebase/collections';
 
-import withAuth from '@/components/auth/with-auth';
-import Loader from '@/components/layout/loader/loader';
+export default async function HistoryPage() {
+  const token: string | undefined = (await cookies()).get('token')?.value;
+  const locale = (await cookies()).get('NEXT_LOCALE')?.value ?? 'en';
 
-const History = dynamic(() => import('@/pages/history/history'), {
-  ssr: false,
-  loading: Loader,
-});
+  if (!token) {
+    redirect({ href: '/', locale });
+    return;
+  }
 
-export default withAuth(History);
+  const decoded = await verifyIdToken(token);
+  const userId = decoded.uid;
+
+  let requests: HistoryCollection[] = [];
+  try {
+    requests = await getHistory(userId);
+  } catch {
+    requests = [];
+  }
+
+  return <HistoryClient requests={requests} />;
+}

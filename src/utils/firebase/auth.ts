@@ -64,6 +64,7 @@ export const userLogout = async (t: (key: string) => string) => {
   try {
     await signOut(auth);
     toast.success(t('auth.sign_out'));
+    document.cookie = 'token=; path=/; max-age=0';
   } catch (err) {
     handleAuthError(err, t);
   }
