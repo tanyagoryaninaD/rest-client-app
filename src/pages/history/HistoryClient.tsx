@@ -63,7 +63,7 @@ export default function HistoryClient({ requests }: HistoryClientProps) {
             <CardActionArea
               key={item.id}
               component={Link}
-              href={`/client/${item.endpointUrl}`}
+              href={`/client/${item.pathNameRequest}`}
               sx={{ display: 'block', maxWidth: 800 }}
             >
               <Card

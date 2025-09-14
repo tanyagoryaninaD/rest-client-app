@@ -82,6 +82,7 @@ describe('History Page', () => {
     const requests: HistoryCollection[] = [
       {
         id: '1',
+        pathNameRequest: 'pathname1',
         requestDuration: 50,
         responseStatusCode: 200,
         requestTimestamp: 2000,
@@ -93,6 +94,7 @@ describe('History Page', () => {
       },
       {
         id: '2',
+        pathNameRequest: 'pathname2',
         requestDuration: 30,
         responseStatusCode: 404,
         requestTimestamp: 1000,
@@ -135,9 +137,8 @@ describe('History Page', () => {
 
     const links = screen.getAllByRole('link');
     expect(links.length).toBe(2);
-    expect(links[0]).toHaveAttribute('href', '/client/api/first');
-    expect(links[1]).toHaveAttribute('href', '/client/api/second');
-
+    expect(links[0]).toHaveAttribute('href', '/client/pathname2');
+    expect(links[1]).toHaveAttribute('href', '/client/pathname1');
     expect(screen.getByText('GET')).toBeInTheDocument();
     expect(screen.getByText('POST')).toBeInTheDocument();
     expect(screen.getByText('Not Found')).toBeInTheDocument();
@@ -147,6 +148,7 @@ describe('History Page', () => {
     const requests: HistoryCollection[] = [
       {
         id: '1',
+        pathNameRequest: 'pathname',
         requestDuration: 50,
         responseStatusCode: 200,
         requestTimestamp: 1000,
@@ -185,9 +187,9 @@ describe('History Page', () => {
 
     await waitFor(() => screen.getByText('GET'));
     const link = screen.getByRole('link', { name: /GET/i });
-    expect(link).toHaveAttribute('href', '/client/api/first');
+    expect(link).toHaveAttribute('href', '/client/pathname');
 
     await userEvent.click(link);
-    expect(link).toHaveAttribute('href', '/client/api/first');
+    expect(link).toHaveAttribute('href', '/client/pathname');
   });
 });

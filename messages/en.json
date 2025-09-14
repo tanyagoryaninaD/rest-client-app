@@ -86,7 +86,7 @@
       "variables": "Variables"
     }
   },
-   "not-found": {
+  "not-found": {
     "title": "We lack such a page",
     "button": "Go back"
   },

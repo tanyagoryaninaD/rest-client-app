@@ -48,6 +48,7 @@ export async function getHistory(userId: string): Promise<HistoryCollection[]> {
     const field = doc.data() as FirestoreHistoryDoc;
     return {
       id: doc.id,
+      pathNameRequest: field.pathNameRequest ?? '',
       requestDuration: field.requestDuration ?? 0,
       responseStatusCode: field.responseStatusCode ?? 0,
       requestTimestamp: field.requestTimestamp ?? 0,
