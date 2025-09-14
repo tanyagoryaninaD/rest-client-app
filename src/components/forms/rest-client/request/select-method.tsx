@@ -7,7 +7,7 @@ import type { ClientFormStateProps } from '@/types/components/rest-client';
 
 export default function SelectMethod() {
   const t = useTranslations('rest-client.request.labels');
-  const { register } = useFormContext<ClientFormStateProps>();
+  const { register, watch } = useFormContext<ClientFormStateProps>();
 
   return (
     <Box>
@@ -19,7 +19,7 @@ export default function SelectMethod() {
             id: 'method-select',
           },
         }}
-        defaultValue={METHODS[0]}
+        defaultValue={watch('method')}
         {...register(CLIENT_FORM.method)}
       >
         {METHODS.map((method) => (

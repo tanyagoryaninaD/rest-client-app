@@ -2,7 +2,11 @@ import type { ReadonlyURLSearchParams } from 'next/navigation';
 import type { QueryParams } from 'next-intl/navigation';
 import { type GeneratorsKeys } from 'postman-collection';
 
-import { DEFAULT_GENERATOR, GENERATORS } from '@/constants/rest-client';
+import {
+  DEFAULT_GENERATOR,
+  GENERATORS,
+  METHODS,
+} from '@/constants/rest-client';
 import type { HeaderDataProps } from '@/types/components/rest-client';
 
 import { base64ToUtf8 } from './base64';
@@ -53,7 +57,7 @@ export const parseURLtoFormData = (
   const [method, url, body] = basePathnames;
 
   return {
-    method,
+    method: method || METHODS[0],
     url: base64ToUtf8(url),
     body: base64ToUtf8(body),
     headers,
