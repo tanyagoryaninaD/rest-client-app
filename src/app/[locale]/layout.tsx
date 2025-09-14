@@ -15,6 +15,8 @@ import MainLayout from '@/components/layout/layout';
 import { routing } from '@/i18n/routing';
 import { theme } from '@/theme';
 
+import StoreProvider from '../../components/providers/StoreProvider';
+
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin', 'cyrillic'],
@@ -44,15 +46,17 @@ export default async function RootLayout({
     <html lang={locale} className={roboto.variable}>
       <body>
         <NextIntlClientProvider>
-          <ThemeProvider theme={theme}>
-            <ErrorBoundaryProvider>
-              <AppRouterCacheProvider>
-                <CssBaseline />
-                <MainLayout>{children}</MainLayout>
-                <ToastContainer position="top-right" autoClose={2000} />
-              </AppRouterCacheProvider>
-            </ErrorBoundaryProvider>
-          </ThemeProvider>
+          <StoreProvider>
+            <ThemeProvider theme={theme}>
+              <ErrorBoundaryProvider>
+                <AppRouterCacheProvider>
+                  <CssBaseline />
+                  <MainLayout>{children}</MainLayout>
+                  <ToastContainer position="top-right" autoClose={2000} />
+                </AppRouterCacheProvider>
+              </ErrorBoundaryProvider>
+            </ThemeProvider>
+          </StoreProvider>
         </NextIntlClientProvider>
       </body>
     </html>

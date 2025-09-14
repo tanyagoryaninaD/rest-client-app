@@ -1,5 +1,8 @@
 import { IntlProvider } from 'next-intl';
 import type { JSX } from 'react';
+import { Provider } from 'react-redux';
+
+import store from '@/store';
 
 interface Options {
   locale: string;
@@ -7,10 +10,12 @@ interface Options {
 }
 
 export const MockIntlProvider = (children: JSX.Element, options?: Options) => (
-  <IntlProvider
-    locale={options?.locale ?? 'en'}
-    messages={options?.messages ?? {}}
-  >
-    {children}
-  </IntlProvider>
+  <Provider store={store}>
+    <IntlProvider
+      locale={options?.locale ?? 'en'}
+      messages={options?.messages ?? {}}
+    >
+      {children}
+    </IntlProvider>
+  </Provider>
 );

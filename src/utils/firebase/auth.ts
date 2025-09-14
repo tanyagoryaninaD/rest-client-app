@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -10,7 +11,8 @@ import { appDB, auth } from '@/lib/firebase';
 import type { SignInSignUpValues } from '@/types/authForms';
 import { Collections } from '@/types/enums/firebase';
 
-import { handleAuthError } from '../handlers/authHandlers';
+import { handleAuthError } from '../handlers/authErrorsHandler';
+import { mapUserFirebase } from './mapUserFirebase';
 
 export const userRegister = async (
   data: SignInSignUpValues,
@@ -25,15 +27,13 @@ export const userRegister = async (
       password
     );
     const user = userCredential.user;
-
     await setDoc(doc(appDB, Collections.Users, user.uid), {
       name,
       email,
     });
-
     await updateProfile(user, { displayName: name });
 
-    await userLogin({ email, password }, t);
+    return await mapUserFirebase(user, true);
   } catch (err) {
     handleAuthError(err, t);
   }
@@ -53,6 +53,17 @@ export const userLogin = async (
     );
     const user = userCredential.user;
     toast.success(`${t('toast.auth.welcome')} ${user.displayName}`);
+    return await mapUserFirebase(user, false);
+  } catch (err) {
+    handleAuthError(err, t);
+    return null;
+  }
+};
+
+export const userLogout = async (t: (key: string) => string) => {
+  try {
+    await signOut(auth);
+    toast.success(t('auth.sign_out'));
   } catch (err) {
     handleAuthError(err, t);
   }
