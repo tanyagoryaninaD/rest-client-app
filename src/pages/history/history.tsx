@@ -7,6 +7,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import Loader from '@/components/layout/loader/loader';
@@ -16,6 +17,7 @@ import type { HistoryCollection } from '@/types/userData';
 import { getHistory } from '@/utils/firebase/collections';
 
 export default function History() {
+  const t = useTranslations('history_general');
   const { user } = useAppSelector((state) => state.user);
   const [requests, setRequests] = useState<HistoryCollection[] | null>(null);
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -53,20 +55,20 @@ export default function History() {
       }}
     >
       <Typography variant="h3" component="h1" gutterBottom>
-        History
+        {t('title')}
       </Typography>
 
       {!requests.length ? (
         <>
-          <Typography>You have not executed any requests</Typography>
-          <Typography>It is empty here. Try:</Typography>
+          <Typography>{t('invalidHistory.title')}</Typography>
+          <Typography>{t('invalidHistory.subtitle')}</Typography>
           <Button
             sx={{ mt: 2, px: 3 }}
             href="/client"
             LinkComponent={Link}
             variant="contained"
           >
-            Client
+            {t('invalidHistory.button')}
           </Button>
         </>
       ) : (
@@ -132,10 +134,22 @@ export default function History() {
                   }}
                 >
                   {[
-                    { label: 'Status', value: item.responseStatusCode },
-                    { label: 'Latency', value: `${item.requestDuration}ms` },
-                    { label: 'Request Size', value: `${item.requestSize}B` },
-                    { label: 'Response Size', value: `${item.responseSize}B` },
+                    {
+                      label: t('card.status'),
+                      value: item.responseStatusCode,
+                    },
+                    {
+                      label: t('card.duration'),
+                      value: `${item.requestDuration} ${t('card.time')}`,
+                    },
+                    {
+                      label: t('card.request-size'),
+                      value: `${item.requestSize} ${t('card.size')}`,
+                    },
+                    {
+                      label: t('card.response-size'),
+                      value: `${item.responseSize} ${t('card.size')}`,
+                    },
                   ].map((field) => (
                     <Box
                       key={field.label}
