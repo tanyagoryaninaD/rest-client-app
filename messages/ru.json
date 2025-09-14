@@ -85,6 +85,10 @@
       "variables": "Переменные"
     }
   },
+  "not-found": {
+    "title": "У нас нет такой страницы",
+    "button": "Вернуться назад"
+  },
   "history_general": {
     "title": "История",
     "invalidHistory": {
