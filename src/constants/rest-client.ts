@@ -37,4 +37,34 @@ export const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 export const CLIENT_FORM = {
   method: 'method',
   url: 'url',
+  body: 'body',
+  generator: 'generator',
+} as const;
+
+export const GENERATORS = {
+  C: ['libcurl'],
+  'C#': ['HttpClient', 'RestSharp'],
+  cURL: ['cURL'],
+  Dart: ['http'],
+  Go: ['Native'],
+  HTTP: ['HTTP'],
+  Java: ['OkHttp', 'Unirest'],
+  JavaScript: ['Fetch', 'jQuery', 'XHR'],
+  Kotlin: ['OkHttp'],
+  NodeJs: ['Axios', 'Native', 'Request', 'Unirest'],
+  'Objective-C': ['NSURLSession'],
+  OCaml: ['Cohttp'],
+  PHP: ['cURL', 'Guzzle', 'pecl_http', 'HTTP_Request2'],
+  PowerShell: ['RestMethod'],
+  Python: ['http.client', 'Requests'],
+  R: ['httr', 'RCurl'],
+  Rust: ['Reqwest'],
+  Ruby: ['Net:HTTP'],
+  Shell: ['Httpie', 'wget'],
+  Swift: ['URLSession'],
+} as const;
+
+export const DEFAULT_GENERATOR = {
+  language: 'JavaScript',
+  variant: 'Fetch',
 } as const;

@@ -95,10 +95,11 @@
         "method": "Method",
         "url": "Endpoint URL",
         "key": "Key",
-        "value": "Value"
+        "value": "Value",
+        "body": "Body"
       },
       "placeholders": {
-        "body": "Click on 'Generate Code' to create the code"
+        "body": "Enter the request body here"
       },
       "buttons": {
         "generate": "Generate Code",
@@ -109,7 +110,6 @@
         "header": "You can enter your own values. Autocomplete offers examples, but you can ignore them."
       }
     },
-
     "response": {
       "title": "Response",
       "labels": {
@@ -119,6 +119,13 @@
       "placeholders": {
         "status": "HTTP Status Code",
         "body": "Read-Only JSON Viewer"
+      }
+    },
+    "errors": {
+      "unknown": "Unknown error",
+      "generator": {
+        "generate": "Code generation error",
+        "invalid": "Invalid request"
       }
     }
   }

@@ -4,23 +4,24 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Box, Button, Stack } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { HEADERS } from '@/constants/rest-client';
 import type {
+  ClientFormStateProps,
   HEADERS_KEYS,
-  UseFormProps,
 } from '@/types/components/rest-client';
 
 import Header from './header';
 
-export default function Headers(props: UseFormProps) {
+export default function Headers() {
   const t = useTranslations('rest-client.request');
   const [isOpen, setIsOpen] = useState(false);
   const headerKeys = Object.keys(HEADERS) as HEADERS_KEYS[];
+  const { control } = useFormContext<ClientFormStateProps>();
 
   const { fields, append, remove } = useFieldArray({
-    control: props.control,
+    control,
     name: 'headers',
   });
 
@@ -78,8 +79,6 @@ export default function Headers(props: UseFormProps) {
 
                   remove(index);
                 }}
-                register={props.register}
-                control={props.control}
               />
             );
           })}

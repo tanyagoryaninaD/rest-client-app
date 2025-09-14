@@ -1,11 +1,13 @@
 import { Box, InputLabel, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useFormContext } from 'react-hook-form';
 
 import { CLIENT_FORM } from '@/constants/rest-client';
-import type { UseFormProps } from '@/types/components/rest-client';
+import type { ClientFormStateProps } from '@/types/components/rest-client';
 
-export default function TextFieldURL(props: UseFormProps) {
+export default function TextFieldURL() {
   const t = useTranslations('rest-client.request.labels');
+  const { register } = useFormContext<ClientFormStateProps>();
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -19,7 +21,7 @@ export default function TextFieldURL(props: UseFormProps) {
             id: 'url-textfield',
           },
         }}
-        {...props.register(CLIENT_FORM.url)}
+        {...register(CLIENT_FORM.url)}
       />
     </Box>
   );

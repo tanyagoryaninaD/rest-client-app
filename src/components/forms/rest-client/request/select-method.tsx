@@ -1,11 +1,13 @@
 import { Box, InputLabel, MenuItem, Select } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useFormContext } from 'react-hook-form';
 
 import { CLIENT_FORM, METHODS } from '@/constants/rest-client';
-import type { UseFormProps } from '@/types/components/rest-client';
+import type { ClientFormStateProps } from '@/types/components/rest-client';
 
-export default function SelectMethod(props: UseFormProps) {
+export default function SelectMethod() {
   const t = useTranslations('rest-client.request.labels');
+  const { register } = useFormContext<ClientFormStateProps>();
 
   return (
     <Box>
@@ -18,7 +20,7 @@ export default function SelectMethod(props: UseFormProps) {
           },
         }}
         defaultValue={METHODS[0]}
-        {...props.register(CLIENT_FORM.method)}
+        {...register(CLIENT_FORM.method)}
       >
         {METHODS.map((method) => (
           <MenuItem key={method} value={method}>

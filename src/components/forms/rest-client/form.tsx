@@ -1,7 +1,8 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 
 import RestClientRequest from '@/components/forms/rest-client/request/rest-client-request';
 import RestClientResponse from '@/components/forms/rest-client/response/rest-client-response';
@@ -11,24 +12,35 @@ import type {
   ClientResponseStateProps,
 } from '@/types/components/rest-client';
 import { utf8ToBase64 } from '@/utils/handlers/base64';
-import { headersQueryParams } from '@/utils/handlers/clientForm';
+import {
+  headersQueryParams,
+  parseURLtoFormData,
+} from '@/utils/handlers/clientForm';
 
 export default function FormRestClient() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const { register, handleSubmit, control } = useForm<ClientFormStateProps>();
+  const clientForm = useForm<ClientFormStateProps>({
+    mode: 'onChange',
+    defaultValues: parseURLtoFormData(pathname, searchParams),
+  });
+
   const [responseFetch, setResponseFetch] = useState<ClientResponseStateProps>(
     {}
   );
 
   const onSubmit: SubmitHandler<ClientFormStateProps> = (data): void => {
-    console.log('🚀 ~ onSubmit ~ data:', data);
     const basePathnames = pathname.split('/').slice(0, 2);
     basePathnames.push(data.method, utf8ToBase64(data.url));
+
+    if (data.body) {
+      basePathnames.push(utf8ToBase64(data.body));
+    }
+
     const newPathname = basePathnames.join('/');
 
-    console.log('🚀 ~ onSubmit ~ data.headers.length:', data.headers.length);
     if (newPathname !== pathname) {
       router.replace({
         pathname: newPathname,
@@ -36,40 +48,21 @@ export default function FormRestClient() {
       });
     }
 
-    setResponseFetch({});
-
-    //TODO
-    // try {
-    //   const url = data.url;
-    //   if (typeof url === 'string') {
-    //     const response = await fetch(url);
-    //     const json = response.json();
-
-    //     json
-    //       .then((body) => {
-    //         setResponseFetch({
-    //           status: response.status,
-    //           body: body as object,
-    //         });
-    //       })
-    //       .catch((error: unknown) => {
-    //         setResponseFetch({
-    //           status: response.status,
-    //           body: error as object,
-    //         });
-    //       });
-    //   }
-    // } catch {}
+    setResponseFetch({}); // TODO
   };
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form className="client-form" onSubmit={handleSubmit(onSubmit)}>
-      <RestClientRequest register={register} control={control} />
-      <RestClientResponse
-        status={responseFetch.status}
-        body={responseFetch.body}
-      />
-    </form>
+    <FormProvider {...clientForm}>
+      <form
+        className="client-form"
+        onSubmit={(e) => void clientForm.handleSubmit(onSubmit)(e)}
+      >
+        <RestClientRequest />
+        <RestClientResponse
+          status={responseFetch.status}
+          body={responseFetch.body}
+        />
+      </form>
+    </FormProvider>
   );
 }

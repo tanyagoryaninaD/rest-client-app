@@ -14,13 +14,17 @@ import {
 } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import type { HeaderProps } from '@/types/components/rest-client';
+import type {
+  ClientFormStateProps,
+  HeaderProps,
+} from '@/types/components/rest-client';
 
 export default function Header(props: HeaderProps) {
   const t = useTranslations('rest-client.request');
-  const { headerKeys, getOptionsByKey, control, remove, data, index } = props;
+  const { headerKeys, getOptionsByKey, remove, data, index } = props;
+  const { control } = useFormContext<ClientFormStateProps>();
   const [options, setOptions] = useState(getOptionsByKey(data.key));
 
   return (
@@ -68,7 +72,7 @@ export default function Header(props: HeaderProps) {
             defaultValue={data.value || ''}
             render={({ field }) => (
               <Autocomplete
-                sx={{ width: '15rem' }}
+                sx={{ width: '100%' }}
                 options={options}
                 freeSolo
                 value={field.value}

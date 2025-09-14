@@ -1,24 +1,18 @@
-import type {
-  Control,
-  UseFieldArrayRemove,
-  UseFormRegister,
-} from 'react-hook-form';
+import type { UseFieldArrayRemove } from 'react-hook-form';
 
 import type { HEADERS } from '@/constants/rest-client';
 
-export interface BodyProps {
-  generatedCode: string;
-}
-
-export interface GenerateCodeProps {
-  generatedCode: string;
+export interface GenerateCodeProps extends GenerateCodeResultProps {
   handleGenerateCode: () => void;
-  handleCopyCode: () => void;
+  handleCopyCode: () => Promise<void>;
 }
 
-export interface HeaderProps
-  extends Pick<UseFormProps, 'register'>,
-    Pick<UseFormProps, 'control'> {
+export interface GenerateCodeResultProps {
+  generatedCode: string;
+  isPending: boolean;
+}
+
+export interface HeaderProps {
   data: FieldProps;
   index: number;
   headerKeys: HEADERS_KEYS[];
@@ -43,11 +37,8 @@ export interface ClientFormStateProps {
   method: string;
   url: string;
   headers: HeaderDataProps[];
-}
-
-export interface UseFormProps extends Partial<ClientFormStateProps> {
-  register: UseFormRegister<ClientFormStateProps>;
-  control?: Control<ClientFormStateProps, unknown, ClientFormStateProps>;
+  body?: string;
+  generator?: string;
 }
 
 export interface ClientResponseStateProps {

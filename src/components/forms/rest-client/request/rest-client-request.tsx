@@ -1,14 +1,18 @@
 import { Button, Stack, Typography } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useFormContext } from 'react-hook-form';
 
-import Code from '@/components/forms/rest-client/request/code/code';
+import GenerateCode from '@/components/forms/rest-client/request/generate-code/generate-code';
 import Headers from '@/components/forms/rest-client/request/headers/headers';
 import SelectMethod from '@/components/forms/rest-client/request/select-method';
 import TextFieldURL from '@/components/forms/rest-client/request/text-field-url';
-import type { UseFormProps } from '@/types/components/rest-client';
+import type { ClientFormStateProps } from '@/types/components/rest-client';
 
-export default function RestClientRequest(props: UseFormProps) {
+import Body from './body';
+
+export default function RestClientRequest() {
   const t = useTranslations('rest-client.request');
+  const { watch } = useFormContext<ClientFormStateProps>();
 
   return (
     <Stack spacing={2} alignItems="center">
@@ -18,19 +22,31 @@ export default function RestClientRequest(props: UseFormProps) {
       <Stack
         spacing={2}
         direction="row"
-        sx={{ width: '100%', maxWidth: '50rem', alignItems: 'flex-end' }}
+        sx={{
+          width: '100%',
+          maxWidth: '50rem',
+          alignItems: 'flex-end',
+        }}
       >
-        <SelectMethod register={props.register} />
-        <TextFieldURL register={props.register} />
-        <Button variant="contained" sx={{ height: '3.5rem' }} type="submit">
+        <SelectMethod />
+        <TextFieldURL />
+        <Button
+          variant="contained"
+          sx={{ height: '3.5rem' }}
+          type="submit"
+          disabled={!watch('url')}
+        >
           {t('send')}
         </Button>
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
-        <Headers register={props.register} control={props.control} />
+        <Headers />
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
-        <Code />
+        <Body />
+      </Stack>
+      <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
+        <GenerateCode />
       </Stack>
     </Stack>
   );
