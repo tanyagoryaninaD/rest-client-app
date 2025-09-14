@@ -15,6 +15,7 @@ import { useAppSelector } from '@/hooks/redux';
 import { Link } from '@/i18n/navigation';
 import type { HistoryCollection } from '@/types/userData';
 import { getHistory } from '@/utils/firebase/collections';
+import { sortHistoryCollection } from '@/utils/firebase/sortHistoryCollection';
 
 export default function History() {
   const t = useTranslations('history_general');
@@ -29,7 +30,7 @@ export default function History() {
       setIsLoadingData(true);
       try {
         const data = await getHistory(user.userId);
-        setRequests(data);
+        setRequests(sortHistoryCollection(data));
       } catch {
         setRequests([]);
       } finally {
@@ -92,6 +93,7 @@ export default function History() {
               <Card
                 variant="outlined"
                 sx={{
+                  backgroundColor: '#eeeeee',
                   borderRadius: 2,
                   p: 1,
                   display: 'flex',
