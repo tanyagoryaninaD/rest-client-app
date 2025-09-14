@@ -7,6 +7,7 @@ export interface AppUser {
 
 export interface HistoryCollection {
   id: string;
+  pathNameRequest: string;
   requestDuration: number;
   responseStatusCode: number;
   requestTimestamp: number;

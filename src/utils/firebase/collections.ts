@@ -19,6 +19,7 @@ export async function getHistory(userId: string) {
       const field = item.data();
       return {
         id: item.id,
+        pathNameRequest: field.pathNameRequest ?? '',
         requestDuration: field.requestDuration ?? 0,
         responseStatusCode: field.responseStatusCode ?? 0,
         requestTimestamp: field.requestTimestamp ?? 0,

@@ -87,7 +87,7 @@ export default function History() {
             <CardActionArea
               key={item.id}
               component={Link}
-              href={`/client/${item.id}`}
+              href={`/client/${item.pathNameRequest}`}
               sx={{ display: 'block', maxWidth: 800 }}
             >
               <Card
