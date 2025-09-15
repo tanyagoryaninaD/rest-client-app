@@ -18,5 +18,22 @@ export const theme = createTheme({
         },
       },
     },
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          borderSpacing: '2px',
+          borderCollapse: 'separate',
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderRight: '1px solid var(--mui-palette-TableCell-border)',
+          fontFamily: 'monospace',
+          fontSize: '1.2rem',
+        },
+      },
+    },
   },
 });
