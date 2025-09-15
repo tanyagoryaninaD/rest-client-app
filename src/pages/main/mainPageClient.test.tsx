@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'next-intl';
 
-import HomePageClient from '@/pages/main/mainClient';
+import HomePageClient from '@/pages/main/mainPageClient';
 
 jest.mock('@/i18n/navigation', () => ({
   Link: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (

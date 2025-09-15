@@ -16,7 +16,6 @@ export default function HomePageClient({
   currentUser,
   isNewUser,
 }: HomePageClientProps) {
-  console.log(currentUser);
   const t = useTranslations('home_general');
 
   return (

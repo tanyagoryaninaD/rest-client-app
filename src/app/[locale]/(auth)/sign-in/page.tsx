@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-import withAuth from '@/components/auth/with-auth';
 import Loader from '@/components/layout/loader/loader';
 
 const SignIn = dynamic(() => import('@/pages/sign-in/sign-in'), {
@@ -10,4 +9,6 @@ const SignIn = dynamic(() => import('@/pages/sign-in/sign-in'), {
   loading: Loader,
 });
 
-export default withAuth(SignIn, { reverseCondition: true });
+export default function SignInPage() {
+  return <SignIn />;
+}

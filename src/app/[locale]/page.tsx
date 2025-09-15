@@ -1,13 +1,13 @@
 import { cookies } from 'next/headers';
 
 import { adminAuth, verifyIdToken } from '@/lib/fireBaseAdmin';
-import HomePageClient from '@/pages/main/mainClient';
+import MainPageClientWrapper from '@/pages/main/mainClientPageWrapper';
 
-export default async function HistoryPage() {
+export default async function MainPage() {
   const token: string | undefined = (await cookies()).get('token')?.value;
 
   if (!token) {
-    return <HomePageClient currentUser="" isNewUser={false} />;
+    return <MainPageClientWrapper currentUser="" isNewUser={false} />;
   }
 
   const decoded = await verifyIdToken(token);
@@ -15,7 +15,7 @@ export default async function HistoryPage() {
   const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
 
   return (
-    <HomePageClient
+    <MainPageClientWrapper
       currentUser={user.displayName ?? user.email ?? decoded.uid}
       isNewUser={isNewUser}
     />

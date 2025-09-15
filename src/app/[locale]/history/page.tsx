@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { verifyIdToken } from '@/lib/fireBaseAdmin';
-import HistoryClient from '@/pages/history/HistoryClient';
+import HistoryClientWrapper from '@/pages/history/HistoryClientWrapper';
 import type { HistoryCollection } from '@/types/userData';
 import { getHistory } from '@/utils/firebase/collections';
 
@@ -22,5 +22,5 @@ export default async function HistoryPage() {
     requests = [];
   }
 
-  return <HistoryClient requests={requests} />;
+  return <HistoryClientWrapper requests={requests} />;
 }
