@@ -137,8 +137,8 @@ describe('History Page', () => {
 
     const links = screen.getAllByRole('link');
     expect(links.length).toBe(2);
-    expect(links[0]).toHaveAttribute('href', '/client/pathname2');
-    expect(links[1]).toHaveAttribute('href', '/client/pathname1');
+    expect(links[1]).toHaveAttribute('href', '/client/pathname2');
+    expect(links[0]).toHaveAttribute('href', '/client/pathname1');
     expect(screen.getByText('GET')).toBeInTheDocument();
     expect(screen.getByText('POST')).toBeInTheDocument();
     expect(screen.getByText('Not Found')).toBeInTheDocument();
