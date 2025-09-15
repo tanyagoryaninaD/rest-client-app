@@ -82,7 +82,8 @@
       "sign-out": "Выход",
       "client": "REST Клиент",
       "history": "История",
-      "variables": "Переменные"
+      "variables": "Переменные",
+      "main": "Главная"
     }
   },
   "not-found": {

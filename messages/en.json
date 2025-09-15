@@ -83,7 +83,8 @@
       "sign-out": "Sign Out",
       "client": "REST Client",
       "history": "History",
-      "variables": "Variables"
+      "variables": "Variables",
+      "main": "Main"
     }
   },
   "not-found": {

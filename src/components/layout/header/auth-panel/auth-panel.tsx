@@ -1,13 +1,14 @@
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import MuiLink from '@mui/material/Link';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { NavLink } from '@/components/elements/nav-link/nav-link';
 import { AUTH_LINKS } from '@/constants/links';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { usePathname, useRouter } from '@/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { clearUser } from '@/store/slicers/userSlicer';
 import type { AppUser } from '@/types/userData';
 import { userLogout } from '@/utils/firebase/auth';
@@ -69,11 +70,23 @@ export default function AuthPanel({
       variant="text"
     >
       {isValid ? (
-        <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
-          <Typography color="var(--foreground)">
-            {t('buttons.sign-out')}
-          </Typography>
-        </Button>
+        <>
+          <MuiLink
+            href="/"
+            color="inherit"
+            component={Link}
+            underline={pathname === '/' ? 'always' : 'hover'}
+          >
+            <Typography fontWeight="normal" variant="h6" sx={{ flexGrow: 1 }}>
+              {t('buttons.main')}
+            </Typography>
+          </MuiLink>
+          <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
+            <Typography color="var(--foreground)">
+              {t('buttons.sign-out')}
+            </Typography>
+          </Button>
+        </>
       ) : (
         <>
           {AUTH_LINKS.map((href) => (
