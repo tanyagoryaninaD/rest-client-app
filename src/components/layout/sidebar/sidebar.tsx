@@ -5,8 +5,8 @@ import Drawer from '@mui/material/Drawer';
 
 import type { AppUser } from '@/types/userData';
 
+import UtilIconButton from '../../elements/util-icon-button/util-icon-button';
 import AuthPanel from '../header/auth-panel/auth-panel';
-import HeaderIconButton from '../header/header-icon-button/header-icon-button';
 
 interface SidebarProps {
   isSidebarOpen: boolean;
@@ -36,9 +36,13 @@ export default function Sidebar({
       }}
     >
       <Box sx={{ padding: 4, alignSelf: 'flex-end' }}>
-        <HeaderIconButton testId="close-menu-button" handleClick={closeSidebar}>
+        <UtilIconButton
+          aria-label="close menu"
+          testId="close-menu-button"
+          handleClick={closeSidebar}
+        >
           <CloseIcon />
-        </HeaderIconButton>
+        </UtilIconButton>
       </Box>
 
       <Divider variant="middle" />
