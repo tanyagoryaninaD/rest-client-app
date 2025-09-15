@@ -90,6 +90,22 @@
     "title": "We lack such a page",
     "button": "Go back"
   },
+  "history_general": {
+    "title": "History",
+    "invalidHistory": {
+      "title": "You have not executed any requests",
+      "subtitle": "It is empty here. Try:",
+      "button": "Client"
+    },
+    "card": {
+      "status": "Status",
+      "duration": "Duration",
+      "request-size": "Request Size",
+      "response-size": "Response Size",
+      "time": "ms",
+      "size": "B"
+    }
+  }
   "variables": {
     "title": "Manage Your Variables",
     "name": "Name",

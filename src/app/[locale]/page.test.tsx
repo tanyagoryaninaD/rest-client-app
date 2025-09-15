@@ -87,6 +87,7 @@ describe('Home Page', () => {
       preloadedState: {
         user: {
           user: {
+            userId: 'user1',
             displayName: 'John',
             isNewUser: false,
             expiresIn: Date.now() + 1000,
@@ -119,6 +120,7 @@ describe('Home Page', () => {
       preloadedState: {
         user: {
           user: {
+            userId: 'user1',
             displayName: 'John',
             isNewUser: true,
             expiresIn: Date.now() + 1000,
