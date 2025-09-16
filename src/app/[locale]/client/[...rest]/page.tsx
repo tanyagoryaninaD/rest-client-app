@@ -1,5 +1,5 @@
-import ClientPage from '@/pages/client/client';
+'use client';
 
-export default function ClientRequestPage() {
-  return <ClientPage />;
-}
+import ClientWithAuth from '@/app/[locale]/client/page';
+
+export default ClientWithAuth;
