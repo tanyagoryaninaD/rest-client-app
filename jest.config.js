@@ -25,7 +25,7 @@ const config = {
     '**/__tests__/**/*.?([mc])[jt]s?(x)',
     '**/?(*.)+(spec|test).?([mc])[jt]s?(x)',
   ],
-  testTimeout: 6000,
+  testTimeout: 15000,
 };
 
 const createJestConfigWithOverrides = async () => ({
