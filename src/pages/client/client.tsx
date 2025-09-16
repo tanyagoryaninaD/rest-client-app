@@ -1,13 +1,13 @@
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import '@/app/[locale]/client/client.css';
 
-export default function Client() {
+import { Container } from '@mui/material';
+
+import FormRestClient from '@/components/forms/rest-client/form';
+
+export default function ClientPage() {
   return (
-    <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        REST Client Page
-      </Typography>
-      <Typography>Main Interface Here</Typography>
+    <Container className="page-container">
+      <FormRestClient />
     </Container>
   );
 }

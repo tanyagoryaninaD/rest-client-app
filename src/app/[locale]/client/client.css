@@ -1,0 +1,14 @@
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+/* stylelint-disable custom-property-pattern */
+.readonly-textarea fieldset {
+  border-color: rgb(
+    var(--mui-palette-common-onBackgroundChannel) / 23%
+  ) !important;
+  border-width: 1px !important;
+}

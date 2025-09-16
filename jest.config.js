@@ -19,6 +19,7 @@ const config = {
       lines: 50,
     },
   },
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coveragePathIgnorePatterns: ['<rootDir>/src/__test__/mocks/'],
 };
 

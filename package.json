@@ -31,6 +31,8 @@
     "firebase-admin": "^13.5.0",
     "next": "15.5.2",
     "next-intl": "^4.3.5",
+    "postman-code-generators": "^2.0.0",
+    "postman-collection": "^5.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
