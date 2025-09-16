@@ -1,7 +1,8 @@
 'use client';
 
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
-import { Box, Button, Stack } from '@mui/material';
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
+import { Box, Button, IconButton, Stack, Tooltip } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
@@ -55,12 +56,21 @@ export default function Headers() {
   return (
     <Stack direction={'column'} spacing={2}>
       <Box>
-        <Button onClick={handleToggle}>{t('buttons.headers')}</Button>
-        {isOpen && (
-          <Button onClick={handleAddHeader} sx={{ minWidth: '1rem' }}>
-            <ControlPointIcon />
-          </Button>
-        )}
+        <Stack spacing={1} direction={'row'}>
+          <Button onClick={handleToggle}>{t('buttons.headers')}</Button>
+          {isOpen && (
+            <>
+              <Button onClick={handleAddHeader} sx={{ minWidth: '1rem' }}>
+                <ControlPointIcon />
+              </Button>
+              <Tooltip title={t('tooltips.header')} sx={{ padding: 0 }}>
+                <IconButton>
+                  <InfoOutlineIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+        </Stack>
       </Box>
       {isOpen && !!fields.length && (
         <Stack direction={'column'} spacing={1}>

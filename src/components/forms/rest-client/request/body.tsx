@@ -1,4 +1,4 @@
-import { InputLabel, Stack, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,23 +10,19 @@ export default function Body() {
   const { register } = useFormContext<ClientFormStateProps>();
 
   return (
-    <Stack>
-      <Stack spacing={2}>
-        <InputLabel htmlFor="request-body">{t('labels.body')}</InputLabel>
-        <TextField
-          sx={{ width: '100%' }}
-          multiline
-          fullWidth
-          placeholder={t('placeholders.body')}
-          slotProps={{
-            input: {
-              id: 'request-body',
-              sx: { fontFamily: 'monospace' },
-            },
-          }}
-          {...register(CLIENT_FORM.body)}
-        />
-      </Stack>
-    </Stack>
+    <TextField
+      sx={{ width: '100%' }}
+      multiline
+      fullWidth
+      label={t('labels.body')}
+      placeholder={t('placeholders.body')}
+      slotProps={{
+        input: {
+          id: 'request-body',
+          sx: { fontFamily: 'monospace' },
+        },
+      }}
+      {...register(CLIENT_FORM.body)}
+    />
   );
 }

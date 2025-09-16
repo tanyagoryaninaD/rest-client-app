@@ -99,7 +99,9 @@
         "url": "Endpoint URL",
         "key": "Key",
         "value": "Value",
-        "body": "Body"
+        "body": "Body",
+        "generator": "Language",
+        "snippet": "Code snippet"
       },
       "placeholders": {
         "body": "Enter the request body here"

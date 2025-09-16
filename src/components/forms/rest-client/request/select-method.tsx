@@ -1,4 +1,4 @@
-import { Box, InputLabel, MenuItem, Select } from '@mui/material';
+import { MenuItem, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,28 +10,22 @@ export default function SelectMethod() {
   const { register, watch } = useFormContext<ClientFormStateProps>();
 
   return (
-    <Box>
-      <InputLabel htmlFor="method-select">{t('method')}</InputLabel>
-      <Select
-        sx={{ width: '8rem' }}
-        slotProps={{
-          input: {
-            id: 'method-select',
-          },
-        }}
-        value={
-          METHODS.includes(watch('method') as (typeof METHODS)[number])
-            ? watch('method')
-            : ''
-        }
-        {...register(CLIENT_FORM.method)}
-      >
-        {METHODS.map((method) => (
-          <MenuItem key={method} value={method}>
-            {method}
-          </MenuItem>
-        ))}
-      </Select>
-    </Box>
+    <TextField
+      select
+      label={t('method')}
+      sx={{ width: '10rem' }}
+      value={
+        METHODS.includes(watch('method') as (typeof METHODS)[number])
+          ? watch('method')
+          : ''
+      }
+      {...register(CLIENT_FORM.method)}
+    >
+      {METHODS.map((method) => (
+        <MenuItem key={method} value={method}>
+          {method}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 }

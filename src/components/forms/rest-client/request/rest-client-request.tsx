@@ -15,7 +15,7 @@ export default function RestClientRequest() {
   const { watch } = useFormContext<ClientFormStateProps>();
 
   return (
-    <Stack spacing={2} alignItems="center">
+    <Stack spacing={2} alignItems="center" gap={'1rem'}>
       <Typography variant="h5" component="h1" gutterBottom>
         {t('title')}
       </Typography>

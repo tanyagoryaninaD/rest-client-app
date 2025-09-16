@@ -1,4 +1,4 @@
-import { Box, InputLabel, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useFormContext } from 'react-hook-form';
 
@@ -10,19 +10,12 @@ export default function TextFieldURL() {
   const { register } = useFormContext<ClientFormStateProps>();
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <InputLabel htmlFor="url-textfield">{t('url')}</InputLabel>
-      <TextField
-        variant="outlined"
-        placeholder="https://example.com/api/some-path"
-        sx={{ width: '100%' }}
-        slotProps={{
-          input: {
-            id: 'url-textfield',
-          },
-        }}
-        {...register(CLIENT_FORM.url)}
-      />
-    </Box>
+    <TextField
+      variant="outlined"
+      label={t('url')}
+      placeholder="https://example.com/api/some-path"
+      sx={{ width: '100%' }}
+      {...register(CLIENT_FORM.url)}
+    />
   );
 }

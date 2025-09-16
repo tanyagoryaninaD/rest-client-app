@@ -1,17 +1,7 @@
 'use client';
 
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
-import {
-  Autocomplete,
-  Box,
-  Button,
-  IconButton,
-  InputLabel,
-  Stack,
-  TextField,
-  Tooltip,
-} from '@mui/material';
+import { Autocomplete, Button, Stack, TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -30,42 +20,30 @@ export default function Header(props: HeaderProps) {
   return (
     <Stack alignItems={'center'} spacing={2} direction={'row'}>
       <Stack spacing={2} direction={'row'} width={'100%'} margin={'auto'}>
-        <Box>
-          <Stack spacing={1} direction={'row'}>
-            <InputLabel htmlFor="method-textfield-label-key">
-              {t('labels.key')}
-            </InputLabel>
-            <Tooltip title={t('tooltips.header')} sx={{ padding: 0 }}>
-              <IconButton>
-                <InfoOutlineIcon sx={{ width: '1.1rem' }} />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-          <Controller
-            name={`headers.${index}.key`}
-            control={control}
-            defaultValue={data.key || ''}
-            render={({ field }) => (
-              <Autocomplete
-                sx={{ width: '15rem' }}
-                options={headerKeys}
-                freeSolo
-                value={field.value}
-                onInputChange={(_, value) => {
-                  field.onChange(value);
-                  setOptions(getOptionsByKey(value));
-                }}
-                renderInput={(params) => (
-                  <TextField {...params} id="method-textfield-label-key" />
-                )}
-              />
-            )}
-          />
-        </Box>
+        <Controller
+          name={`headers.${index}.key`}
+          control={control}
+          defaultValue={data.key || ''}
+          render={({ field }) => (
+            <Autocomplete
+              options={headerKeys}
+              freeSolo
+              value={field.value}
+              onInputChange={(_, value) => {
+                field.onChange(value);
+                setOptions(getOptionsByKey(value));
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={t('labels.key')}
+                  sx={{ minWidth: '15rem', width: 'max-content' }}
+                />
+              )}
+            />
+          )}
+        />
         <Stack width={'100%'}>
-          <InputLabel htmlFor="method-textfield-label-value">
-            {t('labels.value')}
-          </InputLabel>
           <Controller
             name={`headers.${index}.value`}
             control={control}
@@ -80,7 +58,7 @@ export default function Header(props: HeaderProps) {
                   field.onChange(value);
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} id="method-textfield-label-value" />
+                  <TextField {...params} label={t('labels.value')} />
                 )}
               />
             )}
@@ -95,7 +73,6 @@ export default function Header(props: HeaderProps) {
           sx={{
             minWidth: '1rem',
             height: 'min-content',
-            marginTop: '1rem',
           }}
         >
           <HighlightOffIcon />

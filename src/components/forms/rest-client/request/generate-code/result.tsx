@@ -1,23 +1,24 @@
-import { Box, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 import type { GenerateCodeResultProps } from '@/types/components/rest-client';
 
 export default function GenerateCodeResult(props: GenerateCodeResultProps) {
+  const t = useTranslations('rest-client.request');
   const { generatedCode, isPending } = props;
 
   return (
-    <Box>
-      <TextField
-        sx={{ width: '100%' }}
-        multiline
-        fullWidth
-        value={isPending ? '' : generatedCode}
-        slotProps={{
-          input: {
-            sx: { fontFamily: 'monospace' },
-          },
-        }}
-      />
-    </Box>
+    <TextField
+      sx={{ width: '100%' }}
+      multiline
+      fullWidth
+      label={t('labels.snippet')}
+      value={isPending ? '' : generatedCode}
+      slotProps={{
+        input: {
+          sx: { fontFamily: 'monospace' },
+        },
+      }}
+    />
   );
 }
