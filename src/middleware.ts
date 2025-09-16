@@ -6,7 +6,7 @@ import { routing } from './i18n/routing';
 
 const intlMiddleware = createMiddleware(routing);
 
-const privateRoutes = ['/history', '/client', '/variables'];
+const privateRoutes = ['/history', '/variables'];
 const publicRoutes = ['/sign-in', '/sign-up'];
 
 export default function middleware(request: NextRequest) {
@@ -16,7 +16,11 @@ export default function middleware(request: NextRequest) {
   const pathWithoutLocale = request.nextUrl.pathname.replace(/^\/(en|ru)/, '');
   const locale = request.nextUrl.pathname.split('/')[1];
 
-  if (privateRoutes.includes(pathWithoutLocale) && !token) {
+  const isPrivateRoute = privateRoutes.includes(pathWithoutLocale);
+  const isClientRoute =
+    pathWithoutLocale === '/client' || pathWithoutLocale.startsWith('/client/');
+
+  if ((isPrivateRoute || isClientRoute) && !token) {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
