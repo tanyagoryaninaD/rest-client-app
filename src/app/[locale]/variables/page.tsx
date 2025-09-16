@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic';
 
-import withAuth from '@/components/auth/with-auth';
 import Loader from '@/components/layout/loader/loader';
 
 const Variables = dynamic(() => import('@/pages/variables/variables'), {
@@ -10,4 +9,6 @@ const Variables = dynamic(() => import('@/pages/variables/variables'), {
   loading: Loader,
 });
 
-export default withAuth(Variables);
+export default function VariablesPage() {
+  return <Variables />;
+}

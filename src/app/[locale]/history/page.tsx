@@ -1,13 +1,26 @@
-'use client';
+import { cookies } from 'next/headers';
 
-import dynamic from 'next/dynamic';
+import { verifyIdToken } from '@/lib/fireBaseAdmin';
+import HistoryClientWrapper from '@/pages/history/HistoryClientWrapper';
+import type { HistoryCollection } from '@/types/userData';
+import { getHistory } from '@/utils/firebase/collections';
 
-import withAuth from '@/components/auth/with-auth';
-import Loader from '@/components/layout/loader/loader';
+export default async function HistoryPage() {
+  const token: string | undefined = (await cookies()).get('token')?.value;
 
-const History = dynamic(() => import('@/pages/history/history'), {
-  ssr: false,
-  loading: Loader,
-});
+  if (!token) {
+    return;
+  }
 
-export default withAuth(History);
+  const decoded = await verifyIdToken(token);
+  const userId = decoded.uid;
+
+  let requests: HistoryCollection[] = [];
+  try {
+    requests = await getHistory(userId);
+  } catch {
+    requests = [];
+  }
+
+  return <HistoryClientWrapper requests={requests} />;
+}

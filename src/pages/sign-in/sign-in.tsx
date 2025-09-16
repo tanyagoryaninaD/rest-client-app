@@ -3,7 +3,6 @@
 import { Container } from '@mui/material';
 import { useTranslations } from 'next-intl';
 
-import withAuth from '@/components/auth/with-auth';
 import AuthForm from '@/components/forms/AuthForm';
 import { signInFormConfig } from '@/configs/auth';
 import { useAppDispatch } from '@/hooks/redux';
@@ -13,7 +12,7 @@ import type { SignInSignUpValues } from '@/types/authForms';
 import { TypeForm } from '@/types/enums/authForms';
 import { userLogin } from '@/utils/firebase/auth';
 
-function SignInPage() {
+export default function SignInPage() {
   const t = useTranslations();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -41,5 +40,3 @@ function SignInPage() {
     </Container>
   );
 }
-
-export default withAuth(SignInPage, { reverseCondition: true });

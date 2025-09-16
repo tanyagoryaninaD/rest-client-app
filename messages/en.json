@@ -83,7 +83,8 @@
       "sign-out": "Sign Out",
       "client": "REST Client",
       "history": "History",
-      "variables": "Variables"
+      "variables": "Variables",
+      "main": "Main"
     }
   },
   "not-found": {
@@ -105,7 +106,7 @@
       "time": "ms",
       "size": "B"
     }
-  }
+  },
   "variables": {
     "title": "Manage Your Variables",
     "name": "Name",
