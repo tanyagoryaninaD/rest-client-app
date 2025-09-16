@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { NavLink } from '@/components/elements/nav-link/nav-link';
 import { AUTH_LINKS } from '@/constants/links';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { usePathname, useRouter } from '@/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { clearUser } from '@/store/slicers/userSlicer';
 import type { AppUser } from '@/types/userData';
 import { userLogout } from '@/utils/firebase/auth';
@@ -69,11 +69,23 @@ export default function AuthPanel({
       variant="text"
     >
       {isValid ? (
-        <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
-          <Typography color="var(--foreground)">
-            {t('buttons.sign-out')}
-          </Typography>
-        </Button>
+        <>
+          <Button
+            onClick={closeSidebar}
+            sx={{ px: 2 }}
+            href="/"
+            LinkComponent={Link}
+          >
+            <Typography color="var(--foreground)">
+              {t('buttons.main')}
+            </Typography>
+          </Button>
+          <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
+            <Typography color="var(--foreground)">
+              {t('buttons.sign-out')}
+            </Typography>
+          </Button>
+        </>
       ) : (
         <>
           {AUTH_LINKS.map((href) => (

@@ -8,40 +8,16 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
-import Loader from '@/components/layout/loader/loader';
-import { useAppSelector } from '@/hooks/redux';
 import { Link } from '@/i18n/navigation';
 import type { HistoryCollection } from '@/types/userData';
-import { getHistory } from '@/utils/firebase/collections';
-import { sortHistoryCollection } from '@/utils/firebase/sortHistoryCollection';
 
-export default function History() {
+interface HistoryClientProps {
+  requests: HistoryCollection[];
+}
+
+export default function HistoryClient({ requests }: HistoryClientProps) {
   const t = useTranslations('history_general');
-  const { user } = useAppSelector((state) => state.user);
-  const [requests, setRequests] = useState<HistoryCollection[] | null>(null);
-  const [isLoadingData, setIsLoadingData] = useState(true);
-
-  useEffect(() => {
-    if (!user) return;
-
-    const loadHistory = async () => {
-      setIsLoadingData(true);
-      try {
-        const data = await getHistory(user.userId);
-        setRequests(sortHistoryCollection(data));
-      } catch {
-        setRequests([]);
-      } finally {
-        setIsLoadingData(false);
-      }
-    };
-
-    void loadHistory();
-  }, [user]);
-
-  if (isLoadingData || requests === null) return <Loader />;
 
   return (
     <Container
@@ -98,18 +74,11 @@ export default function History() {
                   p: 1,
                   display: 'flex',
                   flexDirection: 'column',
-
-                  '&:hover': {
-                    borderColor: 'primary.main',
-                    boxShadow: 2,
-                  },
+                  '&:hover': { borderColor: 'primary.main', boxShadow: 2 },
                 }}
               >
                 <Typography
-                  sx={{
-                    alignSelf: 'flex-end',
-                    fontSize: '0.75rem',
-                  }}
+                  sx={{ alignSelf: 'flex-end', fontSize: '0.75rem' }}
                   variant="body1"
                   color="text.secondary"
                 >
