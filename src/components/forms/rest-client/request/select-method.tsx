@@ -19,7 +19,11 @@ export default function SelectMethod() {
             id: 'method-select',
           },
         }}
-        defaultValue={watch('method')}
+        value={
+          METHODS.includes(watch('method') as (typeof METHODS)[number])
+            ? watch('method')
+            : ''
+        }
         {...register(CLIENT_FORM.method)}
       >
         {METHODS.map((method) => (
