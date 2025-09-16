@@ -43,7 +43,7 @@ export interface ClientFormStateProps {
 
 export interface ClientResponseStateProps {
   status?: number;
-  body?: object;
+  body?: object | string;
 }
 
 export type ResponseBodyProps = Pick<ClientResponseStateProps, 'body'>;

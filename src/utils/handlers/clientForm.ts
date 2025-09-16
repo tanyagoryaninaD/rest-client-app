@@ -1,5 +1,4 @@
 import type { ReadonlyURLSearchParams } from 'next/navigation';
-import type { QueryParams } from 'next-intl/navigation';
 import { type GeneratorsKeys } from 'postman-collection';
 
 import {
@@ -11,7 +10,9 @@ import type { HeaderDataProps } from '@/types/components/rest-client';
 
 import { base64ToUtf8 } from './base64';
 
-export const headersQueryParams = (headers: HeaderDataProps[]): QueryParams => {
+export const createHeadersObject = (
+  headers: HeaderDataProps[]
+): Record<string, string> => {
   return headers.reduce<Record<string, string>>((acc, { key, value }) => {
     if (!key || !value) {
       return acc;
