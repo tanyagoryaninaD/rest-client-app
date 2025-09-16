@@ -1,7 +1,6 @@
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import MuiLink from '@mui/material/Link';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
@@ -71,16 +70,21 @@ export default function AuthPanel({
     >
       {isValid ? (
         <>
-          <MuiLink
+          <Button
+            onClick={closeSidebar}
+            sx={{ px: 2 }}
             href="/"
-            color="inherit"
-            component={Link}
-            underline={pathname === '/' ? 'always' : 'hover'}
+            LinkComponent={Link}
           >
-            <Typography fontWeight="normal" variant="h6" sx={{ flexGrow: 1 }}>
+            <Typography
+              sx={{
+                textDecoration: pathname === '/' ? 'underline' : 'none',
+              }}
+              color="var(--foreground)"
+            >
               {t('buttons.main')}
             </Typography>
-          </MuiLink>
+          </Button>
           <Button onClick={() => void handleSignOut()} sx={{ px: 2 }}>
             <Typography color="var(--foreground)">
               {t('buttons.sign-out')}
