@@ -201,8 +201,10 @@ describe('GenerateCode', () => {
 
     await userEvent.click(generatorButton);
 
-    expect(copyButton).toBeInTheDocument();
-    copyButton.style.pointerEvents = 'auto';
+    await waitFor(() => {
+      expect(copyButton).toBeInTheDocument();
+      copyButton.style.pointerEvents = 'auto';
+    });
 
     await userEvent.click(copyButton);
 
@@ -211,5 +213,5 @@ describe('GenerateCode', () => {
     });
 
     fetchSpy.mockRestore();
-  }, 15000);
+  });
 });
