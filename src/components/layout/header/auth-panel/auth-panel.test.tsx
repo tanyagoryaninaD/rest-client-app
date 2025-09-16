@@ -45,6 +45,7 @@ describe('AuthPanel', () => {
   it('should render Sign Out button for authorized user and call userLogout on click', async () => {
     renderAuthPanel({
       user: {
+        userId: 'user1',
         displayName: 'Alex',
         expiresIn: Date.now() + 1000,
         isNewUser: false,

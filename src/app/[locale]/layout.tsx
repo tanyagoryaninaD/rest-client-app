@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 
 import ErrorBoundaryProvider from '@/components/error-boundary/error-boundary-provider';
 import MainLayout from '@/components/layout/layout';
+import VariablesSyncProvider from '@/components/providers/variables-sync-provider';
 import { routing } from '@/i18n/routing';
 import { theme } from '@/theme';
 
@@ -50,9 +51,11 @@ export default async function RootLayout({
             <ThemeProvider theme={theme}>
               <ErrorBoundaryProvider>
                 <AppRouterCacheProvider>
-                  <CssBaseline />
-                  <MainLayout>{children}</MainLayout>
-                  <ToastContainer position="top-right" autoClose={2000} />
+                  <VariablesSyncProvider>
+                    <CssBaseline />
+                    <MainLayout>{children}</MainLayout>
+                    <ToastContainer position="top-right" autoClose={2000} />
+                  </VariablesSyncProvider>
                 </AppRouterCacheProvider>
               </ErrorBoundaryProvider>
             </ThemeProvider>

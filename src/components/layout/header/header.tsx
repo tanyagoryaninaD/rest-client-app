@@ -11,9 +11,9 @@ import LocaleSwitcher from '@/components/localeSwitcher/LocaleSwitcher';
 import { useAppSelector } from '@/hooks/redux';
 import { Link, usePathname } from '@/i18n/navigation';
 
+import UtilIconButton from '../../elements/util-icon-button/util-icon-button';
 import Sidebar from '../sidebar/sidebar';
 import AuthPanel from './auth-panel/auth-panel';
-import HeaderIconButton from './header-icon-button/header-icon-button';
 
 export default function Header() {
   const pathname = usePathname();
@@ -78,7 +78,8 @@ export default function Header() {
             />
           )}
           <LocaleSwitcher />
-          <HeaderIconButton
+          <UtilIconButton
+            aria-label="menu"
             handleClick={() => {
               setIsSidebarOpen(true);
             }}
@@ -90,7 +91,7 @@ export default function Header() {
             testId="menu-button"
           >
             <MenuIcon />
-          </HeaderIconButton>
+          </UtilIconButton>
         </Stack>
       </Toolbar>
       <Sidebar

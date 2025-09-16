@@ -105,4 +105,16 @@ describe('withAuth HOC', () => {
       expect(mockRouterReplace).toHaveBeenCalledTimes(1);
     });
   });
+
+  it('should render Loader if isLoading is true', () => {
+    mockUseIsLoggedIn.mockReturnValue({
+      isLoggedIn: false,
+      isLoading: true,
+    });
+    const ProtectedComponent = withAuth(MockComponent);
+
+    render(<ProtectedComponent />);
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
 });
