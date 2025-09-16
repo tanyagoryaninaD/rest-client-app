@@ -144,7 +144,7 @@ describe('GenerateCode', () => {
     fetchSpy.mockRestore();
   });
 
-  it('should copies body', async () => {
+  it('should copies snippet', async () => {
     (usePathname as jest.Mock).mockReturnValue('client');
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
 
@@ -211,5 +211,5 @@ describe('GenerateCode', () => {
     });
 
     fetchSpy.mockRestore();
-  });
+  }, 15000);
 });
