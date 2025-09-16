@@ -76,12 +76,7 @@ export default function AuthPanel({
             href="/"
             LinkComponent={Link}
           >
-            <Typography
-              sx={{
-                textDecoration: pathname === '/' ? 'underline' : 'none',
-              }}
-              color="var(--foreground)"
-            >
+            <Typography color="var(--foreground)">
               {t('buttons.main')}
             </Typography>
           </Button>
