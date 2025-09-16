@@ -73,6 +73,9 @@ describe('VariablesSyncProvider', () => {
 
   it('should throw an error if the data in localStorage is invalid', async () => {
     (localStorage.getItem as jest.Mock).mockReturnValue('invalid-base64-data');
+    const consoleWarn = jest.spyOn(console, 'warn').mockImplementation(() => {
+      return;
+    });
 
     const errors: ErrorEvent[] = [];
     const handler = (e: ErrorEvent) => {
@@ -99,6 +102,8 @@ describe('VariablesSyncProvider', () => {
         'Invalid data format in variables storage. The storage was cleared, please try again.'
       );
     });
+
+    consoleWarn.mockRestore();
   });
 
   it('should save variables to localStorage when the Redux store changes', async () => {

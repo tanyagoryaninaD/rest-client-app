@@ -29,6 +29,7 @@ export default function Header(props: HeaderProps) {
               options={headerKeys}
               freeSolo
               value={field.value}
+              data-testid="request-header-key"
               onInputChange={(_, value) => {
                 field.onChange(value);
                 setOptions(getOptionsByKey(value));
@@ -54,6 +55,7 @@ export default function Header(props: HeaderProps) {
                 options={options}
                 freeSolo
                 value={field.value}
+                data-testid="request-header-value"
                 onInputChange={(_, value) => {
                   field.onChange(value);
                 }}

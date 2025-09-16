@@ -14,6 +14,7 @@ export default function GenerateCodeResult(props: GenerateCodeResultProps) {
       fullWidth
       label={t('labels.snippet')}
       value={isPending ? '' : generatedCode}
+      data-testid="request-generator-snippet"
       slotProps={{
         input: {
           sx: { fontFamily: 'monospace' },

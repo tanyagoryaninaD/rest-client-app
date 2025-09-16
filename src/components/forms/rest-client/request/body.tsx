@@ -16,6 +16,7 @@ export default function Body() {
       fullWidth
       label={t('labels.body')}
       placeholder={t('placeholders.body')}
+      data-testid="request-body"
       slotProps={{
         input: {
           id: 'request-body',

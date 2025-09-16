@@ -23,6 +23,7 @@ export default function GenerateCodeButtons(props: GenerateCodeProps) {
         variant="contained"
         onClick={handleGenerateCode}
         disabled={isPending || !watch('url')}
+        data-testid="request-generator-button"
       >
         {t('generate')}
       </Button>
@@ -33,6 +34,7 @@ export default function GenerateCodeButtons(props: GenerateCodeProps) {
           void handleCopyCode();
         }}
         disabled={isPending || !generatedCode}
+        data-testid="request-generator-copy"
       >
         {t('copy')}
       </Button>

@@ -1,0 +1,215 @@
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { useSearchParams } from 'next/navigation';
+import { IntlProvider } from 'next-intl';
+
+import { usePathname } from '@/i18n/navigation';
+import ClientPage from '@/pages/client/client';
+import { getHistory } from '@/utils/firebase/collections';
+
+jest.mock('@/i18n/navigation', () => ({
+  Link: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a {...props}>{props.children}</a>
+  ),
+  usePathname: jest.fn(),
+  useRouter: jest.fn(),
+}));
+
+jest.mock('@/utils/firebase/collections', () => ({
+  getHistory: jest.fn(),
+}));
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+jest.mock('next/navigation', () => ({
+  ...jest.requireActual('next/navigation'),
+  useSearchParams: jest.fn(),
+}));
+
+const messages = {
+  'rest-client': {
+    request: {
+      title: 'REST Client',
+      send: 'Send',
+      labels: {
+        method: 'Method',
+        url: 'Endpoint URL',
+        key: 'Key',
+        value: 'Value',
+        body: 'Body',
+        generator: 'Language',
+        snippet: 'Code snippet',
+      },
+      placeholders: {
+        body: 'Enter the request body here',
+      },
+      buttons: {
+        generate: 'Generate Code',
+        copy: 'Copy',
+        headers: 'Headers',
+      },
+      tooltips: {
+        header:
+          'You can enter your own values. Autocomplete offers examples, but you can ignore them.',
+      },
+    },
+    response: {
+      title: 'Response',
+      labels: {
+        status: 'Status code:',
+        body: 'Body:',
+      },
+      placeholders: {
+        status: 'HTTP Status Code',
+        body: 'Read-Only JSON Viewer',
+      },
+    },
+    errors: {
+      unknown: 'Unknown error',
+      generator: {
+        generate: 'Code generation error',
+        invalid: 'Invalid request',
+      },
+    },
+  },
+};
+
+describe('GenerateCode', () => {
+  beforeEach(() => {
+    (getHistory as jest.Mock).mockResolvedValue(null);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should calls fetch with form data and return resolved value', async () => {
+    (usePathname as jest.Mock).mockReturnValue('client');
+    (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
+
+    const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest
+        .fn()
+        .mockResolvedValue({ code: 'test-code' } as unknown as Response),
+    } as unknown as Response);
+
+    render(
+      <IntlProvider locale="en" messages={messages}>
+        <ClientPage />
+      </IntlProvider>
+    );
+
+    const headersButton = screen.getByTestId('request-headers-toggle');
+    await userEvent.click(headersButton);
+
+    const url = screen.getByTestId('request-url').querySelector('input');
+    const headerKey = screen
+      .queryAllByTestId('request-header-key')[0]
+      .querySelector('input');
+    const headerValue = screen
+      .queryAllByTestId('request-header-value')[0]
+      .querySelector('input');
+    const body = screen.getByTestId('request-body').querySelector('textarea');
+
+    if (url) {
+      await userEvent.type(url, 'test-endpoint');
+    }
+    if (headerKey && headerValue) {
+      await userEvent.type(headerKey, 'Content-Type');
+      await userEvent.type(headerValue, 'text/html');
+    }
+    if (body) {
+      await userEvent.type(body, 'test-body');
+    }
+
+    const generatorButton = screen.getByTestId('request-generator-button');
+    await userEvent.click(generatorButton);
+
+    await waitFor(() => {
+      expect(fetchSpy).toHaveBeenCalledWith('/en/api/postman-code-generators', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          method: 'GET',
+          url: 'test-endpoint',
+          headers: [{ key: 'Content-Type', value: 'text/html' }],
+          body: 'test-body',
+          language: 'JavaScript',
+          variant: 'Fetch',
+        }),
+      });
+    });
+
+    fetchSpy.mockRestore();
+  });
+
+  it('should copies body', async () => {
+    (usePathname as jest.Mock).mockReturnValue('client');
+    (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
+
+    const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest
+        .fn()
+        .mockResolvedValue({ code: 'test-code' } as unknown as Response),
+    } as unknown as Response);
+
+    const mockWriteText = jest.fn().mockResolvedValue(undefined);
+    Object.defineProperty(window.navigator, 'clipboard', {
+      value: {
+        writeText: mockWriteText,
+      },
+      writable: true,
+      configurable: true,
+    });
+
+    render(
+      <IntlProvider locale="en" messages={messages}>
+        <ClientPage />
+      </IntlProvider>
+    );
+
+    const headersButton = screen.getByTestId('request-headers-toggle');
+    await userEvent.click(headersButton);
+
+    const url = screen.getByTestId('request-url').querySelector('input');
+    const headerKey = screen
+      .queryAllByTestId('request-header-key')[0]
+      .querySelector('input');
+    const headerValue = screen
+      .queryAllByTestId('request-header-value')[0]
+      .querySelector('input');
+    const body = screen.getByTestId('request-body').querySelector('textarea');
+
+    if (url) {
+      await userEvent.type(url, 'test-endpoint');
+    }
+    if (headerKey && headerValue) {
+      await userEvent.type(headerKey, 'Content-Type');
+      await userEvent.type(headerValue, 'text/html');
+    }
+    if (body) {
+      await userEvent.type(body, 'test-body');
+    }
+
+    const generatorButton = screen.getByTestId('request-generator-button');
+    const copyButton = screen.getByTestId('request-generator-copy');
+
+    await waitFor(() => {
+      expect(mockWriteText).toHaveBeenCalledTimes(0);
+    });
+
+    await userEvent.click(generatorButton);
+
+    expect(copyButton).toBeInTheDocument();
+    copyButton.style.pointerEvents = 'auto';
+
+    await userEvent.click(copyButton);
+
+    await waitFor(() => {
+      expect(mockWriteText).toHaveBeenCalledWith('test-code');
+    });
+
+    fetchSpy.mockRestore();
+  });
+});
