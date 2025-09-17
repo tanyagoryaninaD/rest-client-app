@@ -14,6 +14,7 @@ export default function TextFieldURL() {
       variant="outlined"
       label={t('url')}
       placeholder="https://example.com/api/some-path"
+      data-testid="request-url"
       sx={{ width: '100%' }}
       {...register(CLIENT_FORM.url)}
     />

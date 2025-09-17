@@ -153,6 +153,7 @@ export default function FormRestClient() {
       <form
         className="client-form"
         onSubmit={(e) => void clientForm.handleSubmit(onSubmit)(e)}
+        data-testid="form-client"
       >
         <RestClientRequest />
         <RestClientResponse

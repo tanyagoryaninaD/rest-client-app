@@ -35,6 +35,7 @@ export default function RestClientRequest() {
           sx={{ height: '3.5rem' }}
           type="submit"
           disabled={!watch('url')}
+          data-testid="request-submit"
         >
           {t('send')}
         </Button>

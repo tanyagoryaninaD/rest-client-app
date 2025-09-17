@@ -21,12 +21,17 @@ const config = {
   },
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coveragePathIgnorePatterns: ['<rootDir>/src/__test__/mocks/'],
+  testMatch: [
+    '**/__tests__/**/*.?([mc])[jt]s?(x)',
+    '**/?(*.)+(spec|test).?([mc])[jt]s?(x)',
+  ],
+  testTimeout: 15000,
 };
 
 const createJestConfigWithOverrides = async () => ({
   ...(await createJestConfig(config)()),
   transformIgnorePatterns: [
-    'node_modules/(?!(next-intl|use-intl|@mui|@emotion)/)',
+    'node_modules/(?!(next-intl|use-intl|@mui|@emotion|jose|jwks-rsa|firebase-admin|@firebase)/)',
   ],
 });
 

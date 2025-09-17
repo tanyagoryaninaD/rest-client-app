@@ -48,12 +48,14 @@ export const getGeneratorVariant = (generator?: string): string => {
 
 export const parseURLtoFormData = (
   pathname: string,
-  searchParams: ReadonlyURLSearchParams
+  searchParams: ReadonlyURLSearchParams | null
 ) => {
-  const headers = Array.from(searchParams.entries()).map(([key, value]) => ({
-    key,
-    value,
-  }));
+  const headers = searchParams
+    ? Array.from(searchParams.entries()).map(([key, value]) => ({
+        key,
+        value,
+      }))
+    : undefined;
   const basePathnames = pathname.split('/').slice(2);
   const [method, url, body] = basePathnames;
 
