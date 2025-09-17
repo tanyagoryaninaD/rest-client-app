@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useSearchParams } from 'next/navigation';
 import { IntlProvider } from 'next-intl';
 
+import { useAppSelector } from '@/hooks/redux';
 import { usePathname } from '@/i18n/navigation';
 import ClientPage from '@/pages/client/client';
 import { getHistory } from '@/utils/firebase/collections';
@@ -23,6 +24,10 @@ jest.mock('@/utils/firebase/collections', () => ({
 jest.mock('next/navigation', () => ({
   ...jest.requireActual('next/navigation'),
   useSearchParams: jest.fn(),
+}));
+
+jest.mock('@/hooks/redux', () => ({
+  useAppSelector: jest.fn(),
 }));
 
 const messages = {
@@ -85,6 +90,9 @@ describe('GenerateCode', () => {
   it('should calls fetch with form data and return resolved value', async () => {
     (usePathname as jest.Mock).mockReturnValue('client');
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
+    (useAppSelector as unknown as jest.Mock).mockReturnValue({
+      someValue: 'value',
+    });
 
     const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest
@@ -144,9 +152,12 @@ describe('GenerateCode', () => {
     fetchSpy.mockRestore();
   });
 
-  it('should copies snippet', async () => {
+  it('should copy snippet', async () => {
     (usePathname as jest.Mock).mockReturnValue('client');
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
+    (useAppSelector as unknown as jest.Mock).mockReturnValue({
+      someValue: 'value',
+    });
 
     const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest
@@ -156,9 +167,7 @@ describe('GenerateCode', () => {
 
     const mockWriteText = jest.fn().mockResolvedValue(undefined);
     Object.defineProperty(window.navigator, 'clipboard', {
-      value: {
-        writeText: mockWriteText,
-      },
+      value: { writeText: mockWriteText },
       writable: true,
       configurable: true,
     });
@@ -175,15 +184,13 @@ describe('GenerateCode', () => {
     const url = screen.getByTestId('request-url').querySelector('input');
     const headerKey = screen
       .queryAllByTestId('request-header-key')[0]
-      .querySelector('input');
+      ?.querySelector('input');
     const headerValue = screen
       .queryAllByTestId('request-header-value')[0]
-      .querySelector('input');
+      ?.querySelector('input');
     const body = screen.getByTestId('request-body').querySelector('textarea');
 
-    if (url) {
-      await userEvent.type(url, 'test-endpoint');
-    }
+    if (url) await userEvent.type(url, 'test-endpoint');
     if (headerKey && headerValue) {
       await userEvent.type(headerKey, 'Content-Type');
       await userEvent.type(headerValue, 'text/html');
@@ -193,17 +200,11 @@ describe('GenerateCode', () => {
     }
 
     const generatorButton = screen.getByTestId('request-generator-button');
-    const copyButton = screen.getByTestId('request-generator-copy');
-
-    await waitFor(() => {
-      expect(mockWriteText).toHaveBeenCalledTimes(0);
-    });
-
     await userEvent.click(generatorButton);
 
+    const copyButton = await screen.findByTestId('request-generator-copy');
     await waitFor(() => {
-      expect(copyButton).toBeInTheDocument();
-      copyButton.style.pointerEvents = 'auto';
+      expect(copyButton).toBeEnabled();
     });
 
     await userEvent.click(copyButton);

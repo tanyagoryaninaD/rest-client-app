@@ -11,7 +11,6 @@ export default function ResponseBody(props: ResponseBodyProps) {
       className="readonly-textarea"
       sx={{
         width: '100%',
-        pointerEvents: 'none',
       }}
       multiline
       fullWidth

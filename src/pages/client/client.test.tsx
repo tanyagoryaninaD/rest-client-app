@@ -6,6 +6,7 @@ import { IntlProvider } from 'next-intl';
 import { Provider } from 'react-redux';
 
 import ClientWithAuth from '@/app/[locale]/client/page';
+import { useAppSelector } from '@/hooks/redux';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import userReducer from '@/store/slicers/userSlicer';
 import { getHistory } from '@/utils/firebase/collections';
@@ -28,6 +29,10 @@ jest.mock('@/utils/firebase/collections', () => ({
 jest.mock('next/navigation', () => ({
   ...jest.requireActual('next/navigation'),
   useSearchParams: jest.fn(),
+}));
+
+jest.mock('@/hooks/redux', () => ({
+  useAppSelector: jest.fn(),
 }));
 
 const replace = jest.fn();
@@ -95,6 +100,9 @@ describe('Client Page', () => {
       new ReadonlyURLSearchParams()
     );
     (useRouter as jest.Mock).mockReturnValue({ replace });
+    (useAppSelector as unknown as jest.Mock).mockReturnValue({
+      someValue: 'value',
+    });
 
     const store = configureStore({
       reducer: { user: userReducer },
@@ -146,7 +154,6 @@ describe('Client Page', () => {
       'client/POST/dGVzdC1lbmRwb2ludA==/dGVzdC1ib2R5'
     );
     (useRouter as jest.Mock).mockReturnValue({ replace });
-
     const params = new URLSearchParams({ count: '1' });
     params.append('Content-Type', 'text/html');
     (useSearchParams as jest.Mock).mockReturnValue(params);

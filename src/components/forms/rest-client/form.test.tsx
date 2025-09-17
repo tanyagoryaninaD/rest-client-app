@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { IntlProvider } from 'next-intl';
 import { Provider } from 'react-redux';
 
+import { useAppSelector } from '@/hooks/redux';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import ClientPage from '@/pages/client/client';
 import userReducer from '@/store/slicers/userSlicer';
@@ -26,6 +27,10 @@ jest.mock('@/utils/firebase/collections', () => ({
 jest.mock('next/navigation', () => ({
   ...jest.requireActual('next/navigation'),
   useSearchParams: jest.fn(),
+}));
+
+jest.mock('@/hooks/redux', () => ({
+  useAppSelector: jest.fn(),
 }));
 
 const messages = {
@@ -91,6 +96,9 @@ describe('Client Form', () => {
     (usePathname as jest.Mock).mockReturnValue('client');
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
     (useRouter as jest.Mock).mockReturnValue({ replace });
+    (useAppSelector as unknown as jest.Mock).mockReturnValue({
+      someValue: 'value',
+    });
 
     const store = configureStore({
       reducer: { user: userReducer },

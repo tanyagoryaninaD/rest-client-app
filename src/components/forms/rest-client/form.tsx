@@ -17,12 +17,12 @@ import type {
   ClientFormStateProps,
   ClientResponseStateProps,
 } from '@/types/components/rest-client';
-import { changeVariables } from '@/utils/change-variable-in-field';
 import { utf8ToBase64 } from '@/utils/handlers/base64';
 import {
   createHeadersObject,
   parseURLtoFormData,
 } from '@/utils/handlers/clientForm';
+import { parseReplaceVariables } from '@/utils/parse-replace-variables';
 
 export default function FormRestClient() {
   const t = useTranslations('rest-client');
@@ -133,11 +133,11 @@ export default function FormRestClient() {
   const onSubmit: SubmitHandler<ClientFormStateProps> = (data): void => {
     const submittedData = {
       ...data,
-      url: changeVariables(data.url, variables),
-      body: data.body ? changeVariables(data.body, variables) : '',
+      url: parseReplaceVariables(data.url, variables),
+      body: data.body ? parseReplaceVariables(data.body, variables) : '',
       headers: data.headers.map((item) => ({
-        key: changeVariables(item.key, variables),
-        value: changeVariables(item.value, variables),
+        key: parseReplaceVariables(item.key, variables),
+        value: parseReplaceVariables(item.value, variables),
       })),
     };
 
