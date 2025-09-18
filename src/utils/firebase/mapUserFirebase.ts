@@ -2,7 +2,7 @@ import type { User } from 'firebase/auth';
 
 import { getExpirationTime } from './tokenValidation';
 
-export const mapUserFirebase = async (user: User, isNewUser: boolean) => {
+export const mapUserFirebase = async (user: User) => {
   const expiresIn = await getExpirationTime(user);
   const userId = user.uid;
   const token = await user.getIdToken();
@@ -10,7 +10,6 @@ export const mapUserFirebase = async (user: User, isNewUser: boolean) => {
   return {
     userId,
     displayName: user.displayName,
-    isNewUser,
     expiresIn,
   };
 };

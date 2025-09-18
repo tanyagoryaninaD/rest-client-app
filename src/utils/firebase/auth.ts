@@ -33,7 +33,7 @@ export const userRegister = async (
     });
     await updateProfile(user, { displayName: name });
 
-    return await mapUserFirebase(user, true);
+    return await mapUserFirebase(user);
   } catch (err) {
     handleAuthError(err, t);
   }
@@ -53,7 +53,7 @@ export const userLogin = async (
     );
     const user = userCredential.user;
     toast.success(`${t('toast.auth.welcome')} ${user.displayName}`);
-    return await mapUserFirebase(user, false);
+    return await mapUserFirebase(user);
   } catch (err) {
     handleAuthError(err, t);
     return null;
