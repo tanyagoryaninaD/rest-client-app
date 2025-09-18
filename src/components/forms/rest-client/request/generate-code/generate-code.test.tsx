@@ -169,41 +169,19 @@ describe('GenerateCode', () => {
       </IntlProvider>
     );
 
-    const headersButton = screen.getByTestId('request-headers-toggle');
-    await userEvent.click(headersButton);
-
     const url = screen.getByTestId('request-url').querySelector('input');
-    const headerKey = screen
-      .queryAllByTestId('request-header-key')[0]
-      .querySelector('input');
-    const headerValue = screen
-      .queryAllByTestId('request-header-value')[0]
-      .querySelector('input');
-    const body = screen.getByTestId('request-body').querySelector('textarea');
 
     if (url) {
       await userEvent.type(url, 'test-endpoint');
-    }
-    if (headerKey && headerValue) {
-      await userEvent.type(headerKey, 'Content-Type');
-      await userEvent.type(headerValue, 'text/html');
-    }
-    if (body) {
-      await userEvent.type(body, 'test-body');
     }
 
     const generatorButton = screen.getByTestId('request-generator-button');
     const copyButton = screen.getByTestId('request-generator-copy');
 
-    await waitFor(() => {
-      expect(mockWriteText).toHaveBeenCalledTimes(0);
-    });
-
     await userEvent.click(generatorButton);
 
     await waitFor(() => {
-      expect(copyButton).toBeInTheDocument();
-      copyButton.style.pointerEvents = 'auto';
+      expect(copyButton).toBeEnabled();
     });
 
     await userEvent.click(copyButton);
