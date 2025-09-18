@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useSearchParams } from 'next/navigation';
 import { IntlProvider } from 'next-intl';
 
+import { messages } from '@/__test__/mocks/messages';
 import { usePathname } from '@/i18n/navigation';
 import ClientPage from '@/pages/client/client';
 import { getHistory } from '@/utils/firebase/collections';
@@ -24,54 +25,6 @@ jest.mock('next/navigation', () => ({
   ...jest.requireActual('next/navigation'),
   useSearchParams: jest.fn(),
 }));
-
-const messages = {
-  'rest-client': {
-    request: {
-      title: 'REST Client',
-      send: 'Send',
-      labels: {
-        method: 'Method',
-        url: 'Endpoint URL',
-        key: 'Key',
-        value: 'Value',
-        body: 'Body',
-        generator: 'Language',
-        snippet: 'Code snippet',
-      },
-      placeholders: {
-        body: 'Enter the request body here',
-      },
-      buttons: {
-        generate: 'Generate Code',
-        copy: 'Copy',
-        headers: 'Headers',
-      },
-      tooltips: {
-        header:
-          'You can enter your own values. Autocomplete offers examples, but you can ignore them.',
-      },
-    },
-    response: {
-      title: 'Response',
-      labels: {
-        status: 'Status code:',
-        body: 'Body:',
-      },
-      placeholders: {
-        status: 'HTTP Status Code',
-        body: 'Read-Only JSON Viewer',
-      },
-    },
-    errors: {
-      unknown: 'Unknown error',
-      generator: {
-        generate: 'Code generation error',
-        invalid: 'Invalid request',
-      },
-    },
-  },
-};
 
 describe('GenerateCode', () => {
   beforeEach(() => {
