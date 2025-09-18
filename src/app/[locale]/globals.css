@@ -36,10 +36,14 @@
 @keyframes slide {
   from {
     transform: translateY(-100%);
+    opacity: 0;
+    background-color: #ccc;
   }
 
   to {
     transform: translateY(0);
+    opacity: 1;
+    background-color: white;
   }
 }
 
