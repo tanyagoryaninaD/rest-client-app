@@ -15,6 +15,7 @@ export default function SelectGenerator() {
       select
       label={t('labels.generator')}
       sx={{ width: '15rem' }}
+      data-testid="request-generator-language"
       defaultValue={`${DEFAULT_GENERATOR.language} - ${DEFAULT_GENERATOR.variant}`}
       {...register(CLIENT_FORM.generator)}
     >

@@ -14,6 +14,7 @@ export default function SelectMethod() {
       select
       label={t('method')}
       sx={{ width: '10rem' }}
+      data-testid="request-method"
       value={
         METHODS.includes(watch('method') as (typeof METHODS)[number])
           ? watch('method')

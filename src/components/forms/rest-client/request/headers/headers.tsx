@@ -57,7 +57,9 @@ export default function Headers() {
     <Stack direction={'column'} spacing={2}>
       <Box>
         <Stack spacing={1} direction={'row'}>
-          <Button onClick={handleToggle}>{t('buttons.headers')}</Button>
+          <Button onClick={handleToggle} data-testid="request-headers-toggle">
+            {t('buttons.headers')}
+          </Button>
           {isOpen && (
             <>
               <Button onClick={handleAddHeader} sx={{ minWidth: '1rem' }}>

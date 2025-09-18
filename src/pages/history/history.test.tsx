@@ -145,6 +145,10 @@ describe('History Page', () => {
   });
 
   it('should correctly navigates when clicking a card ', async () => {
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {
+      return;
+    });
+
     const requests: HistoryCollection[] = [
       {
         id: '1',
@@ -191,5 +195,7 @@ describe('History Page', () => {
 
     await userEvent.click(link);
     expect(link).toHaveAttribute('href', '/client/pathname');
+
+    consoleError.mockRestore();
   });
 });
