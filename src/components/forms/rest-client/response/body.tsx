@@ -43,6 +43,7 @@ export default function ResponseBody(props: ResponseBodyProps) {
             sx={{
               color: 'var(--mui-palette-text-secondary)',
               fontFamily: 'monospace',
+              cursor: 'default',
             }}
           >
             {t('placeholders.body')}
