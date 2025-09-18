@@ -41,7 +41,7 @@ export default function AuthPanel({
       currentUser?.expiresIn &&
       !isTokenValid(currentUser.expiresIn)
     ) {
-      void userLogout(tToast);
+      void userLogout(tToast, 'expired');
       dispatch(clearUser());
       router.push('/');
     }
