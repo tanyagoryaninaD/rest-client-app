@@ -6,7 +6,7 @@ export const getExpirationTime = async (user: User | null) => {
   }
   const idToken = await user.getIdTokenResult();
   const expiresIn = new Date(idToken.expirationTime).getTime();
-  return Math.floor((expiresIn - Date.now()) / 1000);
+  return expiresIn;
 };
 
 export const isTokenValid = (expiresIn?: number): boolean => {
