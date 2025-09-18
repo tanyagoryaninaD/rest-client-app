@@ -119,8 +119,8 @@
     "response": {
       "title": "Response",
       "labels": {
-        "status": "Status code:",
-        "body": "Body:"
+        "status": "Status code",
+        "body": "Body"
       },
       "placeholders": {
         "status": "HTTP Status Code",

@@ -118,8 +118,8 @@
     "response": {
       "title": "Ответ",
       "labels": {
-        "status": "Код статуса:",
-        "body": "Тело:"
+        "status": "Код статуса",
+        "body": "Тело"
       },
       "placeholders": {
         "status": "Код статуса HTTP",

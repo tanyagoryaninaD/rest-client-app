@@ -1,4 +1,6 @@
-import { TextField } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import JsonView from '@uiw/react-json-view';
+import { lightTheme } from '@uiw/react-json-view/light';
 import { useTranslations } from 'next-intl';
 
 import type { ResponseBodyProps } from '@/types/components/rest-client';
@@ -7,30 +9,46 @@ export default function ResponseBody(props: ResponseBodyProps) {
   const t = useTranslations('rest-client.response');
 
   return (
-    <TextField
-      className="readonly-textarea"
-      sx={{
-        width: '100%',
-        pointerEvents: 'none',
-      }}
-      multiline
-      fullWidth
-      label={t('labels.body')}
-      value={props.body ? JSON.stringify(props.body) : t('placeholders.body')}
-      placeholder={t('placeholders.body')}
-      slotProps={{
-        input: {
-          id: 'response-body-input',
-          readOnly: true,
-          maxRows: '10',
-          sx: {
-            fontFamily: props.body ? 'inherit' : 'monospace',
-            color: props.body
-              ? 'inherit'
-              : 'var(--mui-palette-text-secondary);',
-          },
-        },
-      }}
-    />
+    <Box sx={{ position: 'relative', height: '15rem' }}>
+      <Typography
+        component={'label'}
+        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined mui-15kffoa-MuiFormLabel-root-MuiInputLabel-root"
+      >
+        {t('labels.body')}
+      </Typography>
+      <Box
+        component={'fieldset'}
+        className="MuiOutlinedInput-notchedOutline mui-1ohs4y1-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+        sx={{
+          border:
+            '1px solid rgba(var(--mui-palette-common-onBackgroundChannel) / 0.23)',
+          borderRadius: 'var(--mui-shape-borderRadius)',
+          padding: 1,
+          backgroundColor: 'var(--mui-palette-background-paper)',
+          height: '15rem',
+          overflow: 'auto',
+          pointerEvents: 'auto',
+        }}
+      >
+        <Box
+          component={'legend'}
+          className="mui-ex8a5f-MuiNotchedOutlined-root"
+        >
+          <Box component={'span'}>{t('labels.body')}</Box>
+        </Box>
+        {props.body ? (
+          <JsonView value={props.body} style={lightTheme} />
+        ) : (
+          <Typography
+            sx={{
+              color: 'var(--mui-palette-text-secondary)',
+              fontFamily: 'monospace',
+            }}
+          >
+            {t('placeholders.body')}
+          </Typography>
+        )}
+      </Box>
+    </Box>
   );
 }
