@@ -73,7 +73,7 @@ export default function GenerateCode() {
         generatedCode={generatedCode}
         isPending={isPending}
       />
-      {generatedCode && (
+      {(generatedCode || isPending) && (
         <GenerateCodeResult
           generatedCode={generatedCode}
           isPending={isPending}
