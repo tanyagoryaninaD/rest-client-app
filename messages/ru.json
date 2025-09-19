@@ -135,7 +135,7 @@
       "unauthorized": "Неавторизованный доступ",
       "invalid_client_request_json": "Неверный формат json запроса клиента",
       "invalid_client_request_data": "Неверный формат данных запроса клиента",
-      "api": "API вернул ошибку",
+      "api": "Не удалось выполнить API запрос ",
       "generator": {
         "generate": "Ошибка генерации кода",
         "invalid": "Некорректный запрос"
