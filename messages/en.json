@@ -64,7 +64,8 @@
   "toast": {
     "auth": {
       "welcome": "Welcome",
-      "sign_out": "You have been signed out"
+      "sign_out": "You have been signed out",
+      "sign_out_token": "Your session has expired. Please sign in again"
     },
 
     "authErrors": {

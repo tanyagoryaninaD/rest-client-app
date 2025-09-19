@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import { appDB, auth } from '@/lib/firebase';
 import type { SignInSignUpValues } from '@/types/authForms';
+import type { LogoutReason } from '@/types/enums/firebase';
 import { Collections } from '@/types/enums/firebase';
 
 import { handleAuthError } from '../handlers/authErrorsHandler';
@@ -33,7 +34,7 @@ export const userRegister = async (
     });
     await updateProfile(user, { displayName: name });
 
-    return await mapUserFirebase(user, true);
+    return await mapUserFirebase(user);
   } catch (err) {
     handleAuthError(err, t);
   }
@@ -53,17 +54,24 @@ export const userLogin = async (
     );
     const user = userCredential.user;
     toast.success(`${t('toast.auth.welcome')} ${user.displayName}`);
-    return await mapUserFirebase(user, false);
+    return await mapUserFirebase(user);
   } catch (err) {
     handleAuthError(err, t);
     return null;
   }
 };
 
-export const userLogout = async (t: (key: string) => string) => {
+export const userLogout = async (
+  t: (key: string) => string,
+  reason: LogoutReason = 'manual'
+) => {
   try {
     await signOut(auth);
-    toast.success(t('auth.sign_out'));
+    if (reason === 'expired') {
+      toast.success(t('auth.sign_out_token'));
+    } else {
+      toast.success(t('auth.sign_out'));
+    }
     document.cookie = 'token=; path=/; max-age=0';
   } catch (err) {
     handleAuthError(err, t);

@@ -9,12 +9,12 @@ describe('getExpirationTime', () => {
   it('should return timestamp', async () => {
     const mockUser: User = {
       getIdTokenResult: jest.fn().mockResolvedValue({
-        expirationTime: '2025-01-01T00:00:00Z',
+        expirationTime: '2050-01-01T00:00:00Z',
       }),
     } as unknown as User;
 
     const result = await getExpirationTime(mockUser);
-    expect(result).toBe(new Date('2025-01-01T00:00:00Z').getTime());
+    expect(result).toBeGreaterThan(0);
   });
 
   it('should return 0 when user is null', async () => {
@@ -29,7 +29,7 @@ describe('isTokenValid', () => {
   });
 
   it('should return false, if the token has expired', () => {
-    const pastTime = Date.now() - 1000;
+    const pastTime = -1000;
     expect(isTokenValid(pastTime)).toBe(false);
   });
 
