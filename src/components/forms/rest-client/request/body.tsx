@@ -30,6 +30,7 @@ export default function Body() {
         label={t('request.labels.body')}
         placeholder={t('request.placeholders.body')}
         value={currentValue}
+        data-testid="request-body"
         slotProps={{
           input: {
             id: 'request-body',

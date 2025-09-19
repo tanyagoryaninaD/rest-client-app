@@ -1,0 +1,173 @@
+export const messages = {
+  languages: {
+    en: 'English',
+    ru: 'Русский',
+  },
+  'error-boundary': {
+    title: 'Something went wrong...',
+    button: 'Back Home',
+  },
+  authForms: {
+    signIn: {
+      title: 'Sign In',
+      submit: 'Sign In',
+      fields: {
+        email: {
+          label: 'E-mail',
+          placeholder: 'Enter email',
+        },
+        password: {
+          label: 'Password',
+          placeholder: 'Enter password',
+        },
+      },
+    },
+    signUp: {
+      title: 'Sign Up',
+      submit: 'Sign Up',
+      fields: {
+        name: {
+          label: 'Name',
+          placeholder: 'Enter name',
+        },
+        email: {
+          label: 'E-mail',
+          placeholder: 'Enter email',
+        },
+        password: {
+          label: 'Password',
+          placeholder: 'Enter password',
+        },
+        confirmPassword: {
+          label: 'Confirm Password',
+          placeholder: 'Confirm password',
+        },
+      },
+    },
+  },
+  authErrors: {
+    name: {
+      required: 'Enter the name',
+      capitalized: 'The name must start with a capital letter',
+    },
+    email: {
+      invalid: 'Invalid email',
+    },
+    password: {
+      invalid:
+        '1 number, 1 uppercase letter, 1 lowercase letter, 1 special character, min 8 chars',
+    },
+    confirmPassword: {
+      required: 'Confirm your password',
+      mismatch: 'Passwords do not match',
+    },
+  },
+  toast: {
+    auth: {
+      welcome: 'Welcome',
+      sign_out: 'You have been signed out',
+    },
+
+    authErrors: {
+      invalidCredential: 'Incorrect username or password',
+      emailInUse: 'A user with this E-mail already exists.',
+      unknownError: 'Unknown error',
+    },
+  },
+  home_general: {
+    greetings_firstRegistered: 'Welcome, {name}!',
+    greetings_registered: 'Welcome Back, {name}!',
+    greetings_unregistered: 'Welcome!',
+    buttons: {
+      'sign-in': 'Sign In',
+      'sign-up': 'Sign Up',
+      'sign-out': 'Sign Out',
+      client: 'REST Client',
+      history: 'History',
+      variables: 'Variables',
+      main: 'Main',
+    },
+  },
+  'not-found': {
+    title: 'We lack such a page',
+    button: 'Go back',
+  },
+  'rest-client': {
+    request: {
+      title: 'REST Client',
+      send: 'Send',
+      labels: {
+        method: 'Method',
+        url: 'Endpoint URL',
+        key: 'Key',
+        value: 'Value',
+        body: 'Body',
+        generator: 'Language',
+        snippet: 'Code snippet',
+      },
+      placeholders: {
+        body: 'Enter the request body here',
+      },
+      buttons: {
+        generate: 'Generate Code',
+        copy: 'Copy',
+        headers: 'Headers',
+        prettify: 'Prettify JSON',
+      },
+      tooltips: {
+        header:
+          'You can enter your own values. Autocomplete offers examples, but you can ignore them.',
+      },
+    },
+    response: {
+      title: 'Response',
+      labels: {
+        status: 'Status code',
+        body: 'Body',
+      },
+      placeholders: {
+        status: 'HTTP Status Code',
+        body: 'Read-Only JSON Viewer',
+      },
+    },
+    errors: {
+      unknown: 'Unknown error',
+      generator: {
+        generate: 'Code generation error',
+        invalid: 'Invalid request',
+      },
+      prettify: {
+        invalid: 'The JSON value is invalid',
+      },
+    },
+  },
+  history_general: {
+    title: 'History',
+    invalidHistory: {
+      title: 'You have not executed any requests',
+      subtitle: 'It is empty here. Try:',
+      button: 'Client',
+    },
+    card: {
+      status: 'Status',
+      duration: 'Duration',
+      'request-size': 'Request Size',
+      'response-size': 'Response Size',
+      time: 'ms',
+      size: 'B',
+    },
+  },
+  variables: {
+    title: 'Manage Your Variables',
+    name: 'Name',
+    value: 'Value',
+    add_variable: 'Add',
+    data_format_error:
+      'Invalid data format in variables storage. The storage was cleared, please try again.',
+    no_variables: 'No variables',
+    name_required: 'Variable name is required',
+    value_required: 'Variable value is required',
+    name_wrong_chars: 'Alphanumeric, dashes and underscores only',
+    value_wrong_chars: 'Variable value must be alphanumeric',
+  },
+};
