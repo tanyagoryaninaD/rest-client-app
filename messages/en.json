@@ -130,6 +130,13 @@
     },
     "errors": {
       "unknown": "Unknown error",
+      "unknown_proxy": "Unknown proxy error",
+      "proxy": "Proxy Error {status}: {error}",
+      "network": "Network request failed",
+      "unauthorized": "Unauthorized access",
+      "invalid_client_request_json": "Invalid client request json format",
+      "invalid_client_request_data": "Invalid client request data format",
+      "api": "API returned an error",
       "generator": {
         "generate": "Code generation error",
         "invalid": "Invalid request"

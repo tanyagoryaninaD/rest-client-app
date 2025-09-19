@@ -5,6 +5,7 @@ export default function Loading() {
   return (
     <Stack
       sx={{
+        flexGrow: 1,
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

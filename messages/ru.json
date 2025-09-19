@@ -129,6 +129,13 @@
     },
     "errors": {
       "unknown": "Неизвестная ошибка",
+      "unknown_proxy": "Неизвестная ошибка Прокси",
+      "proxy": "Ошибка Прокси {status}: {error}",
+      "network": "Сбой сетевого запроса",
+      "unauthorized": "Неавторизованный доступ",
+      "invalid_client_request_json": "Неверный формат json запроса клиента",
+      "invalid_client_request_data": "Неверный формат данных запроса клиента",
+      "api": "API вернул ошибку",
       "generator": {
         "generate": "Ошибка генерации кода",
         "invalid": "Некорректный запрос"

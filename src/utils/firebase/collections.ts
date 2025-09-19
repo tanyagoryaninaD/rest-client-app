@@ -26,3 +26,15 @@ export async function getHistory(userId: string): Promise<HistoryCollection[]> {
     };
   });
 }
+
+export async function saveHistory(
+  userId: string,
+  historyData: FirestoreHistoryDoc
+): Promise<void> {
+  const fireStore = adminAppDB
+    .collection(Collections.Users)
+    .doc(userId)
+    .collection(Collections.Requests);
+
+  await fireStore.add(historyData);
+}
