@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { IntlProvider } from 'next-intl';
 
 import { messages } from '@/__test__/mocks/messages';
+import { useAppSelector } from '@/hooks/redux';
 import { usePathname } from '@/i18n/navigation';
 import ClientPage from '@/pages/client/client';
 import { getHistory } from '@/utils/firebase/collections';
@@ -26,6 +27,10 @@ jest.mock('next/navigation', () => ({
   useSearchParams: jest.fn(),
 }));
 
+jest.mock('@/hooks/redux', () => ({
+  useAppSelector: jest.fn(),
+}));
+
 describe('GenerateCode', () => {
   beforeEach(() => {
     (getHistory as jest.Mock).mockResolvedValue(null);
@@ -38,6 +43,9 @@ describe('GenerateCode', () => {
   it('should calls fetch with form data and return resolved value', async () => {
     (usePathname as jest.Mock).mockReturnValue('client');
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
+    (useAppSelector as unknown as jest.Mock).mockReturnValue({
+      someValue: 'value',
+    });
 
     const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest
@@ -97,9 +105,12 @@ describe('GenerateCode', () => {
     fetchSpy.mockRestore();
   });
 
-  it('should copies snippet', async () => {
+  it('should copy snippet', async () => {
     (usePathname as jest.Mock).mockReturnValue('client');
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
+    (useAppSelector as unknown as jest.Mock).mockReturnValue({
+      someValue: 'value',
+    });
 
     const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
       json: jest
@@ -109,9 +120,7 @@ describe('GenerateCode', () => {
 
     const mockWriteText = jest.fn().mockResolvedValue(undefined);
     Object.defineProperty(window.navigator, 'clipboard', {
-      value: {
-        writeText: mockWriteText,
-      },
+      value: { writeText: mockWriteText },
       writable: true,
       configurable: true,
     });
