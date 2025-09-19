@@ -111,7 +111,8 @@
       "buttons": {
         "generate": "Generate Code",
         "copy": "Copy",
-        "headers": "Headers"
+        "headers": "Headers",
+        "prettify": "Prettify JSON"
       },
       "tooltips": {
         "header": "You can enter your own values. Autocomplete offers examples, but you can ignore them."
@@ -120,8 +121,8 @@
     "response": {
       "title": "Response",
       "labels": {
-        "status": "Status code:",
-        "body": "Body:"
+        "status": "Status code",
+        "body": "Body"
       },
       "placeholders": {
         "status": "HTTP Status Code",
@@ -140,6 +141,9 @@
       "generator": {
         "generate": "Code generation error",
         "invalid": "Invalid request"
+      },
+      "prettify": {
+        "invalid": "The JSON value is invalid"
       }
     }
   },

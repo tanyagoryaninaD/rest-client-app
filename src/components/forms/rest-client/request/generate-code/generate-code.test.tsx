@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { useSearchParams } from 'next/navigation';
 import { IntlProvider } from 'next-intl';
 
+import { messages } from '@/__test__/mocks/messages';
 import { useAppSelector } from '@/hooks/redux';
 import { usePathname } from '@/i18n/navigation';
 import ClientPage from '@/pages/client/client';
@@ -29,54 +30,6 @@ jest.mock('next/navigation', () => ({
 jest.mock('@/hooks/redux', () => ({
   useAppSelector: jest.fn(),
 }));
-
-const messages = {
-  'rest-client': {
-    request: {
-      title: 'REST Client',
-      send: 'Send',
-      labels: {
-        method: 'Method',
-        url: 'Endpoint URL',
-        key: 'Key',
-        value: 'Value',
-        body: 'Body',
-        generator: 'Language',
-        snippet: 'Code snippet',
-      },
-      placeholders: {
-        body: 'Enter the request body here',
-      },
-      buttons: {
-        generate: 'Generate Code',
-        copy: 'Copy',
-        headers: 'Headers',
-      },
-      tooltips: {
-        header:
-          'You can enter your own values. Autocomplete offers examples, but you can ignore them.',
-      },
-    },
-    response: {
-      title: 'Response',
-      labels: {
-        status: 'Status code:',
-        body: 'Body:',
-      },
-      placeholders: {
-        status: 'HTTP Status Code',
-        body: 'Read-Only JSON Viewer',
-      },
-    },
-    errors: {
-      unknown: 'Unknown error',
-      generator: {
-        generate: 'Code generation error',
-        invalid: 'Invalid request',
-      },
-    },
-  },
-};
 
 describe('GenerateCode', () => {
   beforeEach(() => {
@@ -178,31 +131,17 @@ describe('GenerateCode', () => {
       </IntlProvider>
     );
 
-    const headersButton = screen.getByTestId('request-headers-toggle');
-    await userEvent.click(headersButton);
-
     const url = screen.getByTestId('request-url').querySelector('input');
-    const headerKey = screen
-      .queryAllByTestId('request-header-key')[0]
-      ?.querySelector('input');
-    const headerValue = screen
-      .queryAllByTestId('request-header-value')[0]
-      ?.querySelector('input');
-    const body = screen.getByTestId('request-body').querySelector('textarea');
 
-    if (url) await userEvent.type(url, 'test-endpoint');
-    if (headerKey && headerValue) {
-      await userEvent.type(headerKey, 'Content-Type');
-      await userEvent.type(headerValue, 'text/html');
-    }
-    if (body) {
-      await userEvent.type(body, 'test-body');
+    if (url) {
+      await userEvent.type(url, 'test-endpoint');
     }
 
     const generatorButton = screen.getByTestId('request-generator-button');
+    const copyButton = screen.getByTestId('request-generator-copy');
+
     await userEvent.click(generatorButton);
 
-    const copyButton = await screen.findByTestId('request-generator-copy');
     await waitFor(() => {
       expect(copyButton).toBeEnabled();
     });
