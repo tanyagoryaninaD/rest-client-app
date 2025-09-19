@@ -10,7 +10,7 @@ export const initAuthSubscriber = (dispatch: AppDispatch) => {
   const unsubscribe = onAuthStateChanged(auth, (user) => {
     const fetchUser = async () => {
       if (user) {
-        const mappedUser = await mapUserFirebase(user, false);
+        const mappedUser = await mapUserFirebase(user);
         dispatch(setUser(mappedUser));
       } else {
         dispatch(clearUser());
@@ -18,6 +18,5 @@ export const initAuthSubscriber = (dispatch: AppDispatch) => {
     };
     void fetchUser();
   });
-
   return unsubscribe;
 };

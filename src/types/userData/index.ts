@@ -1,7 +1,6 @@
 export interface AppUser {
   userId: string;
   displayName: string | null;
-  isNewUser: boolean;
   expiresIn: number;
 }
 

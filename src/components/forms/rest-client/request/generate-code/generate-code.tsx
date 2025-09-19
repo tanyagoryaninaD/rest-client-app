@@ -6,11 +6,16 @@ import type { Response } from 'postman-code-generators';
 import { useState, useTransition } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import type { ClientFormStateProps } from '@/types/components/rest-client';
+import { useAppSelector } from '@/hooks/redux';
+import type {
+  ClientFormStateProps,
+  HeaderDataProps,
+} from '@/types/components/rest-client';
 import {
   getGeneratorLanguage,
   getGeneratorVariant,
 } from '@/utils/handlers/clientForm';
+import { parseReplaceVariables } from '@/utils/parse-replace-variables';
 
 import GenerateCodeButtons from './buttons';
 import GenerateCodeResult from './result';
@@ -21,6 +26,7 @@ export default function GenerateCode() {
   const [isPending, startTransition] = useTransition();
   const { watch } = useFormContext<ClientFormStateProps>();
   const locale = useLocale();
+  const { variables } = useAppSelector((state) => state.variables);
 
   const handleGenerateCode = () => {
     startTransition(async () => {
@@ -31,10 +37,15 @@ export default function GenerateCode() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            method: watch('method'),
-            url: watch('url'),
-            headers: watch('headers'),
-            body: watch('body'),
+            method: parseReplaceVariables(watch('method'), variables),
+            url: parseReplaceVariables(watch('url'), variables),
+            headers: watch('headers').map((item: HeaderDataProps) => ({
+              key: parseReplaceVariables(item.key, variables),
+              value: parseReplaceVariables(item.value, variables),
+            })),
+            body: watch('body')
+              ? parseReplaceVariables(watch('body') ?? '', variables)
+              : '',
             language: getGeneratorLanguage(watch('generator')),
             variant: getGeneratorVariant(watch('generator')),
           }),

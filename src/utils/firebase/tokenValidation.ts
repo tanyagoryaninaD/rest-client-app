@@ -1,4 +1,4 @@
-import type { User } from 'firebase/auth';
+import { type User } from 'firebase/auth';
 
 export const getExpirationTime = async (user: User | null) => {
   if (!user) {
