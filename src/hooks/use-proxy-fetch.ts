@@ -21,7 +21,8 @@ export function useProxyFetch() {
   const t = useTranslations('rest-client.errors');
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [isLoading, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
+  const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
   const [responseFetch, setResponseFetch] = useState<ClientResponseStateProps>(
     {}
   );
@@ -38,6 +39,8 @@ export function useProxyFetch() {
     if (!url || !method) {
       return;
     }
+
+    setIsDataLoading(true);
 
     const fetchData = async () => {
       setResponseFetch({});
@@ -70,7 +73,7 @@ export function useProxyFetch() {
 
         const clientErrorParsed = ClientErrorBodySchema.safeParse(responseJSON);
         if (clientErrorParsed.success) {
-          toast.error(t(`errors.${clientErrorParsed.data.clientError}`));
+          toast.error(t(clientErrorParsed.data.clientError));
           return;
         }
 
@@ -101,6 +104,8 @@ export function useProxyFetch() {
             error instanceof Error ? error.message : t('network');
           toast.error(errorMessage);
         }
+      } finally {
+        setIsDataLoading(false);
       }
     };
 
@@ -111,5 +116,5 @@ export function useProxyFetch() {
     };
   }, [pathname, searchParams, t]);
 
-  return { responseFetch, isLoading };
+  return { responseFetch, isLoading: isDataLoading || isPending };
 }

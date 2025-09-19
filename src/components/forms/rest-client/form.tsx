@@ -5,7 +5,6 @@ import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 
 import RestClientRequest from '@/components/forms/rest-client/request/rest-client-request';
 import RestClientResponse from '@/components/forms/rest-client/response/rest-client-response';
-import Loader from '@/components/layout/loader/loader';
 import { useAppSelector } from '@/hooks/redux';
 import { useProxyFetch } from '@/hooks/use-proxy-fetch';
 import { usePathname, useRouter } from '@/i18n/navigation';
@@ -56,10 +55,6 @@ export default function FormRestClient() {
     });
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <FormProvider {...clientForm}>
       <form
@@ -67,7 +62,7 @@ export default function FormRestClient() {
         onSubmit={(e) => void clientForm.handleSubmit(onSubmit)(e)}
         data-testid="form-client"
       >
-        <RestClientRequest />
+        <RestClientRequest isLoading={isLoading} />
         <RestClientResponse
           status={responseFetch.status}
           body={responseFetch.body}

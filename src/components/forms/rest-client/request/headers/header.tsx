@@ -13,7 +13,7 @@ import type {
 
 export default function Header(props: HeaderProps) {
   const t = useTranslations('rest-client.request');
-  const { headerKeys, getOptionsByKey, remove, data, index } = props;
+  const { headerKeys, getOptionsByKey, remove, data, index, isLoading } = props;
   const { control } = useFormContext<ClientFormStateProps>();
   const [options, setOptions] = useState(getOptionsByKey(data.key));
 
@@ -26,6 +26,7 @@ export default function Header(props: HeaderProps) {
           defaultValue={data.key || ''}
           render={({ field }) => (
             <Autocomplete
+              disabled={isLoading}
               options={headerKeys}
               freeSolo
               value={field.value}
@@ -51,6 +52,7 @@ export default function Header(props: HeaderProps) {
             defaultValue={data.value || ''}
             render={({ field }) => (
               <Autocomplete
+                disabled={isLoading}
                 sx={{ width: '100%' }}
                 options={options}
                 freeSolo
@@ -69,6 +71,7 @@ export default function Header(props: HeaderProps) {
       </Stack>
       <Stack>
         <Button
+          loading={isLoading}
           onClick={() => {
             remove();
           }}
