@@ -47,7 +47,7 @@ export default function FormRestClient() {
       }
       setIsLoading(true);
 
-      const headersObject = createHeadersObject(formData.headers);
+      const headersObject = createHeadersObject(formData.headers ?? []);
       const pathNameRequest = `${pathname.split('/').slice(2).join('/')}?${new URLSearchParams(headersObject)}`;
 
       try {
