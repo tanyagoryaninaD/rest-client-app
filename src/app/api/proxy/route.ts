@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
-import z from 'zod';
 
 import { verifyIdToken } from '@/lib/fireBaseAdmin';
 import type { FirestoreHistoryDoc } from '@/types/userData';
@@ -20,18 +19,17 @@ export async function POST(request: Request) {
     const decodedToken = await verifyIdToken(token);
     userId = decodedToken.uid;
   } catch {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+    return NextResponse.json({ clientError: 'unauthorized' }, { status: 200 });
   }
 
-  const startTime = Date.now();
   let clientRequestBody: unknown;
 
   try {
     clientRequestBody = await request.json();
   } catch {
     return NextResponse.json(
-      { error: 'invalid_client_request_json' },
-      { status: 400 }
+      { clientError: 'invalid_client_request_json' },
+      { status: 200 }
     );
   }
 
@@ -41,19 +39,19 @@ export async function POST(request: Request) {
   if (!parsedClientRequestBody.success) {
     return NextResponse.json(
       {
-        error: 'invalid_client_request_data',
-        details: z.prettifyError(parsedClientRequestBody.error),
+        clientError: 'invalid_client_request_data',
       },
-      { status: 400 }
+      { status: 200 }
     );
   }
 
   const { url, method, body, headers, pathNameRequest } =
     parsedClientRequestBody.data;
 
+  const startTime = Date.now();
   const requestSize = body ? new Blob([body]).size : 0;
 
-  let responseBody: string;
+  let responseBody = '';
   let apiResponse: Response;
   let errorDetails = '';
 
@@ -84,13 +82,15 @@ export async function POST(request: Request) {
       pathNameRequest,
     };
 
-    try {
-      await saveHistory(userId, analyticsData);
-    } catch (error) {
-      console.error('Firebase saveHistory failed:', error);
-    }
+    await saveHistory(userId, analyticsData);
 
-    return NextResponse.json({ error: errorDetails }, { status: 502 });
+    return NextResponse.json(
+      {
+        responseBody,
+        responseStatus: 0,
+      },
+      { status: 200 }
+    );
   }
 
   const analyticsData: FirestoreHistoryDoc = {
@@ -105,14 +105,13 @@ export async function POST(request: Request) {
     pathNameRequest,
   };
 
-  try {
-    await saveHistory(userId, analyticsData);
-  } catch (error) {
-    console.error('Firebase saveHistory failed:', error);
-  }
+  await saveHistory(userId, analyticsData);
 
-  return new NextResponse(responseBody, {
-    status: apiResponse.status,
-    statusText: apiResponse.statusText,
-  });
+  return NextResponse.json(
+    {
+      responseBody: responseBody,
+      responseStatus: apiResponse.status,
+    },
+    { status: 200 }
+  );
 }
