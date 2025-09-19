@@ -133,7 +133,7 @@ export default function FormRestClient() {
   const onSubmit: SubmitHandler<ClientFormStateProps> = (data): void => {
     const submittedData = {
       ...data,
-      url: data.url ? parseReplaceVariables(data.url, variables) : '',
+      url: parseReplaceVariables(data.url, variables),
       body: data.body ? parseReplaceVariables(data.body, variables) : '',
       headers: data.headers.map((item) => ({
         key: parseReplaceVariables(item.key, variables),
