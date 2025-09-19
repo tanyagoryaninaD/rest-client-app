@@ -3,7 +3,7 @@ import type { VariablesStorage } from '@/types/variables';
 export function parseReplaceVariables(
   input: string,
   variables: VariablesStorage,
-  { strict = true } = {}
+  { strict = false } = {}
 ) {
   const variableRegexPattern = /{{\s*([a-zA-Z0-9_-]+)\s*}}/g;
 
