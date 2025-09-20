@@ -36,8 +36,12 @@ export default function ResponseBody(props: ResponseBodyProps) {
         >
           <Box component={'span'}>{t('labels.body')}</Box>
         </Box>
-        {props.body ? (
+        {typeof props.body === 'object' ? (
           <JsonView value={props.body} style={lightTheme} />
+        ) : typeof props.body === 'string' ? (
+          <Typography fontFamily="monospace" fontSize="13px">
+            {props.body}
+          </Typography>
         ) : (
           <Typography
             sx={{

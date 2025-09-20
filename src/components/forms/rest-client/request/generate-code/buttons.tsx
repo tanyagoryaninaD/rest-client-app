@@ -12,8 +12,13 @@ import SelectGenerator from './select-generation';
 
 export default function GenerateCodeButtons(props: GenerateCodeProps) {
   const t = useTranslations('rest-client.request.buttons');
-  const { isPending, generatedCode, handleGenerateCode, handleCopyCode } =
-    props;
+  const {
+    isPending,
+    isLoading,
+    generatedCode,
+    handleGenerateCode,
+    handleCopyCode,
+  } = props;
   const { watch } = useFormContext<ClientFormStateProps>();
 
   return (
@@ -23,6 +28,7 @@ export default function GenerateCodeButtons(props: GenerateCodeProps) {
         variant="contained"
         onClick={handleGenerateCode}
         disabled={isPending || !watch('url')}
+        loading={isLoading}
         data-testid="request-generator-button"
       >
         {t('generate')}
