@@ -115,6 +115,13 @@ describe('Client Page', () => {
       replace: jest.fn(),
     });
 
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {
+      return;
+    });
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {
+      return;
+    });
+
     const store = configureStore({
       reducer: { user: userReducer },
       preloadedState: {
@@ -142,5 +149,8 @@ describe('Client Page', () => {
     await waitFor(() => {
       expect(screen.getByTestId('form-client')).toBeInTheDocument();
     });
+
+    logSpy.mockRestore();
+    errorSpy.mockRestore();
   });
 });
