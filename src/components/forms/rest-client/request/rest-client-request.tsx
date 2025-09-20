@@ -10,7 +10,11 @@ import type { ClientFormStateProps } from '@/types/components/rest-client';
 
 import Body from './body';
 
-export default function RestClientRequest() {
+export default function RestClientRequest({
+  isLoading,
+}: {
+  isLoading: boolean;
+}) {
   const t = useTranslations('rest-client.request');
   const { watch } = useFormContext<ClientFormStateProps>();
 
@@ -28,26 +32,27 @@ export default function RestClientRequest() {
           alignItems: 'flex-end',
         }}
       >
-        <SelectMethod />
-        <TextFieldURL />
+        <SelectMethod disabled={isLoading} />
+        <TextFieldURL disabled={isLoading} />
         <Button
           variant="contained"
           sx={{ height: '3.5rem' }}
           type="submit"
           disabled={!watch('url')}
           data-testid="request-submit"
+          loading={isLoading}
         >
           {t('send')}
         </Button>
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
-        <Headers />
+        <Headers isLoading={isLoading} />
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
-        <Body />
+        <Body isLoading={isLoading} />
       </Stack>
       <Stack spacing={2} sx={{ width: '100%', maxWidth: '50rem' }}>
-        <GenerateCode />
+        <GenerateCode isLoading={isLoading} />
       </Stack>
     </Stack>
   );
