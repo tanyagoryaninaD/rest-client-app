@@ -1,7 +1,8 @@
+import 'react18-json-view/src/style.css';
+
 import { Box, Typography } from '@mui/material';
-import JsonView from '@uiw/react-json-view';
-import { lightTheme } from '@uiw/react-json-view/light';
 import { useTranslations } from 'next-intl';
+import JsonView from 'react18-json-view';
 
 import type { ResponseBodyProps } from '@/types/components/rest-client';
 
@@ -62,7 +63,7 @@ export default function ResponseBody(props: ResponseBodyProps) {
           </Box>
         </Box>
         {typeof props.body === 'object' ? (
-          <JsonView value={props.body} style={lightTheme} />
+          <JsonView src={props.body} />
         ) : typeof props.body === 'string' ? (
           <Typography fontFamily="monospace" fontSize="13px">
             {props.body}
