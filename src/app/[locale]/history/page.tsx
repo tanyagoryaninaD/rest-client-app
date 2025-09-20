@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { verifyIdToken } from '@/lib/fireBaseAdmin';
-import HistoryClientWrapper from '@/pages/history/HistoryClientWrapper';
+import HistoryClientWrapper from '@/pages-components/history/HistoryClientWrapper';
 import type { HistoryCollection } from '@/types/userData';
 import { getHistory } from '@/utils/firebase/collections';
 

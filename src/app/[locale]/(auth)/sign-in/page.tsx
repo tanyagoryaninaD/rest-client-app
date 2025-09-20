@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 import Loader from '@/components/layout/loader/loader';
 
-const SignIn = dynamic(() => import('@/pages/sign-in/sign-in'), {
+const SignIn = dynamic(() => import('@/pages-components/sign-in/sign-in'), {
   ssr: false,
   loading: Loader,
 });

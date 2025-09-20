@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 import Loader from '@/components/layout/loader/loader';
 
-const Client = dynamic(() => import('@/pages/client/client'), {
+const Client = dynamic(() => import('@/pages-components/client/client'), {
   ssr: false,
   loading: Loader,
 });

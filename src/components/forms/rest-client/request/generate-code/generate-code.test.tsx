@@ -6,7 +6,7 @@ import { IntlProvider } from 'next-intl';
 import { messages } from '@/__test__/mocks/messages';
 import { useAppSelector } from '@/hooks/redux';
 import { usePathname } from '@/i18n/navigation';
-import ClientPage from '@/pages/client/client';
+import ClientPage from '@/pages-components/client/client';
 import { getHistory } from '@/utils/firebase/collections';
 
 jest.mock('@/i18n/navigation', () => ({
