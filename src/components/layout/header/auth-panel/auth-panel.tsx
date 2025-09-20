@@ -43,7 +43,7 @@ export default function AuthPanel({
     ) {
       void userLogout(tToast, 'expired');
       dispatch(clearUser());
-      router.push('/');
+      router.replace('/');
     }
   }, [currentUser, loading, dispatch, tToast, router]);
 
@@ -51,7 +51,7 @@ export default function AuthPanel({
     await userLogout(tToast);
     closeSidebar();
     dispatch(clearUser());
-    router.push('/');
+    router.replace('/');
   };
 
   if (loading) {

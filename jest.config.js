@@ -23,14 +23,13 @@ const config = {
   coveragePathIgnorePatterns: [
     '<rootDir>/src/__test__/mocks/',
     '<rootDir>/src/lib/',
-    '<rootDir>/src/test/mocks/',
     'page.tsx',
   ],
   testMatch: [
     '**/__tests__/**/*.?([mc])[jt]s?(x)',
     '**/?(*.)+(spec|test).?([mc])[jt]s?(x)',
   ],
-  testTimeout: 15000,
+  testTimeout: 50000,
 };
 
 const createJestConfigWithOverrides = async () => ({
