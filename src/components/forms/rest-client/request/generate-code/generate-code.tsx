@@ -58,7 +58,7 @@ export default function GenerateCode({ isLoading }: { isLoading: boolean }) {
         }
 
         if (data.code) {
-          setGeneratedCode(data.code.replace(/\\n/g, '\n'));
+          setGeneratedCode(data.code.replace(/\\n/g, '\n').replace(/\\/g, ''));
         }
       } catch (error: unknown) {
         if (error instanceof Error) {
