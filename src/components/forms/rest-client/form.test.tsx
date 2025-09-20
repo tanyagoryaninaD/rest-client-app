@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { messages } from '@/__test__/mocks/messages';
 import { useAppSelector } from '@/hooks/redux';
 import { usePathname, useRouter } from '@/i18n/navigation';
-import ClientPage from '@/pages/client/client';
+import ClientPage from '@/pages-components/client/client';
 import userReducer from '@/store/slicers/userSlicer';
 import { getHistory } from '@/utils/firebase/collections';
 

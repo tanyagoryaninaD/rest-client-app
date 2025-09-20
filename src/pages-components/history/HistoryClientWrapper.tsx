@@ -5,10 +5,13 @@ import dynamic from 'next/dynamic';
 import Loading from '@/components/layout/loader/loader';
 import type { HistoryCollection } from '@/types/userData';
 
-const HistoryClient = dynamic(() => import('@/pages/history/HistoryClient'), {
-  ssr: false,
-  loading: () => <Loading />,
-});
+const HistoryClient = dynamic(
+  () => import('@/pages-components/history/HistoryClient'),
+  {
+    ssr: false,
+    loading: () => <Loading />,
+  }
+);
 
 interface HistoryClientWrapperProps {
   requests: HistoryCollection[];

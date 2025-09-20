@@ -25,7 +25,7 @@ jest.mock('next/server', () => ({
       status: options?.status ?? 200,
       headers: options?.headers ?? {},
     })),
-    next: jest.fn(() => ({})), // Для NextResponse.next()
+    next: jest.fn(() => ({})),
   },
 }));
 
