@@ -5,6 +5,7 @@ import type { HEADERS } from '@/constants/rest-client';
 export interface GenerateCodeProps extends GenerateCodeResultProps {
   handleGenerateCode: () => void;
   handleCopyCode: () => Promise<void>;
+  isLoading: boolean;
 }
 
 export interface GenerateCodeResultProps {
@@ -13,6 +14,7 @@ export interface GenerateCodeResultProps {
 }
 
 export interface HeaderProps {
+  isLoading: boolean;
   data: FieldProps;
   index: number;
   headerKeys: HEADERS_KEYS[];

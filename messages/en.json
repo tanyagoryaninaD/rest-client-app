@@ -137,7 +137,7 @@
       "unauthorized": "Unauthorized access",
       "invalid_client_request_json": "Invalid client request json format",
       "invalid_client_request_data": "Invalid client request data format",
-      "api": "API returned an error",
+      "api": "API request failed",
       "generator": {
         "generate": "Code generation error",
         "invalid": "Invalid request"

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { CLIENT_FORM } from '@/constants/rest-client';
 import type { ClientFormStateProps } from '@/types/components/rest-client';
 
-export default function Body() {
+export default function Body({ isLoading }: { isLoading: boolean }) {
   const t = useTranslations('rest-client');
   const { register, watch, setValue } = useFormContext<ClientFormStateProps>();
   const currentValue = watch(CLIENT_FORM.body) ?? '';
@@ -24,6 +24,7 @@ export default function Body() {
   return (
     <>
       <TextField
+        disabled={isLoading}
         sx={{ width: '100%' }}
         multiline
         fullWidth
@@ -50,6 +51,7 @@ export default function Body() {
         onClick={handlePrettify}
         sx={{ width: 'max-content' }}
         disabled={!currentValue.trim()}
+        loading={isLoading}
       >
         {t('request.buttons.prettify')}
       </Button>

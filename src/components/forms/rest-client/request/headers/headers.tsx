@@ -15,7 +15,7 @@ import type {
 
 import Header from './header';
 
-export default function Headers() {
+export default function Headers({ isLoading }: { isLoading: boolean }) {
   const t = useTranslations('rest-client.request');
   const [isOpen, setIsOpen] = useState(false);
   const headerKeys = Object.keys(HEADERS) as HEADERS_KEYS[];
@@ -57,12 +57,20 @@ export default function Headers() {
     <Stack direction={'column'} spacing={2}>
       <Box>
         <Stack spacing={1} direction={'row'}>
-          <Button onClick={handleToggle} data-testid="request-headers-toggle">
+          <Button
+            loading={isLoading}
+            onClick={handleToggle}
+            data-testid="request-headers-toggle"
+          >
             {t('buttons.headers')}
           </Button>
           {isOpen && (
             <>
-              <Button onClick={handleAddHeader} sx={{ minWidth: '1rem' }}>
+              <Button
+                loading={isLoading}
+                onClick={handleAddHeader}
+                sx={{ minWidth: '1rem' }}
+              >
                 <ControlPointIcon />
               </Button>
               <Tooltip title={t('tooltips.header')} sx={{ padding: 0 }}>
@@ -79,6 +87,7 @@ export default function Headers() {
           {fields.map((field, index) => {
             return (
               <Header
+                isLoading={isLoading}
                 key={field.id}
                 headerKeys={headerKeys}
                 getOptionsByKey={getOptionsByKey}

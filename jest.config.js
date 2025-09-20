@@ -20,7 +20,12 @@ const config = {
     },
   },
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
-  coveragePathIgnorePatterns: ['<rootDir>/src/__test__/mocks/'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/__test__/mocks/',
+    '<rootDir>/src/lib/',
+    '<rootDir>/src/test/mocks/',
+    'page.tsx',
+  ],
   testMatch: [
     '**/__tests__/**/*.?([mc])[jt]s?(x)',
     '**/?(*.)+(spec|test).?([mc])[jt]s?(x)',

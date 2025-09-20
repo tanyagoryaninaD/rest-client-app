@@ -20,7 +20,7 @@ import { parseReplaceVariables } from '@/utils/parse-replace-variables';
 import GenerateCodeButtons from './buttons';
 import GenerateCodeResult from './result';
 
-export default function GenerateCode() {
+export default function GenerateCode({ isLoading }: { isLoading: boolean }) {
   const t = useTranslations('rest-client');
   const [generatedCode, setGeneratedCode] = useState<string>('');
   const [isPending, startTransition] = useTransition();
@@ -83,6 +83,7 @@ export default function GenerateCode() {
         handleCopyCode={handleCopyCode}
         generatedCode={generatedCode}
         isPending={isPending}
+        isLoading={isLoading}
       />
       {(generatedCode || isPending) && (
         <GenerateCodeResult
