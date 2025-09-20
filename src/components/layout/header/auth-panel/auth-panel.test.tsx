@@ -20,7 +20,7 @@ jest.mock('@/i18n/navigation', () => ({
   ),
   usePathname: () => '/',
   useRouter: () => ({
-    push: jest.fn(),
+    replace: jest.fn(),
   }),
 }));
 
@@ -48,7 +48,6 @@ describe('AuthPanel', () => {
         userId: 'user1',
         displayName: 'Alex',
         expiresIn: Date.now() + 1000,
-        isNewUser: false,
       },
       isValid: true,
       loading: false,
