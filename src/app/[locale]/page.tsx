@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { adminAuth, verifyIdToken } from '@/lib/fireBaseAdmin';
-import MainPageClientWrapper from '@/pages/main/mainPageClientWrapper';
+import MainPageClientWrapper from '@/pages-components/main/mainPageClientWrapper';
 
 export default async function MainPage() {
   const token: string | undefined = (await cookies()).get('token')?.value;

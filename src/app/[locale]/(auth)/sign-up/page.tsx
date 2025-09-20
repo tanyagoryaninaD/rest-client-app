@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 import Loader from '@/components/layout/loader/loader';
 
-const SignUp = dynamic(() => import('@/pages/sign-up/sign-up'), {
+const SignUp = dynamic(() => import('@/pages-components/sign-up/sign-up'), {
   ssr: false,
   loading: () => <Loader />,
 });
