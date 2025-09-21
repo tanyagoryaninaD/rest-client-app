@@ -1,0 +1,110 @@
+'use client';
+
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
+import { Box, Button, IconButton, Stack, Tooltip } from '@mui/material';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+
+import { HEADERS } from '@/constants/rest-client';
+import type {
+  ClientFormStateProps,
+  HEADERS_KEYS,
+} from '@/types/components/rest-client';
+
+import Header from './header';
+
+export default function Headers({ isLoading }: { isLoading: boolean }) {
+  const t = useTranslations('rest-client.request');
+  const [isOpen, setIsOpen] = useState(false);
+  const headerKeys = Object.keys(HEADERS) as HEADERS_KEYS[];
+  const { control } = useFormContext<ClientFormStateProps>();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'headers',
+  });
+
+  const handleToggle = () => {
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      if (!fields.length) {
+        handleAddHeader();
+      }
+
+      setIsOpen(true);
+    }
+  };
+
+  const handleAddHeader = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+    append({ key: '', value: '' });
+  };
+
+  const getOptionsByKey = (key: string): readonly string[] => {
+    if (key in HEADERS) {
+      return HEADERS[key as HEADERS_KEYS];
+    }
+
+    return [];
+  };
+
+  return (
+    <Stack direction={'column'} spacing={2}>
+      <Box>
+        <Stack spacing={1} direction={'row'}>
+          <Button
+            loading={isLoading}
+            onClick={handleToggle}
+            data-testid="request-headers-toggle"
+          >
+            {t('buttons.headers')}
+          </Button>
+          {isOpen && (
+            <>
+              <Button
+                loading={isLoading}
+                onClick={handleAddHeader}
+                sx={{ minWidth: '1rem' }}
+              >
+                <ControlPointIcon />
+              </Button>
+              <Tooltip title={t('tooltips.header')} sx={{ padding: 0 }}>
+                <IconButton>
+                  <InfoOutlineIcon />
+                </IconButton>
+              </Tooltip>
+            </>
+          )}
+        </Stack>
+      </Box>
+      {isOpen && !!fields.length && (
+        <Stack direction={'column'} spacing={1}>
+          {fields.map((field, index) => {
+            return (
+              <Header
+                isLoading={isLoading}
+                key={field.id}
+                headerKeys={headerKeys}
+                getOptionsByKey={getOptionsByKey}
+                data={field}
+                index={index}
+                remove={() => {
+                  if (fields.length === 1) {
+                    handleToggle();
+                  }
+
+                  remove(index);
+                }}
+              />
+            );
+          })}
+        </Stack>
+      )}
+    </Stack>
+  );
+}

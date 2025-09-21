@@ -1,0 +1,177 @@
+{
+  "languages": {
+    "en": "English",
+    "ru": "Русский"
+  },
+  "error-boundary": {
+    "title": "Что-то пошло не так...",
+    "button": "Вернуться на главную"
+  },
+  "authForms": {
+    "signIn": {
+      "title": "Вход",
+      "submit": "Войти",
+      "fields": {
+        "email": {
+          "label": "Эл. почта",
+          "placeholder": "Введите адрес эл. почты"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        }
+      }
+    },
+    "signUp": {
+      "title": "Регистрация",
+      "submit": "Зарегистрироваться",
+      "fields": {
+        "name": {
+          "label": "Имя",
+          "placeholder": "Введите имя"
+        },
+        "email": {
+          "label": "Эл. почта",
+          "placeholder": "Введите адрес эл. почты"
+        },
+        "password": {
+          "label": "Пароль",
+          "placeholder": "Введите пароль"
+        },
+        "confirmPassword": {
+          "label": "Подтверждение пароля",
+          "placeholder": "Подтвердите пароль"
+        }
+      }
+    }
+  },
+  "authErrors": {
+    "name": {
+      "required": "Введите имя",
+      "capitalized": "Имя должно начинаться с заглавной буквы"
+    },
+    "email": {
+      "invalid": "Некорректный email"
+    },
+    "password": {
+      "invalid": "1 цифра, 1 заглавная буква, 1 строчная буква, 1 спецсимвол, минимум 8 символов"
+    },
+    "confirmPassword": {
+      "required": "Подтвердите пароль",
+      "mismatch": "Пароли не совпадают"
+    }
+  },
+  "toast": {
+    "auth": {
+      "welcome": "Добро пожаловать",
+      "sign_out": "Вы вышли из системы",
+      "sign_out_token": "Ваш сеанс истёк. Пожалуйста, войдите снова"
+    },
+    "authErrors": {
+      "invalidCredential": "Неверное имя пользователя или пароль",
+      "emailInUse": "Пользователь с таким адресом эл. почты уже существует",
+      "unknownError": "Неизвестная ошибка"
+    }
+  },
+  "home_general": {
+    "greetings_firstRegistered": "Добро пожаловать, {name}!",
+    "greetings_registered": "С возвращением, {name}!",
+    "greetings_unregistered": "Добро пожаловать!",
+    "buttons": {
+      "sign-in": "Вход",
+      "sign-up": "Регистрация",
+      "sign-out": "Выход",
+      "client": "REST Клиент",
+      "history": "История",
+      "variables": "Переменные",
+      "main": "Главная"
+    }
+  },
+  "not-found": {
+    "title": "У нас нет такой страницы",
+    "button": "Вернуться назад"
+  },
+  "rest-client": {
+    "request": {
+      "title": "REST-клиент",
+      "send": "Отправить",
+      "labels": {
+        "method": "Метод",
+        "url": "URL конечной точки",
+        "key": "Ключ",
+        "value": "Значение",
+        "body": "Тело запроса",
+        "generator": "Язык",
+        "snippet": "Фрагмент кода"
+      },
+      "placeholders": {
+        "body": "Введите тело запроса здесь"
+      },
+      "buttons": {
+        "generate": "Сгенерировать код",
+        "copy": "Копировать",
+        "headers": "Заголовки",
+        "prettify": "Отформатировать JSON"
+      },
+      "tooltips": {
+        "header": "Вы можете ввести свои собственные значения. Автозаполнение предлагает примеры, но вы можете их игнорировать."
+      }
+    },
+    "response": {
+      "title": "Ответ",
+      "labels": {
+        "status": "Код статуса",
+        "body": "Тело"
+      },
+      "placeholders": {
+        "status": "Код статуса HTTP",
+        "body": "Просмотр JSON только для чтения"
+      }
+    },
+    "errors": {
+      "unknown": "Неизвестная ошибка",
+      "unknown_proxy": "Неизвестная ошибка Прокси",
+      "proxy": "Ошибка Прокси {status}: {error}",
+      "network": "Сбой сетевого запроса",
+      "unauthorized": "Неавторизованный доступ",
+      "invalid_client_request_json": "Неверный формат json запроса клиента",
+      "invalid_client_request_data": "Неверный формат данных запроса клиента",
+      "api": "Не удалось выполнить API запрос ",
+      "generator": {
+        "generate": "Ошибка генерации кода",
+        "invalid": "Некорректный запрос"
+      },
+      "prettify": {
+        "invalid": "Значение JSON неверно"
+      }
+    }
+  },
+  "history_general": {
+    "title": "История",
+    "invalidHistory": {
+      "title": "Вы не выполнили ни одного запроса",
+      "subtitle": "Здесь пусто. Попробуйте:",
+      "button": "Клиент"
+    },
+    "card": {
+      "status": "Статус",
+      "duration": "Время запроса",
+      "request-size": "Размер запроса",
+      "response-size": "Размер ответа",
+      "time": "мс",
+      "size": "Б"
+    }
+  },
+  "variables": {
+    "title": "Управление Переменными",
+    "name": "Название",
+    "value": "Значение",
+    "add_variable": "Добавить",
+    "data_format_error": "Ошибка в структуре хранилища переменных. Хранилище было очищено, пожалуйста, попробуйте ещё раз.",
+    "no_variables": "Нет переменных",
+    "name_required": "Название переменной обязательно",
+    "value_required": "Значение переменной обязательно",
+    "name_wrong_chars": "Только буквы, цифры, дефисы и подчеркивания",
+    "value_wrong_chars": "Только буквы и цифры"
+  }
+}
